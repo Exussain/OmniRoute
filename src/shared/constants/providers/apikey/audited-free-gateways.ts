@@ -392,4 +392,34 @@ export const APIKEY_PROVIDERS_AUDITED_FREE = {
     apiHint:
       "Create an sk-free- key, then use the nonstandard but OpenAI-shaped https://api.free.ai/v1/chat/ endpoint. Select a self-hosted zero-price model to stay within the free pool.",
   },
+  "void-ai": {
+    id: "void-ai",
+    alias: "void-ai",
+    name: "Void AI",
+    icon: "science",
+    color: "#111827",
+    textIcon: "VA",
+    passthroughModels: true,
+    website: "https://voidai.app",
+    hasFree: true,
+    freeNote:
+      "The public model catalog marks some models with a free plan requirement, but access is conditional and no numeric quota is confirmed.",
+    apiHint:
+      "Use https://api.voidai.app/v1 only after confirming authentication, account eligibility and terms. Treat this integration as experimental until the blocked documentation becomes public.",
+  },
+  helixmind: {
+    id: "helixmind",
+    alias: "helixmind",
+    name: "HelixMind",
+    icon: "hub",
+    color: "#4F46E5",
+    textIcon: "HM",
+    passthroughModels: true,
+    website: "https://helixmind.online",
+    hasFree: false,
+    freeNote:
+      "Previously circulated 3 RPM/50 RPD and no-card claims were not confirmed during the 2026-08-02 audit; current quota and billing require account verification.",
+    apiHint:
+      "Create a helix- key and use https://helixmind.online/v1. OpenAI requests use Bearer authentication; the Anthropic-compatible messages endpoint accepts x-api-key.",
+  },
 };
