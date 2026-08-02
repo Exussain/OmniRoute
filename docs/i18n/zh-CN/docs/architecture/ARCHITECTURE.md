@@ -19,7 +19,7 @@ OmniRoute 是基于 Next.js 构建的本地 AI 路由网关和控制台。
 
 核心能力：
 
-- OpenAI 兼容的 API 接口，供 CLI/工具使用（327 个服务商目录项、89 个执行器实现模块）
+- OpenAI 兼容的 API 接口，供 CLI/工具使用（329 个服务商目录项、89 个执行器实现模块）
 - 跨服务商格式的请求/响应转换
 - 模型 Combo 容灾（多模型序列）
 - 结构化 Combo 步骤（`服务商 + 模型 + 连接`），通过 `compositeTiers` 在运行时排序
@@ -931,7 +931,7 @@ flowchart LR
 
 ## 服务商兼容性矩阵
 
-> **注意：** 下表是当前 327 个服务商目录项中的代表性样本。
+> **注意：** 下表是当前 329 个服务商目录项中的代表性样本。
 > 完整且持续更新的列表请参阅
 > [`docs/reference/PROVIDER_REFERENCE.md`](../reference/PROVIDER_REFERENCE.md)（自动生成）或数据源头
 > `src/shared/constants/providers.ts`（加载时通过 Zod 校验）。

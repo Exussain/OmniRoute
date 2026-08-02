@@ -371,7 +371,7 @@ const result = await executor.execute({
 });
 ````
 
-Fabryka korzysta z katalogu 327 wpisów providerów oraz wspólnych wartości domyślnych i 89 modułów implementacji executorów.
+Fabryka korzysta z katalogu 329 wpisów providerów oraz wspólnych wartości domyślnych i 89 modułów implementacji executorów.
 
 ---
 

@@ -39,7 +39,7 @@ Pentru matricea completă a testelor, consultați `CONTRIBUTING.md` → "Rularea
 
 ## Proiect pe scurt
 
-**OmniRoute** — proxy/router AI unificat. Un endpoint, 327 furnizori LLM, fallback automat.
+**OmniRoute** — proxy/router AI unificat. Un endpoint, 329 furnizori LLM, fallback automat.
 
 | Strat            | Locație                 | Scop                                                                      |
 | ---------------- | ----------------------- | ------------------------------------------------------------------------- |

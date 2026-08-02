@@ -35,7 +35,7 @@ For full test matrix, see `CONTRIBUTING.md` → "Running Tests". For deep archit
 
 ## Project at a Glance
 
-**OmniRoute** — unified AI proxy/router. One endpoint, 327 provider catalog entries, auto-fallback when an upstream route is available.
+**OmniRoute** — unified AI proxy/router. One endpoint, 329 provider catalog entries, auto-fallback when an upstream route is available.
 
 | Layer         | Location                | Purpose                                                                   |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

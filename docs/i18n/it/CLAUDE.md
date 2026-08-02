@@ -39,7 +39,7 @@ Per la matrice completa dei test, vedere `CONTRIBUTING.md` → "Esecuzione dei T
 
 ## Progetto a Colpo d'Occhio
 
-**OmniRoute** — proxy/router AI unificato. Un endpoint, 327 fornitori di LLM, fallback automatico.
+**OmniRoute** — proxy/router AI unificato. Un endpoint, 329 fornitori di LLM, fallback automatico.
 
 | Livello       | Posizione               | Scopo                                                                     |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

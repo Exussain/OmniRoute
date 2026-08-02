@@ -39,7 +39,7 @@ Tam test matrisası üçün `CONTRIBUTING.md` → "Testləri İcra Etmək" bölm
 
 ## Layihəyə Qısa Baxış
 
-**OmniRoute** — birləşdirilmiş AI proxy/router. Bir uç nöqtə, 327 LLM təminatçısı, avtomatik geri dönmə.
+**OmniRoute** — birləşdirilmiş AI proxy/router. Bir uç nöqtə, 329 LLM təminatçısı, avtomatik geri dönmə.
 
 | Təbəqə        | Yer                     | Məqsəd                                                                    |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

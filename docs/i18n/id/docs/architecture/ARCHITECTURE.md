@@ -13,7 +13,7 @@ Sistem ini menyediakan satu endpoint yang kompatibel dengan OpenAI (`/v1/*`) dan
 
 Kemampuan inti:
 
-- Antarmuka API yang kompatibel dengan OpenAI untuk CLI/tools (327 entri katalog penyedia, 89 modul implementasi executor)
+- Antarmuka API yang kompatibel dengan OpenAI untuk CLI/tools (329 entri katalog penyedia, 89 modul implementasi executor)
 - Translasi permintaan/respons antar format penyedia
 - Fallback combo model (urutan multi-model)
 - Langkah combo terstruktur (`provider + model + connection`) dengan pengurutan runtime melalui `compositeTiers`

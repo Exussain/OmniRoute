@@ -39,7 +39,7 @@ Koko testimatriisin näkemiseksi katso `CONTRIBUTING.md` → "Testien suorittami
 
 ## Projekti lyhyesti
 
-**OmniRoute** — yhtenäinen AI-proxy/reititin. Yksi päätepiste, 327 LLM-toimittajaa, automaattinen varajärjestelmä.
+**OmniRoute** — yhtenäinen AI-proxy/reititin. Yksi päätepiste, 329 LLM-toimittajaa, automaattinen varajärjestelmä.
 
 | Kerros          | Sijainti                | Tarkoitus                                                                 |
 | --------------- | ----------------------- | ------------------------------------------------------------------------- |

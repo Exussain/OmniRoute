@@ -3,12 +3,12 @@
 ## Project
 
 Unified AI proxy/router — route any LLM through one endpoint. Multi-provider support
-with **327 provider entries** (OpenAI, Anthropic, Gemini, DeepSeek, Groq, xAI, Mistral, Fireworks,
+with **329 provider entries** (OpenAI, Anthropic, Gemini, DeepSeek, Groq, xAI, Mistral, Fireworks,
 Cohere, NVIDIA, Cerebras, Pollinations, Puter, Cloudflare AI, HuggingFace, DeepInfra,
 SambaNova, Meta Llama API, Moonshot AI, AI21 Labs, Databricks, Snowflake, and many more)
 with **MCP Server** (107 tools), **A2A v0.3 Protocol**, and **Electron desktop app**.
 
-> **Live counts (v3.8.50)**: providers 327 · executor implementations 89 · OAuth catalog entries 23 ·
+> **Live counts (v3.8.50)**: providers 329 · executor implementations 89 · OAuth catalog entries 23 ·
 > OAuth modules 21 · MCP tools 107 · MCP scopes 32 · A2A skills 6 · cloud agents 4 ·
 > open-sse services 178 · routing strategies 19 · auto-combo scoring factors 13 ·
 > DB modules 110 · DB migrations 130 · base tables 17 · search providers 12 ·
@@ -271,7 +271,7 @@ Zod schemas, and unit tests aligned when editing.
 
 - **No-auth** (9): credential-less provider endpoints in `NOAUTH_PROVIDERS`
 - **OAuth** (23): sign-in providers in `OAUTH_PROVIDERS`, including Claude Code, Antigravity, Codex, GitHub Copilot, Cursor, Kimi Coding, Kiro, Qoder, Gemini, Windsurf, GitLab Duo, Zed, Trae, and others
-- **API Key** (223): OpenAI, Anthropic, Gemini, DeepSeek, Groq, xAI, Mistral, Perplexity,
+- **API Key** (225): OpenAI, Anthropic, Gemini, DeepSeek, Groq, xAI, Mistral, Perplexity,
   Together, Fireworks, Cerebras, Cohere, NVIDIA, Nebius, SiliconFlow, Hyperbolic,
   HuggingFace, OpenRouter, Vertex AI, Cloudflare AI, Scaleway, AI/ML API, Pollinations,
   Puter, Longcat, Alibaba, Kimi, Minimax, Blackbox, Synthetic, Kilo Gateway,

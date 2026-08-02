@@ -1,6 +1,6 @@
 # Free Tiers Guide: Understand and Combine Free AI Access
 
-> **TL;DR**: OmniRoute registers 327 providers, with **154 catalog entries marked free/no-auth**. The stricter audited budget currently covers **43 recurring pools / 522 model budget entries**. Connect several suitable providers for broader fallback capacity; every quota, approval rule, privacy policy, and paid-overage condition still applies.
+> **TL;DR**: OmniRoute registers 329 providers, with **155 catalog entries marked free/no-auth**. The stricter audited budget currently covers **43 recurring pools / 522 model budget entries**. Connect several suitable providers for broader fallback capacity; every quota, approval rule, privacy policy, and paid-overage condition still applies.
 
 ---
 
@@ -160,9 +160,9 @@ The live, pool-deduplicated catalog currently reports:
 | --- | ---: | --- |
 | Recurring quantified grant | **~1.53B tokens/month** | Shared pools counted once; excludes uncapped providers from the sum |
 | First month with signup grants | **~2.15B tokens** | Recurring total plus one-time and recurring credits |
-| Quantified inventory | **43 pools / 522 model budget entries** | Budget-model coverage, not the full 327-provider catalog |
+| Quantified inventory | **43 pools / 522 model budget entries** | Budget-model coverage, not the full 329-provider catalog |
 | Recurring/keyless/uncapped providers represented | **58** | Provider presence in recurring forms of the audited budget catalog |
-| Free/no-auth discovery entries | **154** | Broader provider metadata; not all have a quantifiable recurring quota |
+| Free/no-auth discovery entries | **155** | Broader provider metadata; not all have a quantifiable recurring quota |
 
 These values are computed from `open-sse/config/freeModelCatalog.ts`; see the
 [Free Tiers Reference](../reference/FREE_TIERS.md) for pool deduplication, ToS flags,

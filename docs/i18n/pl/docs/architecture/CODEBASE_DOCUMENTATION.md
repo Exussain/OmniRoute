@@ -491,7 +491,7 @@ open-sse/
 (współdzielony helper identity) i `index.ts` (rejestr).
 
 > Uwaga: providery niewymienione tutaj są obsługiwane przez `default.ts` z generycznym
-> executorem zgodnym z OpenAI. Pełny katalog providerów (327 wpisów) jest w
+> executorem zgodnym z OpenAI. Pełny katalog providerów (329 wpisów) jest w
 > `src/shared/constants/providers.ts`.
 
 ### 4.3 `open-sse/translator/`

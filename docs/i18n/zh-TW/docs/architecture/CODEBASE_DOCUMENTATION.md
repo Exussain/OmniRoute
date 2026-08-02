@@ -485,7 +485,7 @@ open-sse/
 （共用身分識別輔助程式）和 `index.ts`（註冊表）。
 
 > 注意：未列在此處的提供者由 `default.ts` 使用通用的
-> 與 OpenAI 相容的執行器處理。完整的 327 項提供者目錄位於
+> 與 OpenAI 相容的執行器處理。完整的 329 項提供者目錄位於
 > `src/shared/constants/providers.ts`。
 
 ### 4.3 `open-sse/translator/`

@@ -243,7 +243,7 @@ src/
 
 | Module                           | Purpose                                                                |
 | -------------------------------- | ---------------------------------------------------------------------- |
-| `constants/providers.ts`         | **327 provider catalog entries** with Zod validation (source of truth) |
+| `constants/providers.ts`         | **329 provider catalog entries** with Zod validation (source of truth) |
 | `constants/cliTools.ts`          | External CLI tool registry                                             |
 | `constants/routingStrategies.ts` | **19 public routing strategies** with priorities                       |
 | `constants/publicApiRoutes.ts`   | Routes that require Bearer (vs management) auth                        |
@@ -395,11 +395,11 @@ open-sse/
 | `TROUBLESHOOTING.md`        | Common errors + v3.8.0 known issues                                                   |
 | `RELEASE_CHECKLIST.md`      | Full release flow (skills, husky, conventional commits, deploy)                       |
 | `COVERAGE_PLAN.md`          | Coverage goals and current state                                                      |
-| `FREE_TIERS.md`             | Curated free-tier providers (327-provider catalog; 154 free/no-auth metadata entries) |
+| `FREE_TIERS.md`             | Curated free-tier providers (329-provider catalog; 155 free/no-auth metadata entries) |
 | `CLI-TOOLS.md`              | External CLI integrations + Internal OmniRoute CLI                                    |
 | `I18N.md`                   | i18n architecture, adding a language, 43 locales                                      |
 | `UNINSTALL.md`              | Clean uninstall steps                                                                 |
-| `PROVIDER_REFERENCE.md`     | **Auto-generated** catalog of 327 providers (regen: `npm run gen:provider-reference`) |
+| `PROVIDER_REFERENCE.md`     | **Auto-generated** catalog of 329 providers (regen: `npm run gen:provider-reference`) |
 
 ### Subsystem deep-dives
 

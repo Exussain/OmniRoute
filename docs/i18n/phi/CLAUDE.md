@@ -39,7 +39,7 @@ Para sa buong test matrix, tingnan ang `CONTRIBUTING.md` → "Pagsasagawa ng Mga
 
 ## Proyekto sa Isang Sulyap
 
-**OmniRoute** — pinagsamang AI proxy/router. Isang endpoint, 327 LLM providers, auto-fallback.
+**OmniRoute** — pinagsamang AI proxy/router. Isang endpoint, 329 LLM providers, auto-fallback.
 
 | Layer         | Lokasyon                | Layunin                                                                   |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

@@ -6,7 +6,7 @@
 
 # 🚀 OmniRoute — Darmowa bramka AI
 
-<img src="../../../docs/diagrams/readme-hero.svg" width="100%" alt="OmniRoute — Koduj dalej mimo limitów dostawców. Każde narzędzie AI → 327 wpisów katalogu dostawców — 154 oznaczone free/no-auth — przez jeden punkt końcowy. Claude Code, Codex, Cursor, Cline, Copilot i Antigravity mogą korzystać z bezpłatnego dostępu do Claude / GPT / Gemini z automatycznym fallbackiem, zależnie od dostępności i limitów dostawcy. Kaskadowa kompresja RTK + Caveman oszczędza 15–95% kwalifikowanych tokenów (średnio ~89% w sesjach z intensywnym użyciem narzędzi). 327 wpisów katalogu · 154 free/no-auth · ~1,53 mld udokumentowanych tokenów cyklicznych/mies. · 19 strategii routingu · 0 USD na start."/>
+<img src="../../../docs/diagrams/readme-hero.svg" width="100%" alt="OmniRoute — Koduj dalej mimo limitów dostawców. Każde narzędzie AI → 329 wpisów katalogu dostawców — 155 oznaczone free/no-auth — przez jeden punkt końcowy. Claude Code, Codex, Cursor, Cline, Copilot i Antigravity mogą korzystać z bezpłatnego dostępu do Claude / GPT / Gemini z automatycznym fallbackiem, zależnie od dostępności i limitów dostawcy. Kaskadowa kompresja RTK + Caveman oszczędza 15–95% kwalifikowanych tokenów (średnio ~89% w sesjach z intensywnym użyciem narzędzi). 329 wpisów katalogu · 155 free/no-auth · ~1,53 mld udokumentowanych tokenów cyklicznych/mies. · 19 strategii routingu · 0 USD na start."/>
 
 </div>
 
@@ -16,7 +16,7 @@
 
 </div>
 
-> Ręczne łączenie darmowych pakietów jest uciążliwe — dziesiątki SDK, dziesiątki limitów zapytań (rate limits) i brak wiedzy, ile tak naprawdę Ci pozostało. OmniRoute pokazuje **154 wpisy katalogu oznaczone free/no-auth**. Ściśle kwantyfikowany budżet obejmuje **43 pule dostawców / 522 wpisy budżetowe modeli** i jest wyświetlany na żywo w panelu (`/dashboard/free-tiers`).
+> Ręczne łączenie darmowych pakietów jest uciążliwe — dziesiątki SDK, dziesiątki limitów zapytań (rate limits) i brak wiedzy, ile tak naprawdę Ci pozostało. OmniRoute pokazuje **155 wpisy katalogu oznaczone free/no-auth**. Ściśle kwantyfikowany budżet obejmuje **43 pule dostawców / 522 wpisy budżetowe modeli** i jest wyświetlany na żywo w panelu (`/dashboard/free-tiers`).
 
 <img src="../../../docs/diagrams/free-tier-budget.svg" width="100%" alt="Karta budżetu darmowych pakietów OmniRoute: stabilne ~1,53 mld darmowych tokenów miesięcznie, do ~2,15 mld w pierwszym miesiącu dzięki kredytom na start, z udokumentowanych darmowych poziomów 43 pul dostawców / 522 wpisów budżetowych modeli za jednym punktem końcowym. Rzetelne wyliczenia z deduplikacją puli — każda współdzielona pula liczona raz, 15 dostawców oflagowanych ze względu na ToS. Pasek budżetu obejmuje 19 kwantyfikowanych pul, ~626M jednorazowych kredytów startowych oraz dostawców cyklicznych bez opublikowanego limitu tokenów, lecz z limitami szybkości i współbieżności. Zużycie/pozostało na żywo na /dashboard/free-tiers."/>
 
@@ -59,7 +59,7 @@
 ![Docker Pulls](https://img.shields.io/docker/pulls/diegosouzapw/omniroute?label=docker%20pulls&logo=docker&color=2496ED)
 ![Electron Downloads](https://img.shields.io/github/downloads/diegosouzapw/omniroute/total?style=flat&label=electron%20downloads&logo=electron&color=47848F)
 
-[**🚀 Szybki start**](#-szybki-start) • [**🎯 Komba**](#-komba-combos--flagowa-funkcja) • [**🌐 Dostawcy**](#-327-wpisów-katalogu-ai--154-free-no-auth) • [**🔌 CLI & MCP**](#-pe%C5%82ne-cli--a2a-i-mcp) • [**🗜️ Kompresja**](#%EF%B8%8F-oszcz%C4%99dzaj-1595-token%C3%B3w--automatycznie) • [**🌍 Strona WWW**](https://omniroute.online)
+[**🚀 Szybki start**](#-szybki-start) • [**🎯 Komba**](#-komba-combos--flagowa-funkcja) • [**🌐 Dostawcy**](#-329-wpisów-katalogu-ai--155-free-no-auth) • [**🔌 CLI & MCP**](#-pe%C5%82ne-cli--a2a-i-mcp) • [**🗜️ Kompresja**](#%EF%B8%8F-oszcz%C4%99dzaj-1595-token%C3%B3w--automatycznie) • [**🌍 Strona WWW**](https://omniroute.online)
 
 [💥 Obietnica](#-obietnica) • [🤔 Dlaczego](#-dlaczego-omniroute) • [🏆 Co wyróżnia OmniRoute](#-co-wyr%C3%B3%C5%BCnia-omniroute) • [🤖 Zgodne CLI](#-zgodne-cli-i-agenci-koduj%C4%85cy) • [🖥️ Gdzie to działa](#%EF%B8%8F-gdzie-dzia%C5%82a-omniroute--wsz%C4%99dzie) • [🔒 Prywatność](#-prywatno%C5%9B%C4%87-i-lokalne-dzia%C5%82anie-local-first) • [🎬 W akcji](#-omniroute-w-akcji) • [📸 Zrzuty ekranu](#-zrzuty-ekranu-z-panelu) • [📧 Wsparcie](#-wsparcie-i-spo%C5%82eczno%C5%9B%C4%87)
 
@@ -126,7 +126,7 @@
 
 </div>
 
-<img src="../../../docs/diagrams/promise-pillars.svg" width="100%" alt="Obietnica — Jeden punkt końcowy. 327 wpisów katalogu. OmniRoute wybiera najtańsze kwalifikujące się rozwiązanie i próbuje fallbacku, gdy upstream lub quota zawiedzie, zależnie od dostępności trasy. Sześć filarów: odporność · oszczędność do 95% tokenów · 0 USD na start (154 wpisy free/no-auth, warunki i limity zależą od dostawcy) · 33 narzędzia i agenci kodujący przez jedną konfigurację · jeden punkt końcowy · klasa produkcyjna."/>
+<img src="../../../docs/diagrams/promise-pillars.svg" width="100%" alt="Obietnica — Jeden punkt końcowy. 329 wpisów katalogu. OmniRoute wybiera najtańsze kwalifikujące się rozwiązanie i próbuje fallbacku, gdy upstream lub quota zawiedzie, zależnie od dostępności trasy. Sześć filarów: odporność · oszczędność do 95% tokenów · 0 USD na start (155 wpisy free/no-auth, warunki i limity zależą od dostawcy) · 33 narzędzia i agenci kodujący przez jedną konfigurację · jeden punkt końcowy · klasa produkcyjna."/>
 
 <br/>
 <br/>
@@ -229,8 +229,8 @@ Wszystkie **19** strategii — łącz i dopasowuj na każdym kroku komba:
 
 | Funkcja                                                   | OmniRoute                                                                                          | Inne routery  |
 | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ------------- |
-| 🌐 Dostawcy                                               | **327 wpisów katalogu**                                                                            | 20–100        |
-| 🆓 Free/no-auth                                           | **154 wpisy katalogu**                                                                             | 1–5           |
+| 🌐 Dostawcy                                               | **329 wpisów katalogu**                                                                            | 20–100        |
+| 🆓 Free/no-auth                                           | **155 wpisy katalogu**                                                                             | 1–5           |
 | 🔀 Strategie routingu                                     | **19** (priorytetowa, ważona, zoptymalizowana pod kątem kosztów, przekazywanie kontekstu, fusion…) | 1–3           |
 | 🗜️ Kompresja tokenów                                      | **Kaskadowa RTK + Caveman (15–95%)**                                                               | Brak / 20–40% |
 | 🧰 Wbudowany serwer MCP                                   | **107 narzędzia, 3 protokoły transportowe, 32 zakresów**                                           | Rzadkość      |
@@ -267,7 +267,7 @@ Wszystkie **19** strategii — łącz i dopasowuj na każdym kroku komba:
 - **🛡️ Bezpieczeństwo** — ochrona przed wstrzykiwaniem promptów (prompt-injection guard) na każdej trasie LLM (zestaw testów red-team) + darmowe wyszukiwanie w sieci DuckDuckGo jako ostatnia deska ratunku. → [Barierki ochronne](../../../docs/security/GUARDRAILS.md)
 - **🖼️ Nowe punkty końcowe** — `/v1/ocr` (Mistral OCR) i `/v1/audio/translations` (w stylu Whisper) uzupełniają obsługę multimediów. → [Referencja API](docs/reference/API_REFERENCE.md)
 - **🌍 Wdrożenie i administracja** — `basePath` dla reverse-proxy, automatyczne wykrywanie języka przeglądarki, śledzenie urządzeń na klucz, zaufanie MITM bez uprawnień roota, lokalizacja zh-TW. → [Środowisko](docs/reference/ENVIRONMENT.md)
-- **🤝 Więcej dostawców i agentów** — Cursor Cloud Agent, Grok Build (xAI), pełnoprawna karta Ollama, Claude Sonnet 5, Zed, Requesty, SenseNova, Yuanbao… oraz odświeżony katalog 327 wpisów. → [Dostawcy](../../../docs/reference/PROVIDER_REFERENCE.md)
+- **🤝 Więcej dostawców i agentów** — Cursor Cloud Agent, Grok Build (xAI), pełnoprawna karta Ollama, Claude Sonnet 5, Zed, Requesty, SenseNova, Yuanbao… oraz odświeżony katalog 329 wpisów. → [Dostawcy](../../../docs/reference/PROVIDER_REFERENCE.md)
 - **⚡ Lokalna wydajność i infrastruktura** — uruchamianie lokalnego Redis jednym kliknięciem, instalatory przekaźników dla Cloudflare Workers / Deno Deploy, Bifrost i Mux jako nadzorowane usługi wbudowane. → [Usługi wbudowane](../../../docs/frameworks/EMBEDDED-SERVICES.md)
 
 <br/>
@@ -326,11 +326,11 @@ Wszystkie **19** strategii — łącz i dopasowuj na każdym kroku komba:
 
 <div align="center">
 
-# 🌐 327 wpisów katalogu AI — 154 free/no-auth
+# 🌐 329 wpisów katalogu AI — 155 free/no-auth
 
 </div>
 
-> Najbardziej kompletny katalog spośród wszystkich routerów open-source: **327 wpisów dostawców**, w tym **154 oznaczone free/no-auth**. Oznaczenie katalogowe nie oznacza bezterminowego ani nieograniczonego dostępu — warunki, limity, regiony, KYC i ToS zależą od dostawcy.
+> Najbardziej kompletny katalog spośród wszystkich routerów open-source: **329 wpisów dostawców**, w tym **155 oznaczone free/no-auth**. Oznaczenie katalogowe nie oznacza bezterminowego ani nieograniczonego dostępu — warunki, limity, regiony, KYC i ToS zależą od dostawcy.
 
 <div align="center">
 

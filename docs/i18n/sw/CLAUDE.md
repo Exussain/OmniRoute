@@ -39,7 +39,7 @@ Kwa matrix kamili ya majaribio, angalia `CONTRIBUTING.md` → "Kuendesha Majarib
 
 ## Mradi kwa Muonekano
 
-**OmniRoute** — proxy/router ya AI iliyounganishwa. Kipengele kimoja, watoa huduma 327, auto-fallback.
+**OmniRoute** — proxy/router ya AI iliyounganishwa. Kipengele kimoja, watoa huduma 329, auto-fallback.
 
 | Tabaka        | Mahali                  | Kusudi                                                                    |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

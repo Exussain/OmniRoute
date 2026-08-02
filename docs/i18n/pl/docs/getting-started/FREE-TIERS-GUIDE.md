@@ -1,6 +1,6 @@
 # Przewodnik po darmowych planach: darmowe AI bez karty kredytowej
 
-> **TL;DR**: OmniRoute ma 154 wpisy katalogu oznaczone free/no-auth. Ściśle kwantyfikowany budżet obejmuje 43 pule / 522 wpisy modeli. Podłącz wielu providerów, aby rozszerzyć pokrycie fallbacku; dostępność, limity i warunki zależą od upstreamu.
+> **TL;DR**: OmniRoute ma 155 wpisy katalogu oznaczone free/no-auth. Ściśle kwantyfikowany budżet obejmuje 43 pule / 522 wpisy modeli. Podłącz wielu providerów, aby rozszerzyć pokrycie fallbacku; dostępność, limity i warunki zależą od upstreamu.
 
 ---
 

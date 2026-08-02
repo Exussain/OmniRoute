@@ -470,7 +470,7 @@ open-sse/
 `pollinations`、`puter`、`qoder`、`vertex`、`windsurf`，以及 `claudeIdentity.ts`
 （共享身份标识辅助）和 `index.ts`（注册表）。
 
-> 注意：未在此列出的服务商由 `default.ts` 通过通用 OpenAI 兼容执行器提供服务。完整的 327 项服务商目录位于 `src/shared/constants/providers.ts`。
+> 注意：未在此列出的服务商由 `default.ts` 通过通用 OpenAI 兼容执行器提供服务。完整的 329 项服务商目录位于 `src/shared/constants/providers.ts`。
 
 ### 4.3 `open-sse/translator/`
 

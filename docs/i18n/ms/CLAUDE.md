@@ -39,7 +39,7 @@ Untuk matriks ujian penuh, lihat `CONTRIBUTING.md` → "Menjalankan Ujian". Untu
 
 ## Projek Secara Ringkas
 
-**OmniRoute** — proksi/router AI yang bersatu. Satu titik akhir, 327 penyedia LLM, auto-fallback.
+**OmniRoute** — proksi/router AI yang bersatu. Satu titik akhir, 329 penyedia LLM, auto-fallback.
 
 | Lapisan       | Lokasi                  | Tujuan                                                                    |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

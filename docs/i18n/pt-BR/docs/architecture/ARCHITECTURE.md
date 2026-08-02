@@ -25,7 +25,7 @@ Ele fornece um único endpoint compatível com OpenAI (`/v1/*`) e roteia o tráf
 
 Capacidades principais:
 
-- Superfície de API compatível com OpenAI para CLI/ferramentas (327 entradas de provedores, 89 módulos de implementação de executores)
+- Superfície de API compatível com OpenAI para CLI/ferramentas (329 entradas de provedores, 89 módulos de implementação de executores)
 - Tradução de solicitação/resposta entre formatos de provedores
 - Fallback de combinação de modelos (sequência de múltiplos modelos)
 - Passos de combinação estruturados (`provedor + modelo + conexão`) com ordenação em tempo de execução por `compositeTiers`
@@ -914,7 +914,7 @@ Todos os outros provedores (incluindo nós compatíveis personalizados) usam o `
 
 ## Matriz de Compatibilidade de Provedores
 
-> **Nota:** A matriz abaixo é uma amostra representativa das 327 entradas de provedores registradas no
+> **Nota:** A matriz abaixo é uma amostra representativa das 329 entradas de provedores registradas no
 > OmniRoute v3.8.0. Para a lista canônica e continuamente atualizada, consulte
 > [`docs/reference/PROVIDER_REFERENCE.md`](../reference/PROVIDER_REFERENCE.md) (gerada automaticamente) ou a fonte
 > de verdade em `src/shared/constants/providers.ts` (validada pelo Zod na carga).

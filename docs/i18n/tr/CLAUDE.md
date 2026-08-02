@@ -39,7 +39,7 @@ Tam test matrisini görmek için `CONTRIBUTING.md` → "Testleri Çalıştırma"
 
 ## Projeye Genel Bakış
 
-**OmniRoute** — birleşik AI proxy/yönlendirici. Tek uç nokta, 327 LLM sağlayıcısı, otomatik geri dönüş.
+**OmniRoute** — birleşik AI proxy/yönlendirici. Tek uç nokta, 329 LLM sağlayıcısı, otomatik geri dönüş.
 
 | Katman        | Konum                   | Amaç                                                                      |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

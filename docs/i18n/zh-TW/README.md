@@ -12,7 +12,7 @@
 
 # 🚀 OmniRoute — 免費 AI 閘道器
 
-### 開發不停歇。只需單一端點，即可將所有 AI 工具串接至 **327 家模型提供者** — **154 個免費／免驗證目錄項目**。
+### 開發不停歇。只需單一端點，即可將所有 AI 工具串接至 **329 家模型提供者** — **155 個免費／免驗證目錄項目**。
 
 **將 Claude Code、Codex、Cursor、Cline、Copilot 與 Antigravity 無縫對接至免費的 Claude / GPT / Gemini，支援自動切換備援。**
 
@@ -26,8 +26,8 @@
 
 <br/>
 
-[![327 AI Providers](https://img.shields.io/badge/327-AI_Providers-6C5CE7?style=for-the-badge)](#-327-ai-providers--154-freeno-auth)
-[![154 Free/No-Auth](https://img.shields.io/badge/154-Free%2FNo--Auth-00B894?style=for-the-badge)](#-327-ai-providers--154-freeno-auth)
+[![329 AI Providers](https://img.shields.io/badge/329-AI_Providers-6C5CE7?style=for-the-badge)](#-329-ai-providers--155-freeno-auth)
+[![155 Free/No-Auth](https://img.shields.io/badge/155-Free%2FNo--Auth-00B894?style=for-the-badge)](#-329-ai-providers--155-freeno-auth)
 [![1.53B Free Tokens/mo](https://img.shields.io/badge/1.53B-Free_Tokens%2Fmo-00B894?style=for-the-badge)](../../reference/FREE_TIERS.md)
 [![Token Savings](https://img.shields.io/badge/up_to_95%25-Token_Savings-E17055?style=for-the-badge)](#%EF%B8%8F-save-1595-tokens--automatically)
 [![19 Strategies](https://img.shields.io/badge/19-Routing_Strategies-0984E3?style=for-the-badge)](#-combos--the-flagship)
@@ -66,7 +66,7 @@
 
 <br/>
 
-[**🚀 快速開始**](#-quick-start) • [**🎯 Combo**](#-combos--the-flagship) • [**🌐 提供者**](#-327-ai-providers--154-freeno-auth) • [**🔌 CLI 與 MCP**](#-full-cli--a2a--mcp) • [**🗜️ 壓縮**](#%EF%B8%8F-save-1595-tokens--automatically) • [**🌍 網站**](https://omniroute.online)
+[**🚀 快速開始**](#-quick-start) • [**🎯 Combo**](#-combos--the-flagship) • [**🌐 提供者**](#-329-ai-providers--155-freeno-auth) • [**🔌 CLI 與 MCP**](#-full-cli--a2a--mcp) • [**🗜️ 壓縮**](#%EF%B8%8F-save-1595-tokens--automatically) • [**🌍 網站**](https://omniroute.online)
 
 [💥 承諾](#-the-promise) • [🤔 為什麼](#-why-omniroute) • [🏆 優勢](#-what-sets-omniroute-apart) • [🤖 相容 CLI](#-compatible-clis--coding-agents) • [🖥️ 執行平台](#%EF%B8%8F-where-omniroute-runs--anywhere) • [🔒 隱私](#-private--local-first) • [🎬 實際展示](#-omniroute-in-action) • [📚 探索更多](#-explore-more) • [📧 支援](#-support--community)
 
@@ -144,13 +144,13 @@
 
 </div>
 
-> 單一端點。**327 家提供者。** 讓開發流程暢行無阻 — 由 OmniRoute 自動挑選最划算且可行的最佳方案。
+> 單一端點。**329 家提供者。** 讓開發流程暢行無阻 — 由 OmniRoute 自動挑選最划算且可行的最佳方案。
 
 <table>
   <tr>
     <td width="33%" valign="top"><b>🛡️ 彈性備援</b><br/><sub>上游或配額失敗時嘗試下一條合格路由；實際可用性取決於提供者與候選路由。</sub></td>
     <td width="33%" valign="top"><b>💸 節省高達 95% 的 Token</b><br/><sub>RTK + Caveman 堆疊壓縮可削減 15–95% 的合格 Token（工具密集型會話平均約 89%）。</sub></td>
-    <td width="33%" valign="top"><b>🆓 零成本輕鬆上手</b><br/><sub>154 個目錄項目標記為免費／免驗證；條件與限額依提供者而異。</sub></td>
+    <td width="33%" valign="top"><b>🆓 零成本輕鬆上手</b><br/><sub>155 個目錄項目標記為免費／免驗證；條件與限額依提供者而異。</sub></td>
   </tr>
   <tr>
     <td width="33%" valign="top"><b>🔌 廣泛相容各式工具</b><br/><sub>33 個編碼工具與代理 — Claude Code、Codex、Cursor、Cline、Copilot、Antigravity — 單一設定隨插即用。</sub></td>
@@ -269,8 +269,8 @@ Result: 4 fallback layers reduce downtime; upstream availability is not guarante
 
 | 功能                       | OmniRoute                                              | 其他路由器  |
 | -------------------------- | ------------------------------------------------------ | ----------- |
-| 🌐 提供者數量              | **327**                                                | 20–100      |
-| 🆓 免費／免驗證目錄項目    | **154**                                                | 1–5         |
+| 🌐 提供者數量              | **329**                                                | 20–100      |
+| 🆓 免費／免驗證目錄項目    | **155**                                                | 1–5         |
 | 🔀 路由策略                | **19 種**（優先級、加權、成本優化、上下文中繼、融合…） | 1–3         |
 | 🗜️ Token 壓縮              | **RTK + Caveman 堆疊（15–95%）**                       | 無 / 20–40% |
 | 🧰 內建 MCP 伺服器         | **107 工具、3 種傳輸、32 個範圍**                      | 少有        |
@@ -302,7 +302,7 @@ Result: 4 fallback layers reduce downtime; upstream availability is not guarante
 - **💸 全方位成本遙測** — 每個端點（包括媒體）上的 `X-OmniRoute-*` 成本/使用量標頭、非 Token 成本引擎、快取命中 `X-OmniRoute-Cost-Saved` 標頭，以及每金鑰 USD 支出配額。→ [API Reference](../../reference/API_REFERENCE.md)
 - **🧠 可控記憶** — 可選的 int8 向量量化（Qdrant + sqlite-vec），記憶預設關閉，以及每請求 `x-omniroute-no-memory` 標頭。→ [Memory](../../frameworks/MEMORY.md)
 - **🛡️ 安全** — 所有 LLM 路由的提示注入防護（由紅隊測試套件支援），加上免費的 DuckDuckGo 最後手段網路搜尋。→ [Guardrails](../../security/GUARDRAILS.md)
-- **🤝 更多提供者和代理** — Cursor Cloud Agent（第 4 個雲端代理）、CodeBuddy CN（`copilot.tencent.com`）、Google Flow 影片生成提供者、新閘道 **DGrid** 和 **Pioneer AI**（Fastino Labs）、入站 **xAI Grok** 轉換器加上 **Grok Build (xAI)** 附 OAuth 匯入令牌流程、GitHub Copilot 提供者上的 GPT-4 / GPT-4o-mini、多模型 **Factory Droid**、**ZenMux Free**（session-cookie 免費層）、**Alibaba DashScope** 文字轉影片（`wan2.7-t2v`）、更新後的 327 提供者目錄、Vertex AI 媒體生成（語音 / 轉錄 / 音樂 / 影片），以及從 CLIProxyAPI 一鍵匯入帳戶。→ [Providers](../../reference/PROVIDER_REFERENCE.md)
+- **🤝 更多提供者和代理** — Cursor Cloud Agent（第 4 個雲端代理）、CodeBuddy CN（`copilot.tencent.com`）、Google Flow 影片生成提供者、新閘道 **DGrid** 和 **Pioneer AI**（Fastino Labs）、入站 **xAI Grok** 轉換器加上 **Grok Build (xAI)** 附 OAuth 匯入令牌流程、GitHub Copilot 提供者上的 GPT-4 / GPT-4o-mini、多模型 **Factory Droid**、**ZenMux Free**（session-cookie 免費層）、**Alibaba DashScope** 文字轉影片（`wan2.7-t2v`）、更新後的 329 提供者目錄、Vertex AI 媒體生成（語音 / 轉錄 / 音樂 / 影片），以及從 CLIProxyAPI 一鍵匯入帳戶。→ [Providers](../../reference/PROVIDER_REFERENCE.md)
 - **⚡ 本地效能與基礎設施** — 一鍵本地 Redis 啟動器（`omniroute redis up`，加上儀表板 Redis 面板）、一鍵 **Cloudflare Workers** 和 **Deno Deploy** 中繼部署器接入代理池，以及可選的 Bifrost Go sidecar，用於卸載最熱門的中繼路徑（`BIFROST_BASE_URL`，逾時時自動備援到 TypeScript 路徑）。→ [Environment](../../reference/ENVIRONMENT.md)
 
 <br/>
@@ -345,11 +345,11 @@ Result: 4 fallback layers reduce downtime; upstream availability is not guarante
 
 <div align="center">
 
-# 🌐 327 個 AI 提供者 — 154 個免費／免驗證
+# 🌐 329 個 AI 提供者 — 155 個免費／免驗證
 
 </div>
 
-> 最完整的開源路由器目錄：**327 個提供者**，其中 **154 個目錄項目標記為免費／免驗證**。
+> 最完整的開源路由器目錄：**329 個提供者**，其中 **155 個目錄項目標記為免費／免驗證**。
 
 <div align="center">
 
@@ -807,7 +807,7 @@ podman compose --profile base up -d --build
 **OmniRoute 會向我收費嗎？** 不會 — 它是免費的開源軟體，在您的機器上執行。您只直接向付費提供者付費。OmniRoute 沒有帳單系統。
 **免費提供者真的無限嗎？** 不能保證 — 有些目錄項目沒有公開 Token 上限，但仍可能受到速率、並發、帳戶、地區或服務條款限制。請在使用前查看提供者條款；在 Combo 中堆疊多個免費／免驗證項目可增加備援，但不代表無限或保證可用。
 **壓縮會損害品質嗎？** 不會 — 它只壓縮**輸入**；程式碼、URL、JSON 始終受保護。
-**在被封鎖 AI 的地區能用嗎？** 可以嘗試 — 3 層代理 + 1proxy 市場可連接目錄中的 327 個提供者，但實際可用性取決於網路、地區與提供者政策。
+**在被封鎖 AI 的地區能用嗎？** 可以嘗試 — 3 層代理 + 1proxy 市場可連接目錄中的 329 個提供者，但實際可用性取決於網路、地區與提供者政策。
 
 📖 [User Guide](../../guides/USER_GUIDE.md) · [API Reference](../../reference/API_REFERENCE.md) · [Environment Config](../../reference/ENVIRONMENT.md)
 
@@ -928,7 +928,7 @@ podman compose --profile base up -d --build
 | [Resilience Guide](../../architecture/RESILIENCE_GUIDE.md)             | 斷路器、冷卻、佇列、反奔湧群、TLS 偽造                                 |
 | [Auto-Combo Engine](../../routing/AUTO-COMBO.md)                       | 13 因素評分、模式包、自我修復                                          |
 | [Proxy Guide](../../ops/PROXY_GUIDE.md)                                | 3 層代理系統、1proxy 市場、註冊表 CRUD                                 |
-| [Free Tiers](../../reference/FREE_TIERS.md)                            | 154 個免費／免驗證目錄項目，以及 43 個量化提供者池                     |
+| [Free Tiers](../../reference/FREE_TIERS.md)                            | 155 個免費／免驗證目錄項目，以及 43 個量化提供者池                     |
 | [Features Gallery](../../guides/FEATURES.md)                           | 附截圖的視覺儀表板導覽                                                 |
 | [Codebase Documentation](../../architecture/CODEBASE_DOCUMENTATION.md) | 初學者友善的程式碼庫導覽                                               |
 

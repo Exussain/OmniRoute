@@ -39,7 +39,7 @@ Para a matriz completa de testes, veja `CONTRIBUTING.md` → "Executando Testes"
 
 ## Projeto em Resumo
 
-**OmniRoute** — proxy/router de IA unificado. Um endpoint, 327 provedores de LLM, fallback automático.
+**OmniRoute** — proxy/router de IA unificado. Um endpoint, 329 provedores de LLM, fallback automático.
 
 | Camada           | Localização             | Propósito                                                                 |
 | ---------------- | ----------------------- | ------------------------------------------------------------------------- |

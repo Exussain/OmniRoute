@@ -39,7 +39,7 @@ För full testmatris, se `CONTRIBUTING.md` → "Köra Tester". För djup arkitek
 
 ## Projekt i Korthet
 
-**OmniRoute** — enad AI-proxy/router. En slutpunkt, 327 LLM-leverantörer, automatisk återkoppling.
+**OmniRoute** — enad AI-proxy/router. En slutpunkt, 329 LLM-leverantörer, automatisk återkoppling.
 
 | Lager        | Plats                   | Syfte                                                                     |
 | ------------ | ----------------------- | ------------------------------------------------------------------------- |

@@ -6,7 +6,7 @@
 
 ### Jangan pernah berhenti ngoding. Routing cerdas ke **model AI GRATIS & berbiaya rendah** dengan fallback otomatis.
 
-_Proxy API universal Anda — satu endpoint untuk 327 entri katalog penyedia, dengan fallback otomatis saat rute upstream tersedia. Kini dengan **MCP Server (107 alat, 32 cakupan)**, **Protokol A2A**, **Sistem Memori/Skill** & **Aplikasi Desktop Electron**._
+_Proxy API universal Anda — satu endpoint untuk 329 entri katalog penyedia, dengan fallback otomatis saat rute upstream tersedia. Kini dengan **MCP Server (107 alat, 32 cakupan)**, **Protokol A2A**, **Sistem Memori/Skill** & **Aplikasi Desktop Electron**._
 
 **Chat Completions • Embeddings • Pembuatan Gambar • Video • Musik • Audio • Reranking • **Pencarian Web** • MCP Server • Protokol A2A • 100% TypeScript**
 
@@ -252,7 +252,7 @@ OpenAI menggunakan satu format, Claude (Anthropic) menggunakan format lain, Gemi
 
 **Cara OmniRoute menyelesaikannya:**
 
-- **Endpoint Terpadu** — Satu `http://localhost:20128/v1` berfungsi sebagai proxy untuk seluruh 327 entri katalog penyedia
+- **Endpoint Terpadu** — Satu `http://localhost:20128/v1` berfungsi sebagai proxy untuk seluruh 329 entri katalog penyedia
 - **Translasi Format** — Otomatis dan transparan: OpenAI ↔ Claude ↔ Gemini ↔ Responses API
 - **Sanitasi Respons** — Menghapus field non-standar (`x_groq`, `usage_breakdown`, `service_tier`) yang merusak OpenAI SDK v1.83+
 - **Normalisasi Peran** — Mengonversi `developer` → `system` untuk penyedia non-OpenAI; `system` → `user` untuk GLM/ERNIE
@@ -336,7 +336,7 @@ Penyedia AI bisa menjadi tidak stabil, mengembalikan kesalahan 5xx, atau mencapa
 - **Dashboard Alat CLI** — Halaman khusus dengan pengaturan satu klik untuk Claude Code, Codex CLI, OpenClaw, Kilo Code, Antigravity, Cline
 - **Generator Konfigurasi GitHub Copilot** — Menghasilkan `chatLanguageModels.json` untuk VS Code dengan pemilihan model massal
 - **Wizard Orientasi** — Pengaturan terpandu 4 langkah untuk pengguna pertama kali
-- **Satu endpoint, semua model** — Konfigurasi `http://localhost:20128/v1` sekali, akses 327 entri katalog penyedia
+- **Satu endpoint, semua model** — Konfigurasi `http://localhost:20128/v1` sekali, akses 329 entri katalog penyedia
 
 </details>
 

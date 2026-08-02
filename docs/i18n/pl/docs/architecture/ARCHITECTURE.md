@@ -17,7 +17,7 @@ Udostępnia pojedynczy endpoint zgodny z OpenAI (`/v1/*`) i kieruje ruch przez w
 
 Główne możliwości:
 
-- Powierzchnia API zgodna z OpenAI dla CLI/narzędzi (327 provider catalog entries, 89 executor implementation modules)
+- Powierzchnia API zgodna z OpenAI dla CLI/narzędzi (329 provider catalog entries, 89 executor implementation modules)
 - Tłumaczenie żądań/odpowiedzi między formatami dostawców
 - Fallback combo modeli (sekwencja wielu modeli)
 - Strukturalne kroki combo (`provider + model + connection`) z kolejnością runtime według `compositeTiers`
@@ -934,7 +934,7 @@ Wszystkie pozostałe dostawcy (w tym niestandardowe węzły kompatybilne) używa
 
 ## Macierz kompatybilności dostawców
 
-> **Uwaga:** Poniższa macierz to reprezentatywna próbka spośród 327 wpisów katalogu dostawców w
+> **Uwaga:** Poniższa macierz to reprezentatywna próbka spośród 329 wpisów katalogu dostawców w
 > OmniRoute v3.8.0. Kanoniczna i stale aktualizowana lista: zob.
 > [`docs/reference/PROVIDER_REFERENCE.md`](../reference/PROVIDER_REFERENCE.md) (auto-generowana) lub źródło
 > prawdy w `src/shared/constants/providers.ts` (walidowane Zod przy ładowaniu).

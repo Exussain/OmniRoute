@@ -39,7 +39,7 @@ For full testmatrise, se `CONTRIBUTING.md` → "Kjøring av tester". For dyp ark
 
 ## Prosjektet i et nøtteskall
 
-**OmniRoute** — enhetlig AI proxy/ruter. Ett endepunkt, 327 LLM-leverandører, automatisk fallback.
+**OmniRoute** — enhetlig AI proxy/ruter. Ett endepunkt, 329 LLM-leverandører, automatisk fallback.
 
 | Lag             | Sted                    | Formål                                                                    |
 | --------------- | ----------------------- | ------------------------------------------------------------------------- |

@@ -39,7 +39,7 @@ Pro plnou testovací matici viz `CONTRIBUTING.md` → "Spouštění testů". Pro
 
 ## Projekt na první pohled
 
-**OmniRoute** — jednotný AI proxy/router. Jeden koncový bod, 327 poskytovatelů LLM, automatické zálohování.
+**OmniRoute** — jednotný AI proxy/router. Jeden koncový bod, 329 poskytovatelů LLM, automatické zálohování.
 
 | Vrstva        | Umístění                | Účel                                                                      |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

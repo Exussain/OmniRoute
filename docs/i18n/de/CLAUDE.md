@@ -39,7 +39,7 @@ Für die vollständige Testmatrix siehe `CONTRIBUTING.md` → "Tests Ausführen"
 
 ## Projekt auf einen Blick
 
-**OmniRoute** — einheitlicher KI-Proxy/Router. Ein Endpunkt, 327 LLM-Anbieter, automatischer Fallback.
+**OmniRoute** — einheitlicher KI-Proxy/Router. Ein Endpunkt, 329 LLM-Anbieter, automatischer Fallback.
 
 | Schicht        | Standort                | Zweck                                                                     |
 | -------------- | ----------------------- | ------------------------------------------------------------------------- |

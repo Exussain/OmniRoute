@@ -10,7 +10,7 @@ lastUpdated: 2026-08-02
 
 > **Last researched:** 2026-06-17 — per-provider web research (official docs + last-7-days news, 50-agent pass with adversarial verification) refreshing every free-tier quota + ToS.
 > **Source of truth (catalog):** `open-sse/config/freeModelCatalog.ts` (per-MODEL budgets, pool-deduped). The token-budget numbers below come from live web research and are an **approximation** — see [Methodology & caveats](#methodology--caveats).
-> **Catalog scope (2026-08-02):** OmniRoute has **327 registered providers** and **154 catalog entries marked free/no-auth**. The budget below is deliberately narrower: **43 provider pools / 522 model budget entries** with quota, credit, uncapped, keyless, or discontinued-status evidence in the free-model catalog.
+> **Catalog scope (2026-08-02):** OmniRoute has **329 registered providers** and **155 catalog entries marked free/no-auth**. The budget below is deliberately narrower: **43 provider pools / 522 model budget entries** with quota, credit, uncapped, keyless, or discontinued-status evidence in the free-model catalog.
 
 ## TL;DR — how much free inference does OmniRoute actually aggregate?
 

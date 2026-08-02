@@ -39,7 +39,7 @@ A teljes tesztmátrixért lásd a `CONTRIBUTING.md` → "Tesztek futtatása" ré
 
 ## Projekt áttekintése
 
-**OmniRoute** — egységes AI proxy/router. Egy végpont, 327 LLM szolgáltató, automatikus visszaesés.
+**OmniRoute** — egységes AI proxy/router. Egy végpont, 329 LLM szolgáltató, automatikus visszaesés.
 
 | Réteg          | Helyszín                | Cél                                                                       |
 | -------------- | ----------------------- | ------------------------------------------------------------------------- |

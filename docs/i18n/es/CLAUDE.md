@@ -39,7 +39,7 @@ Para la matriz completa de pruebas, consulta `CONTRIBUTING.md` → "Ejecución d
 
 ## Proyecto a Simple Vista
 
-**OmniRoute** — proxy/router de IA unificado. Un punto final, 327 proveedores de LLM, retroceso automático.
+**OmniRoute** — proxy/router de IA unificado. Un punto final, 329 proveedores de LLM, retroceso automático.
 
 | Capa             | Ubicación               | Propósito                                                                 |
 | ---------------- | ----------------------- | ------------------------------------------------------------------------- |

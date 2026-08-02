@@ -15,7 +15,7 @@ lastUpdated: 2026-06-28
 
 ## Czym to jest
 
-OmniRoute agreguje 327 wpisów katalogu providerów, z których wiele udostępnia **darmowy tier** (no-auth,
+OmniRoute agreguje 329 wpisów katalogu providerów, z których wiele udostępnia **darmowy tier** (no-auth,
 darmowy OAuth albo darmowy klucz API — zobacz
 [Przewodnik Free Tiers](../getting-started/FREE-TIERS-GUIDE.md) oraz pełny
 [katalog Free Tiers](../reference/FREE_TIERS.md)). Haczyk: darmowi providerzy różnią się

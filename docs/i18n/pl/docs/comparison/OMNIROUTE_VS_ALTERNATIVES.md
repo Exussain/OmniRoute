@@ -13,8 +13,8 @@ Obiektywne porównanie funkcji z popularnymi open-source'owymi routerami AI.
 
 | Funkcja                                             |                   OmniRoute 3.8                    |  LiteLLM 1.x   | OpenRouter (SaaS) |   Portkey   |
 | --------------------------------------------------- | :------------------------------------------------: | :------------: | :---------------: | :---------: |
-| **Dostawcy**                                        |                      **327**                       |      ~100      |        ~50        |     ~30     |
-| **Dostawcy free-tier**                              |               **154 wpisy katalogu**               |      n/a       |    passthrough    |     n/a     |
+| **Dostawcy**                                        |                      **329**                       |      ~100      |        ~50        |     ~30     |
+| **Dostawcy free-tier**                              |               **155 wpisy katalogu**               |      n/a       |    passthrough    |     n/a     |
 | **Self-hosting**                                    |                         ✅                         |       ✅       |        ❌         |   ⚠ paid    |
 | **Dostawcy OAuth (Claude, Codex, Copilot itd.)**    |               **23 wpisy katalogu**                |    partial     |        ❌         |     ❌      |
 | **Combo z auto-fallbackiem**                        |                  **19 strategii**                  | priority-based |    tier-based     |  weighted   |
@@ -41,7 +41,7 @@ Obiektywne porównanie funkcji z popularnymi open-source'owymi routerami AI.
 
 ## Kiedy wybrać OmniRoute
 
-- Self-hostujesz i chcesz **maksymalnego pokrycia dostawców** (327 wpisów katalogu, 154 oznaczone free/no-auth)
+- Self-hostujesz i chcesz **maksymalnego pokrycia dostawców** (329 wpisów katalogu, 155 oznaczone free/no-auth)
 - Potrzebujesz **wbudowanego serwera MCP** (narzędzia LLM, pamięć, skills wystawione jako tools)
 - Potrzebujesz **protokołu A2A** do workflow agent-to-agent
 - Chcesz **fingerprint stealth** (JA3/JA4), by unikać wykrycia przez upstream CAPTCHA

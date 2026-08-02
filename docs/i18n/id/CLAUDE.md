@@ -39,7 +39,7 @@ Untuk matriks tes lengkap, lihat `CONTRIBUTING.md` → "Menjalankan Tes". Untuk 
 
 ## Proyek Sekilas
 
-**OmniRoute** — proxy/router AI terpadu. Satu endpoint, 327 penyedia LLM, auto-fallback.
+**OmniRoute** — proxy/router AI terpadu. Satu endpoint, 329 penyedia LLM, auto-fallback.
 
 | Lapisan       | Lokasi                  | Tujuan                                                                    |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

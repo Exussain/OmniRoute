@@ -39,7 +39,7 @@ Voor de volledige testmatrix, zie `CONTRIBUTING.md` → "Tests Uitvoeren". Voor 
 
 ## Project in een Oogopslag
 
-**OmniRoute** — verenigde AI proxy/router. Eén eindpunt, 327 LLM-providers, automatische fallback.
+**OmniRoute** — verenigde AI proxy/router. Eén eindpunt, 329 LLM-providers, automatische fallback.
 
 | Laag          | Locatie                 | Doel                                                                      |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

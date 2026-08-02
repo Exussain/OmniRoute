@@ -368,7 +368,7 @@ const result = await executor.execute({
 });
 ````
 
-The factory covers all **327 provider catalog entries** through shared defaults and **89 executor implementation modules**. Most OpenAI-compatible providers use `DefaultExecutor`; specialized modules override only the behavior that differs.
+The factory covers all **329 provider catalog entries** through shared defaults and **89 executor implementation modules**. Most OpenAI-compatible providers use `DefaultExecutor`; specialized modules override only the behavior that differs.
 
 ---
 
@@ -487,7 +487,7 @@ This handles:
 
 | File                          | Purpose                           |
 | ----------------------------- | --------------------------------- |
-| `providerRegistry.ts`         | 327 provider catalog entries      |
+| `providerRegistry.ts`         | 329 provider catalog entries      |
 | `providerModels.ts`           | Model aliases, format mapping     |
 | `constants.ts`                | Timeouts, limits, status codes    |
 | `defaultThinkingSignature.ts` | Default Claude thinking signature |

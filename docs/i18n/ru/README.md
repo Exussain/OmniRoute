@@ -12,7 +12,7 @@
 
 # 🚀 OmniRoute — Бесплатный AI-шлюз
 
-### Код без остановок. Один endpoint — **327 провайдеров**, **154 free/no-auth**.
+### Код без остановок. Один endpoint — **329 провайдеров**, **155 free/no-auth**.
 
 **Claude Code, Codex, Cursor, Cline, Copilot и Antigravity → бесплатные Claude / GPT / Gemini с автопереключением.**
 
@@ -26,8 +26,8 @@
 
 <br/>
 
-[![327 AI Providers](https://img.shields.io/badge/327-AI_Providers-6C5CE7?style=for-the-badge)](#-327-ai-провайдеров--154-free-no-auth)
-[![154 Free/No-Auth](https://img.shields.io/badge/154-Free%2FNo--Auth-00B894?style=for-the-badge)](#-327-ai-провайдеров--154-free-no-auth)
+[![329 AI Providers](https://img.shields.io/badge/329-AI_Providers-6C5CE7?style=for-the-badge)](#-329-ai-провайдеров--155-free-no-auth)
+[![155 Free/No-Auth](https://img.shields.io/badge/155-Free%2FNo--Auth-00B894?style=for-the-badge)](#-329-ai-провайдеров--155-free-no-auth)
 [![1.53B Free Tokens/mo](https://img.shields.io/badge/1.53B-Free_Tokens%2Fmo-00B894?style=for-the-badge)](../../reference/FREE_TIERS.md)
 [![Token Savings](https://img.shields.io/badge/up_to_95%25-Token_Savings-E17055?style=for-the-badge)](#️-экономьте-1595-токенов--автоматически)
 [![19 Strategies](https://img.shields.io/badge/19-Routing_Strategies-0984E3?style=for-the-badge)](#-комбо--главная-фича)
@@ -61,7 +61,7 @@
 
 <br/>
 
-[**🚀 Быстрый старт**](#-быстрый-старт) • [**🎯 Комбо**](#-комбо--главная-фича) • [**🌐 Провайдеры**](#-327-ai-провайдеров--154-free-no-auth) • [**🔌 CLI и MCP**](#-полный-cli--a2a-и-mcp) • [**🗜️ Сжатие**](#️-экономьте-1595-токенов--автоматически) • [**🌍 Сайт**](https://omniroute.online)
+[**🚀 Быстрый старт**](#-быстрый-старт) • [**🎯 Комбо**](#-комбо--главная-фича) • [**🌐 Провайдеры**](#-329-ai-провайдеров--155-free-no-auth) • [**🔌 CLI и MCP**](#-полный-cli--a2a-и-mcp) • [**🗜️ Сжатие**](#️-экономьте-1595-токенов--автоматически) • [**🌍 Сайт**](https://omniroute.online)
 
 [💥 Обещание](#-обещание) • [🤔 Зачем](#-зачем-omniroute) • [🏆 Чем отличается](#-чем-omniroute-отличается) • [🤖 Совместимые CLI](#-совместимые-cli-и-агенты) • [🖥️ Где запускать](#️-где-запускается-omniroute--везде) • [🔒 Приватность](#-приватно-и-local-first) • [🎬 В деле](#-omniroute-в-деле) • [📚 Дальше](#-узнать-больше) • [📧 Поддержка](#-поддержка-и-сообщество)
 
@@ -75,7 +75,7 @@
 
 </div>
 
-> Собирать free-tier вручную — боль: десятки SDK, лимиты и непонятный остаток. OmniRoute показывает **154 записи каталога с меткой free/no-auth**; строго рассчитанный бюджет охватывает **43 пула / 522 бюджетные записи моделей** и отображается live на `/dashboard/free-tiers`.
+> Собирать free-tier вручную — боль: десятки SDK, лимиты и непонятный остаток. OmniRoute показывает **155 записи каталога с меткой free/no-auth**; строго рассчитанный бюджет охватывает **43 пула / 522 бюджетные записи моделей** и отображается live на `/dashboard/free-tiers`.
 >
 > - **~1.53B free tokens / мес** (steady) — в первый месяц до **~2.15B** с signup-кредитами.
 > - **Честная математика** — каждый shared pool считается **один раз**. «Если крутить rate limit 24/7» выйдет ~10B — такие цифры мы **не** публикуем.
@@ -92,13 +92,13 @@
 
 </div>
 
-> Один endpoint. **327 провайдеров.** Код не останавливается — OmniRoute сам выбирает самый дешёвый рабочий вариант.
+> Один endpoint. **329 провайдеров.** Код не останавливается — OmniRoute сам выбирает самый дешёвый рабочий вариант.
 
 <table>
   <tr>
     <td width="33%" valign="top"><b>🛡️ Устойчивый fallback</b><br/><sub>При сбое upstream или исчерпании квоты OmniRoute пробует следующий допустимый маршрут; доступность зависит от провайдеров.</sub></td>
     <td width="33%" valign="top"><b>💸 До 95% токенов</b><br/><sub>RTK + Caveman stacked: 15–95% на сжимаемом (в tool-heavy сессиях в среднем ~89%).</sub></td>
-    <td width="33%" valign="top"><b>🆓 Старт с $0</b><br/><sub>154 записей каталога помечены free/no-auth; условия и лимиты зависят от провайдера.</sub></td>
+    <td width="33%" valign="top"><b>🆓 Старт с $0</b><br/><sub>155 записей каталога помечены free/no-auth; условия и лимиты зависят от провайдера.</sub></td>
   </tr>
   <tr>
     <td width="33%" valign="top"><b>🔌 Все инструменты</b><br/><sub>26+ coding agents — Claude Code, Codex, Cursor, Cline, Copilot, Antigravity — один конфиг.</sub></td>
@@ -240,8 +240,8 @@ Combo: "always-on"                         strategy: priority
 
 | Фича                      | OmniRoute                              | Другие роутеры |
 | ------------------------- | -------------------------------------- | -------------- |
-| 🌐 Провайдеры             | **327**                                | 20–100         |
-| 🆓 Free/no-auth           | **154 записей каталога**               | 1–5            |
+| 🌐 Провайдеры             | **329**                                | 20–100         |
+| 🆓 Free/no-auth           | **155 записей каталога**               | 1–5            |
 | 🔀 Стратегии              | **19**                                 | 1–3            |
 | 🗜️ Сжатие токенов         | **RTK + Caveman (15–95%)**             | Нет / 20–40%   |
 | 🧰 MCP server             | **107 tools, 3 transports, 32 scopes** | Редко          |
@@ -304,11 +304,11 @@ Combo: "always-on"                         strategy: priority
 
 <div align="center">
 
-# 🌐 327 AI-провайдеров — 154 free/no-auth
+# 🌐 329 AI-провайдеров — 155 free/no-auth
 
 </div>
 
-> Самый полный каталог среди open-source роутеров: **327 провайдеров**, включая **154 записи free/no-auth**.
+> Самый полный каталог среди open-source роутеров: **329 провайдеров**, включая **155 записи free/no-auth**.
 
 ### 🆓 Documented free access — $0 where listed, без карты
 

@@ -67,7 +67,7 @@ test("classifyIpScope distinguishes loopback / private / public / unknown", () =
   assert.equal(ipUtils.classifyIpScope("10.1.2.3"), "private");
   assert.equal(ipUtils.classifyIpScope("192.168.0.5"), "private");
   assert.equal(ipUtils.classifyIpScope("172.16.4.4"), "private");
-  assert.equal(ipUtils.classifyIpScope("172.32.255.1"), "private");
+  assert.equal(ipUtils.classifyIpScope("172.31.255.1"), "private");
   assert.equal(ipUtils.classifyIpScope("fd00::1"), "private");
   assert.equal(ipUtils.classifyIpScope("203.0.113.50"), "public");
   assert.equal(ipUtils.classifyIpScope("8.8.8.8"), "public");

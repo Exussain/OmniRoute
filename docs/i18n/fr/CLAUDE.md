@@ -39,7 +39,7 @@ Pour la matrice de tests complète, voir `CONTRIBUTING.md` → "Exécution des t
 
 ## Projet en un coup d'œil
 
-**OmniRoute** — proxy/router AI unifié. Un point de terminaison, 327 fournisseurs LLM, retour automatique.
+**OmniRoute** — proxy/router AI unifié. Un point de terminaison, 329 fournisseurs LLM, retour automatique.
 
 | Couche            | Emplacement             | Objectif                                                                  |
 | ----------------- | ----------------------- | ------------------------------------------------------------------------- |

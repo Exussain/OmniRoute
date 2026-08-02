@@ -493,7 +493,7 @@ as `base.ts`, `index.ts`, `types.ts`, and `constants.ts`. Provider-facing execut
 (shared identity helper) and `index.ts` (registry).
 
 > Note: providers not listed here are served by `default.ts` using the generic
-> OpenAI-compatible executor. The full provider catalog (327 entries) lives in
+> OpenAI-compatible executor. The full provider catalog (329 entries) lives in
 > `src/shared/constants/providers.ts`.
 
 ### 4.3 `open-sse/translator/`

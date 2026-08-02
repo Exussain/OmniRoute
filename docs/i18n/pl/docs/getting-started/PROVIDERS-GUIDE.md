@@ -221,4 +221,4 @@ Przejdź do Providers → kliknij providera → kliknij **Disconnect**.
 - **[Auto-Combo Guide](./AUTO-COMBO-GUIDE.md)** — pozwól OmniRoute wybrać najlepsze AI za Ciebie
 - **[Free Tiers Guide](./FREE-TIERS-GUIDE.md)** — darmowe AI bez karty kredytowej
 - **[Troubleshooting](./TROUBLESHOOTING.md)** — rozwiązywanie typowych problemów
-- **[Provider Reference](../reference/PROVIDER_REFERENCE.md)** — pełna lista 327 wpisów providerów
+- **[Provider Reference](../reference/PROVIDER_REFERENCE.md)** — pełna lista 329 wpisów providerów

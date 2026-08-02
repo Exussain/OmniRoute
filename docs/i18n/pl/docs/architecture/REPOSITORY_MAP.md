@@ -243,7 +243,7 @@ src/
 
 | Moduł                            | Cel                                                                       |
 | -------------------------------- | ------------------------------------------------------------------------- |
-| `constants/providers.ts`         | **327 wpisów providerów** z walidacją Zod (źródło prawdy)                 |
+| `constants/providers.ts`         | **329 wpisów providerów** z walidacją Zod (źródło prawdy)                 |
 | `constants/cliTools.ts`          | Rejestr zewnętrznych narzędzi CLI                                         |
 | `constants/routingStrategies.ts` | **19 publicznych strategii routingu** z priorytetami                       |
 | `constants/publicApiRoutes.ts`   | Trasy wymagające auth Bearer (vs management)                              |
@@ -399,7 +399,7 @@ open-sse/
 | `CLI-TOOLS.md`              | Integracje zewnętrznych CLI + wewnętrzne CLI OmniRoute                               |
 | `I18N.md`                   | Architektura i18n, dodawanie języka, 30 locale                                       |
 | `UNINSTALL.md`              | Kroki czystej deinstalacji                                                           |
-| `PROVIDER_REFERENCE.md`     | **Auto-generowany** katalog 327 providerów (regen: `npm run gen:provider-reference`) |
+| `PROVIDER_REFERENCE.md`     | **Auto-generowany** katalog 329 providerów (regen: `npm run gen:provider-reference`) |
 
 ### Głębokie analizy podsystemów
 

@@ -39,7 +39,7 @@ For fuld testmatrix, se `CONTRIBUTING.md` → "Kørsel af Tests". For dyb arkite
 
 ## Projektet i Et Overblik
 
-**OmniRoute** — samlet AI proxy/router. Én endpoint, 327 LLM udbydere, auto-fallback.
+**OmniRoute** — samlet AI proxy/router. Én endpoint, 329 LLM udbydere, auto-fallback.
 
 | Lag            | Placering               | Formål                                                                    |
 | -------------- | ----------------------- | ------------------------------------------------------------------------- |

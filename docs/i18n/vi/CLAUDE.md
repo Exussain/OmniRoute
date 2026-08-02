@@ -39,7 +39,7 @@ npm run test:all
 
 ## Dự án tổng quan
 
-**OmniRoute** — proxy/router AI thống nhất. Một điểm cuối, 327 nhà cung cấp LLM, tự động chuyển tiếp.
+**OmniRoute** — proxy/router AI thống nhất. Một điểm cuối, 329 nhà cung cấp LLM, tự động chuyển tiếp.
 
 | Lớp           | Vị trí                  | Mục đích                                                                  |
 | ------------- | ----------------------- | ------------------------------------------------------------------------- |

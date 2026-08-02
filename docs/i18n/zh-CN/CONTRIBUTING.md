@@ -251,7 +251,7 @@ src/                        # TypeScript（.ts / .tsx）
 ├── mitm/                   # MITM 代理（证书、DNS、目标路由）
 ├── shared/
 │   ├── components/         # React 组件（.tsx）
-│   ├── constants/          # 服务商定义（327 个）、MCP 权限域、19 种路由策略
+│   ├── constants/          # 服务商定义（329 个）、MCP 权限域、19 种路由策略
 │   ├── utils/              # 熔断器、清洗器、认证辅助函数
 │   └── validation/         # Zod v4 Schema
 └── sse/                    # SSE 代理流水线

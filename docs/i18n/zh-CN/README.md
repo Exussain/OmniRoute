@@ -12,7 +12,7 @@
 
 # 🚀 OmniRoute — 免费 AI 网关
 
-### 面对服务商限额仍可继续编码。一个端点连接 **327 个服务商目录项**，其中 **154 个标记为免费／免验证**。
+### 面对服务商限额仍可继续编码。一个端点连接 **329 个服务商目录项**，其中 **155 个标记为免费／免验证**。
 
 **将 Claude Code、Codex、Cursor、Cline、Copilot 和 Antigravity 接入免费的 Claude / GPT / Gemini。自动容灾，无感切换。**
 
@@ -26,8 +26,8 @@
 
 <br/>
 
-[![327 AI Providers](https://img.shields.io/badge/327-AI_Providers-6C5CE7?style=for-the-badge)](#-327-ai-providers--154-freeno-auth)
-[![154 Free/No-Auth](https://img.shields.io/badge/154-Free%2FNo--Auth-00B894?style=for-the-badge)](#-327-ai-providers--154-freeno-auth)
+[![329 AI Providers](https://img.shields.io/badge/329-AI_Providers-6C5CE7?style=for-the-badge)](#-329-ai-providers--155-freeno-auth)
+[![155 Free/No-Auth](https://img.shields.io/badge/155-Free%2FNo--Auth-00B894?style=for-the-badge)](#-329-ai-providers--155-freeno-auth)
 [![1.53B Free Tokens/mo](https://img.shields.io/badge/1.53B-Free_Tokens%2Fmo-00B894?style=for-the-badge)](../../reference/FREE_TIERS.md)
 [![Token Savings](https://img.shields.io/badge/up_to_95%25-Token_Savings-E17055?style=for-the-badge)](#%EF%B8%8F-save-1595-tokens--automatically)
 [![19 Strategies](https://img.shields.io/badge/19-Routing_Strategies-0984E3?style=for-the-badge)](#-combos--the-flagship)
@@ -66,7 +66,7 @@
 
 <br/>
 
-[**🚀 快速开始**](#-quick-start) • [**🎯 Combo**](#-combos--the-flagship) • [**🌐 服务商**](#-327-ai-providers--154-freeno-auth) • [**🔌 CLI 与 MCP**](#-full-cli--a2a--mcp) • [**🗜️ 压缩**](#%EF%B8%8F-save-1595-tokens--automatically) • [**🌍 官网**](https://omniroute.online)
+[**🚀 快速开始**](#-quick-start) • [**🎯 Combo**](#-combos--the-flagship) • [**🌐 服务商**](#-329-ai-providers--155-freeno-auth) • [**🔌 CLI 与 MCP**](#-full-cli--a2a--mcp) • [**🗜️ 压缩**](#%EF%B8%8F-save-1595-tokens--automatically) • [**🌍 官网**](https://omniroute.online)
 
 [💥 我们的承诺](#-the-promise) • [🤔 为什么选择 OmniRoute](#-why-omniroute) • [🏆 核心优势](#-what-sets-omniroute-apart) • [🤖 兼容的编程工具](#-compatible-clis--coding-agents) • [🖥️ 运行平台](#%EF%B8%8F-where-omniroute-runs--anywhere) • [🔒 隐私优先](#-private--local-first) • [🎬 实机演示](#-omniroute-in-action) • [📚 探索更多](#-explore-more) • [📧 支持](#-support--community)
 
@@ -125,7 +125,7 @@
 
 </div>
 
-> 手动凑各家免费额度有多痛苦 — 数十套 SDK、数十个速率限制，根本搞不清到底还剩多少。OmniRoute 当前公开 **154 个标记为免费／免验证的目录项**；其中严格量化的预算覆盖 **43 个服务商池 / 522 个模型预算项**，并在控制台实时展示 (`/dashboard/free-tiers`)。
+> 手动凑各家免费额度有多痛苦 — 数十套 SDK、数十个速率限制，根本搞不清到底还剩多少。OmniRoute 当前公开 **155 个标记为免费／免验证的目录项**；其中严格量化的预算覆盖 **43 个服务商池 / 522 个模型预算项**，并在控制台实时展示 (`/dashboard/free-tiers`)。
 >
 > - **约 1.53B 免费 Token / 月**（循环值） — 计入一次性注册奖励后，首月约 **2.15B**。
 > - **去重统计，诚实透明** — 每个共享免费池只计**一次**，标题数字不被速率上限注水。若以全天候速率上限累算会得出 ~10B 的虚假数据，我们从不发布此类数字。
@@ -144,13 +144,13 @@
 
 </div>
 
-> 一个端点。**327 个服务商目录项。** OmniRoute 尝试选择最便宜且符合条件的可用路由。
+> 一个端点。**329 个服务商目录项。** OmniRoute 尝试选择最便宜且符合条件的可用路由。
 
 <table>
   <tr>
     <td width="33%" valign="top"><b>🛡️ 弹性回退</b><br/><sub>上游或配额失败时尝试下一条合格路由；实际可用性取决于服务商与候选路由。</sub></td>
     <td width="33%" valign="top"><b>💸 Token 节省高达 95%</b><br/><sub>RTK + Caveman 级联压缩可削减 15–95% 的可压缩 Token（工具密集型会话平均约 89%）。</sub></td>
-    <td width="33%" valign="top"><b>🆓 零元起步</b><br/><sub>154 个目录项标记为免费／免验证；配额、账户、地区、KYC 与条款因服务商而异。</sub></td>
+    <td width="33%" valign="top"><b>🆓 零元起步</b><br/><sub>155 个目录项标记为免费／免验证；配额、账户、地区、KYC 与条款因服务商而异。</sub></td>
   </tr>
   <tr>
     <td width="33%" valign="top"><b>🔌 所有工具一网打尽</b><br/><sub>16+ 款编程助手 — Claude Code、Codex、Cursor、Cline、Copilot、Antigravity — 一套配置全搞定。</sub></td>
@@ -274,8 +274,8 @@ Combo: "always-on"                         策略: priority
 
 | 功能                           | OmniRoute                                                        | 其他路由方案 |
 | ------------------------------ | ---------------------------------------------------------------- | ------------ |
-| 🌐 服务商数量                  | **327 个目录项**                                                 | 20–100       |
-| 🆓 免费／免验证                | **154 个目录项**                                                 | 1–5          |
+| 🌐 服务商数量                  | **329 个目录项**                                                 | 20–100       |
+| 🆓 免费／免验证                | **155 个目录项**                                                 | 1–5          |
 | 🔀 路由策略                    | **19 种**（优先级、加权、成本优先、缓存优化、上下文中继、融合…） | 1–3          |
 | 🗜️ Token 压缩                  | **RTK + Caveman 级联（15–95%）**                                 | 无 / 20–40%  |
 | 🧰 内置 MCP 服务器             | **107 个工具、3 种传输、32 个权限域**                            | 少见         |
@@ -308,7 +308,7 @@ Combo: "always-on"                         策略: priority
 - **💸 全方位成本遥测** — 每个端点上的 `X-OmniRoute-*` 成本/用量响应头（含媒体端点）、非 Token 成本引擎、缓存命中 `X-OmniRoute-Cost-Saved` 响应头，以及每密钥美元消费配额。→ [API 参考](../../reference/API_REFERENCE.md)
 - **🧠 完全可控的记忆系统** — 可选 int8 向量量化（Qdrant + sqlite-vec）、默认关闭记忆、每请求 `x-omniroute-no-memory` 响应头。→ [记忆系统](../../frameworks/MEMORY.md)
 - **🛡️ 安全** — 所有 LLM 路由的提示注入防护（后台有红队测试套件），外加免费的 DuckDuckGo 兜底网页搜索。→ [安全护栏](../../security/GUARDRAILS.md)
-- **🤝 更多服务商与代理** — Cursor Cloud Agent（第四云代理）、CodeBuddy CN（`copilot.tencent.com`）、Google Flow 视频生成服务商、新网关 **DGrid** 和 **Pioneer AI**（Fastino Labs）、入站 **xAI Grok** 翻译器加 **Grok Build (xAI)**（含 OAuth 导入 Token 流程）、GitHub Copilot 服务商的 GPT-4 / GPT-4o-mini、多模型 **Factory Droid**、**ZenMux Free**（会话 Cookie 免费层）、**阿里云 DashScope** 文生视频（`wan2.7-t2v`）、刷新至 327 个服务商目录项、Vertex AI 媒体生成（语音/转录/音乐/视频），以及一键从 CLIProxyAPI 导入账号（`~/.cli-proxy-api/`）。→ [服务商](../../reference/PROVIDER_REFERENCE.md)
+- **🤝 更多服务商与代理** — Cursor Cloud Agent（第四云代理）、CodeBuddy CN（`copilot.tencent.com`）、Google Flow 视频生成服务商、新网关 **DGrid** 和 **Pioneer AI**（Fastino Labs）、入站 **xAI Grok** 翻译器加 **Grok Build (xAI)**（含 OAuth 导入 Token 流程）、GitHub Copilot 服务商的 GPT-4 / GPT-4o-mini、多模型 **Factory Droid**、**ZenMux Free**（会话 Cookie 免费层）、**阿里云 DashScope** 文生视频（`wan2.7-t2v`）、刷新至 329 个服务商目录项、Vertex AI 媒体生成（语音/转录/音乐/视频），以及一键从 CLIProxyAPI 导入账号（`~/.cli-proxy-api/`）。→ [服务商](../../reference/PROVIDER_REFERENCE.md)
 - **⚡ 本地性能与基础设施** — 一键本地 Redis 启动器（`omniroute redis up`，含控制台 Redis 面板）、一键 **Cloudflare Workers** 和 **Deno Deploy** 中继部署器（接入代理池），以及可选 Bifrost Go 边车将最热中继路径卸载至 Go 侧（`BIFROST_BASE_URL`，超时自动回退 TypeScript 路径）— 现支持中继后端选择器（`OMNIROUTE_RELAY_BACKEND=ts|bifrost|auto`），`/v1/relay` 端点保持对外稳定接口的同时内部自动择取最快后端。→ [环境配置](../../reference/ENVIRONMENT.md)
 
 <br/>
@@ -351,11 +351,11 @@ Combo: "always-on"                         策略: priority
 
 <div align="center">
 
-# 🌐 327 个 AI 服务商目录项 — 154 个免费／免验证
+# 🌐 329 个 AI 服务商目录项 — 155 个免费／免验证
 
 </div>
 
-> 开源路由方案中最完整的服务商目录：**327 个服务商目录项**，其中 **154 个标记为免费／免验证**。该标记不代表永久或无限使用；模型、配额、账户、地区、KYC、隐私条款与服务商政策均可能变化。
+> 开源路由方案中最完整的服务商目录：**329 个服务商目录项**，其中 **155 个标记为免费／免验证**。该标记不代表永久或无限使用；模型、配额、账户、地区、KYC、隐私条款与服务商政策均可能变化。
 
 <div align="center">
 
@@ -814,7 +814,7 @@ podman compose --profile base up -d --build
 **OmniRoute 会向我收费吗？** 不会 — 它是运行在你本机的免费开源软件。你只直接向付费服务商付款。OmniRoute 不含任何计费系统。
 **免费服务商真的无限使用吗？** 不能这样保证。部分服务商没有公布 Token 上限，但仍可能有速率、并发、账户、模型、地区、KYC、隐私或服务条款限制；LongCat 当前记录的是一次性 10M 注册额度，而非循环无限额度。请以 [`FREE_TIERS.md`](../../reference/FREE_TIERS.md) 和上游条款为准。
 **压缩会影响输出质量吗？** 不会 — 它仅压缩**输入**端；代码、URL、JSON 永远保留不损。
-**AI 服务被封锁的地区能用吗？** 三级代理与 1proxy 可帮助连接受支持的上游，但并不保证每个地区、账户或全部 327 个目录项都可用。
+**AI 服务被封锁的地区能用吗？** 三级代理与 1proxy 可帮助连接受支持的上游，但并不保证每个地区、账户或全部 329 个目录项都可用。
 
 📖 [用户指南](../../guides/USER_GUIDE.md) · [API 参考](../../reference/API_REFERENCE.md) · [环境配置](../../reference/ENVIRONMENT.md)
 
