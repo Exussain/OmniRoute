@@ -1336,14 +1336,9 @@ export const oneproxyStatsTool: McpToolDefinition<
   sourceEndpoints: ["/api/settings/oneproxy"],
 };
 
-// ============ Agent Skills Tools ============
-
 // --- omniroute_agent_skills_list ---
 export const agentSkillsListInput = z.object({
-  category: z
-    .enum(["api", "cli", "config"])
-    .optional()
-    .describe("Filter by category: 'api', 'cli', or 'config'"),
+  category: z.enum(["api", "cli", "config"]).optional().describe("Filter: api, cli, or config"),
   area: z.string().optional().describe("Filter by area (e.g. 'providers', 'models', 'cli-serve')"),
 });
 
@@ -1431,7 +1426,6 @@ export const agentSkillsGetTool: McpToolDefinition<
   sourceEndpoints: ["/api/agent-skills/:id", "/api/agent-skills/:id/raw"],
 };
 
-// --- omniroute_agent_skills_coverage ---
 export const agentSkillsCoverageInput = z.object({}).describe("No parameters required");
 
 export const agentSkillsCoverageOutput = z.object({
