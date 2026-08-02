@@ -114,7 +114,8 @@ export const APIKEY_PROVIDERS_INFERENCE = {
     textIcon: "SF",
     website: "https://cloud.siliconflow.com",
     hasFree: true,
-    freeNote: "$1 free credits plus permanently free models after identity verification",
+    freeNote:
+      "$1 free credits plus currently listed $0 models after identity verification; availability and limits may change",
   },
   hyperbolic: {
     id: "hyperbolic",

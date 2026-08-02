@@ -3,15 +3,17 @@
 ## Project
 
 Unified AI proxy/router — route any LLM through one endpoint. Multi-provider support
-with **290 provider entries** (OpenAI, Anthropic, Gemini, DeepSeek, Groq, xAI, Mistral, Fireworks,
+with **327 provider entries** (OpenAI, Anthropic, Gemini, DeepSeek, Groq, xAI, Mistral, Fireworks,
 Cohere, NVIDIA, Cerebras, Pollinations, Puter, Cloudflare AI, HuggingFace, DeepInfra,
 SambaNova, Meta Llama API, Moonshot AI, AI21 Labs, Databricks, Snowflake, and many more)
-with **MCP Server** (104 tools), **A2A v0.3 Protocol**, and **Electron desktop app**.
+with **MCP Server** (107 tools), **A2A v0.3 Protocol**, and **Electron desktop app**.
 
-> **Live counts (v3.8.49)**: providers 290 · MCP tools 104 · MCP scopes 30 · A2A skills 6 ·
-> open-sse services 134 · routing strategies 17 · auto-combo scoring factors 12 ·
-> DB modules 95 · DB migrations 110 · base tables 17 · search providers 11 ·
-> i18n locales 42. **Refresh with `npm run check:docs-all`.**
+> **Live counts (v3.8.50)**: providers 327 · executor implementations 89 · OAuth catalog entries 23 ·
+> OAuth modules 21 · MCP tools 107 · MCP scopes 32 · A2A skills 6 · cloud agents 4 ·
+> open-sse services 178 · routing strategies 19 · auto-combo scoring factors 13 ·
+> DB modules 110 · DB migrations 130 · base tables 17 · search providers 12 ·
+> i18n locales 43. **Refresh with `npm run check:docs-all`; regenerate the provider catalog
+> first with `npm run gen:provider-reference`.**
 
 ## Doc Accuracy Discipline (read before writing any doc)
 
@@ -49,7 +51,7 @@ codebase. Run it locally before pushing docs; it runs in CI via `npm run check:d
 - **Database**: better-sqlite3 (SQLite) — `DATA_DIR` configurable, default `~/.omniroute/`
 - **Streaming**: SSE via `open-sse` internal workspace package
 - **Styling**: Tailwind CSS v4
-- **i18n**: next-intl with 42 locales (`src/i18n/messages/`) — refresh with `ls src/i18n/messages/*.json | wc -l`
+- **i18n**: next-intl with 43 locales (`src/i18n/messages/`) — refresh with `ls src/i18n/messages/*.json | wc -l`
 - **Desktop**: Electron (cross-platform: Windows, macOS, Linux)
 - **Schemas**: Zod v4 for all API / MCP input validation
 
@@ -178,7 +180,7 @@ Always run `prettier --write` on changed files.
 
 ### Data Layer (`src/lib/db/`)
 
-All persistence uses SQLite through **95 domain-specific modules** in `src/lib/db/`. Top modules:
+All persistence uses SQLite through **110 top-level modules** in `src/lib/db/`. Top modules:
 
 - Core: `core.ts`, `migrationRunner.ts`, `encryption.ts`, `stateReset.ts`
 - Providers / catalog: `providers.ts`, `models.ts`, `providerLimits.ts`, `compressionAnalytics.ts`
@@ -188,8 +190,8 @@ All persistence uses SQLite through **95 domain-specific modules** in `src/lib/d
 - Storage: `backup.ts`, `cleanup.ts`, `jsonMigration.ts`, `healthCheck.ts`, `databaseSettings.ts`
 - Extension modules: `evals.ts`, `webhooks.ts`, `reasoningCache.ts`, `readCache.ts`, `tierConfig.ts`, `compressionCombos.ts`, `compressionScheduler.ts`, `batches.ts`, `files.ts`, `syncTokens.ts`, `proxies.ts`, `oneproxy.ts`, `upstreamProxy.ts`, `versionManager.ts`, `cliToolState.ts`, `prompts.ts`, `detailedLogs.ts`, `contextHandoffs.ts`, `compression.ts`, `stats.ts`
 
-Live count: `ls src/lib/db/*.ts | wc -l` (currently 95). Drift detection: `npm run check:docs-counts`.
-Schema migrations live in `db/migrations/` (**110 files** as of v3.8.43) and run via `migrationRunner.ts`.
+Live count: `ls src/lib/db/*.ts | wc -l` (currently 110). Drift detection: `npm run check:docs-counts`.
+Schema migrations live in `src/lib/db/migrations/` (**130 files** as of v3.8.50) and run via `migrationRunner.ts`.
 `src/lib/localDb.ts` is a **re-export layer only** — never add logic there.
 
 #### DB Internals
@@ -198,7 +200,7 @@ Schema migrations live in `db/migrations/` (**110 files** as of v3.8.43) and run
   journaling. `SCHEMA_SQL` defines **17 base tables** (verify with `grep -c "CREATE TABLE" src/lib/db/core.ts` minus 1 for the bookkeeping `_omniroute_migrations` table). Helpers: `rowToCamel`, `encryptConnectionFields`.
 - **`migrationRunner.ts`**: Applies versioned SQL files from `db/migrations/` inside transactions.
   Tracks applied migrations in `_omniroute_migrations` table.
-- **Migrations**: 110 files (`001_initial_schema.sql` → `110_*.sql`).
+- **Migrations**: 130 files (`001_initial_schema.sql` → `133_*.sql`, with intentionally unused version numbers).
   Each migration is idempotent and runs in a transaction. Live count: `ls src/lib/db/migrations/*.sql | wc -l`.
 - **Domain modules** import `getDbInstance()` from `core.ts` for all CRUD operations.
   Each module owns a specific table/set of tables (e.g., `providers.ts` → `provider_connections`,
@@ -267,9 +269,9 @@ Zod schemas, and unit tests aligned when editing.
 
 ### Provider Categories
 
-- **Free** (2): Qoder AI, Kiro AI
-- **OAuth** (13): Claude Code, Antigravity, Codex, GitHub Copilot, Cursor, Kimi Coding, Kilo Code, Cline, Kiro, Qoder, Gemini, Windsurf (v3.8), GitLab Duo (v3.8)
-- **API Key** (120+): OpenAI, Anthropic, Gemini, DeepSeek, Groq, xAI, Mistral, Perplexity,
+- **No-auth** (9): credential-less provider endpoints in `NOAUTH_PROVIDERS`
+- **OAuth** (23): sign-in providers in `OAUTH_PROVIDERS`, including Claude Code, Antigravity, Codex, GitHub Copilot, Cursor, Kimi Coding, Kiro, Qoder, Gemini, Windsurf, GitLab Duo, Zed, Trae, and others
+- **API Key** (223): OpenAI, Anthropic, Gemini, DeepSeek, Groq, xAI, Mistral, Perplexity,
   Together, Fireworks, Cerebras, Cohere, NVIDIA, Nebius, SiliconFlow, Hyperbolic,
   HuggingFace, OpenRouter, Vertex AI, Cloudflare AI, Scaleway, AI/ML API, Pollinations,
   Puter, Longcat, Alibaba, Kimi, Minimax, Blackbox, Synthetic, Kilo Gateway,
@@ -283,7 +285,7 @@ Zod schemas, and unit tests aligned when editing.
   Bytez, Heroku AI, Databricks, Snowflake Cortex, GigaChat (Sber), CrofAI,
   AgentRouter, ChatGPT Web, Baidu Qianfan, AWS Polly, RunwayML, GitLab Duo,
   Amazon Q, Empower, Poe, and many more.
-- **Self-Hosted** (8+): LM Studio, vLLM, Lemonade, Llamafile, Triton, Docker Model Runner, Xinference, Oobabooga
+- **Self-Hosted** (10): Ollama, LM Studio, vLLM, Lemonade, Llamafile, llama.cpp, Triton, Docker Model Runner, Xinference, Oobabooga
 - **Custom**: OpenAI-compatible (`openai-compatible-*`) and Anthropic-compatible (`anthropic-compatible-*`) prefixes
 
 Providers are registered in `src/shared/constants/providers.ts` with Zod validation at module load.
@@ -336,7 +338,7 @@ Includes request/response translators with helpers for image handling.
 
 ### Services (`open-sse/services/`)
 
-134 service modules in `open-sse/services/` (top-level only; more including sub-dirs like `autoCombo/` and `compression/`). Refresh: `ls open-sse/services/*.ts | wc -l`. Key modules:
+178 service modules in `open-sse/services/` (top-level only; more including sub-dirs like `autoCombo/` and `compression/`). Refresh: `ls open-sse/services/*.ts | wc -l`. Key modules:
 `combo.ts` (routing engine), `usage.ts`, `tokenRefresh.ts`,
 `rateLimitManager.ts`, `accountFallback.ts`, `sessionManager.ts`, `wildcardRouter.ts`,
 `autoCombo/`, `intentClassifier.ts`, `taskAwareRouter.ts`, `thinkingBudget.ts`,
@@ -378,8 +380,10 @@ Modular prompt compression that runs proactively before the existing reactive co
   and iterates through targets in order until one succeeds or all fail.
 - **`resolveComboTargets()`**: Expands a combo configuration into an ordered array of
   `ResolvedComboTarget[]`, each specifying provider + model + account + credentials.
-- **Strategies** (17): priority, weighted, fill-first, round-robin, P2C, random, least-used, reset-aware (v3.8),
-  reset-window, cost-optimized, strict-random, auto, lkgp, context-optimized, context-relay, headroom, fusion. Source: `ROUTING_STRATEGY_VALUES` in `src/shared/constants/routingStrategies.ts`.
+- **Strategies** (19): priority, weighted, fill-first, round-robin, P2C, random,
+  least-used, reset-aware, reset-window, cost-optimized, strict-random, auto, lkgp,
+  context-optimized, cache-optimized, context-relay, headroom, fusion, pipeline. Source:
+  `ROUTING_STRATEGY_VALUES` in `src/shared/constants/routingStrategies.ts`.
 - Each target calls **`handleSingleModel()`** which wraps `handleChatCore()` with
   per-target error handling and circuit breaker checks.
 
@@ -391,7 +395,7 @@ Policy engine modules: `policyEngine.ts`, `comboResolver.ts`, `costRules.ts`,
 
 ### MCP Server (`open-sse/mcp-server/`)
 
-**104 tools** total (`TOTAL_MCP_TOOL_COUNT`, `open-sse/mcp-server/server.ts`): a 42-entry base registry (`MCP_TOOLS` in `schemas/tools.ts`, bundling the core / cache / compression / 1proxy / advanced tools) **plus** standalone module sets — memory (3), skill (4), agentSkill (3), pool (6), gamification (8), plugin (8), notion (6), obsidian (22). 3 transports (stdio / SSE / Streamable HTTP). Scoped auth (31 scopes — see `OMNIROUTE_MCP_SCOPES`), Zod schemas. See [`docs/frameworks/MCP-SERVER.md`](docs/frameworks/MCP-SERVER.md).
+**107 tools** total (`TOTAL_MCP_TOOL_COUNT`, `open-sse/mcp-server/server.ts`): a 42-entry base registry (`MCP_TOOLS` in `schemas/tools.ts`, bundling the core / cache / compression / 1proxy / advanced tools) **plus** standalone module sets — memory (3), skill (4), agentSkill (3), pool (6), gamification (8), plugin (8), notion (6), obsidian (22). 3 transports (stdio / SSE / Streamable HTTP). Scoped auth (32 scopes — see `OMNIROUTE_MCP_SCOPES`), Zod schemas. See [`docs/frameworks/MCP-SERVER.md`](docs/frameworks/MCP-SERVER.md).
 
 **Core tools** (20): get_health, list_combos, get_combo_metrics, switch_combo, check_quota,
 route_request, cost_report, list_models_catalog, web_search, simulate_route, set_budget_guard,
@@ -493,7 +497,7 @@ Hot-reloadable guardrails framework (3 built-in: pii-masker, prompt-injection, v
 
 ### Cloud Agents (`src/lib/cloudAgent/`)
 
-`CloudAgentBase` abstract class + 3 agents (codex-cloud, devin, jules). Tasks persisted in `cloud_agent_tasks`; management auth required. See [`docs/frameworks/CLOUD_AGENT.md`](docs/frameworks/CLOUD_AGENT.md).
+`CloudAgentBase` abstract class + 4 agents (codex-cloud, cursor-cloud, devin, jules). Tasks persisted in `cloud_agent_tasks`; management auth required. See [`docs/frameworks/CLOUD_AGENT.md`](docs/frameworks/CLOUD_AGENT.md).
 
 ### Evals (`src/lib/evals/`)
 
@@ -539,7 +543,7 @@ For any non-trivial change, read the matching deep-dive first:
 | Repo navigation                            | [`docs/architecture/REPOSITORY_MAP.md`](docs/architecture/REPOSITORY_MAP.md)                                    |
 | Architecture                               | [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md)                                        |
 | Engineering reference                      | [`docs/architecture/CODEBASE_DOCUMENTATION.md`](docs/architecture/CODEBASE_DOCUMENTATION.md)                    |
-| Auto-Combo (12-factor, 18 strategies)      | [`docs/routing/AUTO-COMBO.md`](docs/routing/AUTO-COMBO.md)                                                      |
+| Auto-Combo (13-factor, 19 strategies)      | [`docs/routing/AUTO-COMBO.md`](docs/routing/AUTO-COMBO.md)                                                      |
 | Resilience (3 layers)                      | [`docs/architecture/RESILIENCE_GUIDE.md`](docs/architecture/RESILIENCE_GUIDE.md)                                |
 | Skills                                     | [`docs/frameworks/SKILLS.md`](docs/frameworks/SKILLS.md)                                                        |
 | Memory                                     | [`docs/frameworks/MEMORY.md`](docs/frameworks/MEMORY.md)                                                        |
