@@ -411,7 +411,7 @@ export default function ModelRow({
                 : testStatus === "ok"
                   ? "OK"
                   : testStatus === "error"
-                    ? "Error"
+                    ? providerText(t, "errorShort", "Error")
                     : t("testModel")
             }
           >

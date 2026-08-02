@@ -190,7 +190,7 @@ export default function PassthroughModelRow({
                   : testStatus === "ok"
                     ? "OK"
                     : testStatus === "error"
-                      ? "Error"
+                      ? providerText(t, "errorShort", "Error")
                       : t("testModel")
               }
             >
