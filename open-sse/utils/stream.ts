@@ -1582,12 +1582,13 @@ export function createSSEStream(options: StreamOptions = {}) {
                     parsed,
                     passthroughResponsesOutputItems
                   );
+                  const usageNormalized = normalizeUsage(parsed);
                   if (
                     stripped ||
                     backfilled ||
                     textualToolCallBackfilled ||
                     responsesIdsNormalized ||
-                    normalizeUsage(parsed)
+                    usageNormalized
                   ) {
                     output = `data: ${JSON.stringify(parsed)}\n\n`;
                     injectedUsage = true;
@@ -2282,7 +2283,9 @@ export function createSSEStream(options: StreamOptions = {}) {
                   const isResponses = flushedType.startsWith("response.");
                   const isClaude = isClaudeEventPayload(flushedParsed);
                   if (isResponses) {
-                    if (normalizeResponsesSseIds(flushedParsed) || normalizeUsage(flushedParsed)) {
+                    const idsNormalized = normalizeResponsesSseIds(flushedParsed);
+                    const usageNormalized = normalizeUsage(flushedParsed);
+                    if (idsNormalized || usageNormalized) {
                       output = `data: ${JSON.stringify(flushedParsed)}\n\n`;
                     }
                   } else if (!isClaude) {

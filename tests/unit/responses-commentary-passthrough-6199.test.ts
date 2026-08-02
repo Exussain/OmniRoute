@@ -228,6 +228,42 @@ test("response.completed always includes total_tokens for strict Codex clients",
   });
 });
 
+test("response.completed normalizes usage when lifecycle echoes are stripped", async () => {
+  const output = await readTransformed(
+    [
+      sse({
+        type: "response.completed",
+        response: {
+          id: "resp_agentrouter_live_shape",
+          status: "completed",
+          instructions: "echoed upstream instructions",
+          tools: [{ type: "function", name: "echoed_tool" }],
+          output: [],
+          usage: {
+            prompt_tokens: 91,
+            completion_tokens: 0,
+            input_tokens: 91,
+            output_tokens: 0,
+            cache_read_input_tokens: 0,
+            cache_creation_input_tokens: 0,
+          },
+        },
+      }),
+    ],
+    PASSTHROUGH_RESPONSES_OPTIONS
+  );
+
+  const completedLine = output
+    .split(/\r?\n/)
+    .find((line) => line.startsWith("data:") && line.includes('"response.completed"'));
+  assert.ok(completedLine, "the terminal Responses event must be forwarded");
+
+  const completed = JSON.parse(completedLine.slice(5).trim());
+  assert.equal("instructions" in completed.response, false);
+  assert.equal("tools" in completed.response, false);
+  assert.equal(completed.response.usage.total_tokens, 91);
+});
+
 test("response.completed synthesizes zero usage when upstream omits usage", async () => {
   const completed = {
     type: "response.completed",
@@ -246,6 +282,34 @@ test("response.completed synthesizes zero usage when upstream omits usage", asyn
     input_tokens: 0,
     output_tokens: 0,
     total_tokens: 0,
+  });
+});
+
+test("buffered response.completed normalizes IDs and usage independently", async () => {
+  const completed = {
+    type: "response.completed",
+    response: {
+      id: 12345,
+      status: "completed",
+      output: [],
+      usage: { input_tokens: 12, output_tokens: 3 },
+    },
+  };
+  const output = await readTransformed(
+    [`data: ${JSON.stringify(completed)}`],
+    PASSTHROUGH_RESPONSES_OPTIONS
+  );
+  const completedLine = output
+    .split(/\r?\n/)
+    .find((line) => line.startsWith("data:") && line.includes('"response.completed"'));
+  assert.ok(completedLine, "the buffered terminal Responses event must be forwarded");
+
+  const forwarded = JSON.parse(completedLine.slice(5).trim());
+  assert.equal(forwarded.response.id, "12345");
+  assert.deepEqual(forwarded.response.usage, {
+    input_tokens: 12,
+    output_tokens: 3,
+    total_tokens: 15,
   });
 });
 
