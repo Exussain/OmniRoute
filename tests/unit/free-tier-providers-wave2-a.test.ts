@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { literouterProvider } from "../../open-sse/config/providers/registry/literouter/index.ts";
-import { meganovaProvider } from "../../open-sse/config/providers/registry/meganova/index.ts";
+import { meganovaAiProvider } from "../../open-sse/config/providers/registry/meganova-ai/index.ts";
 import { mnnAiProvider } from "../../open-sse/config/providers/registry/mnn-ai/index.ts";
 import type { RegistryEntry } from "../../open-sse/config/providers/shared.ts";
 
@@ -25,8 +25,8 @@ const providers: Array<{
     modelsUrl: "https://api.mnnai.ru/v1/models",
   },
   {
-    entry: meganovaProvider,
-    id: "meganova",
+    entry: meganovaAiProvider,
+    id: "meganova-ai",
     chatUrl: "https://api.meganova.ai/v1/chat/completions",
     modelsUrl: "https://api.meganova.ai/v1/models",
   },
