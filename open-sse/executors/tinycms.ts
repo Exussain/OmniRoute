@@ -99,7 +99,9 @@ export class TinyCmsExecutor extends BaseExecutor {
         "x-secure-nonce": nonceJs,
         "x-secure-version": securePayload.v,
         "x-session-id": nonceJs,
-        userid: "PvCl9Cx5IgLcQTaVuK_Dw",
+        // Use configurable userid from providerSpecificData if present, otherwise generate one
+        // from the UUID (the server uses it for request attribution, not auth).
+        userid: String(credentials?.providerSpecificData?.userid ?? "") || uuid.slice(0, 20),
         Accept: bodyObj.stream ? "text/event-stream" : "application/json",
         "Content-Type": "application/json",
         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",

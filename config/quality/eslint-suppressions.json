@@ -2404,5 +2404,15 @@
     "@typescript-eslint/no-explicit-any": {
       "count": 5
     }
+  },
+  "open-sse/executors/tinycms.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 3
+    }
+  },
+  "open-sse/executors/tinycmsSigner.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 5
+    }
   }
 }
