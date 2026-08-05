@@ -45,7 +45,7 @@ Capacidades principais:
 - Sanitização de resposta para compatibilidade estrita com o SDK da OpenAI
 - Normalização de papéis (desenvolvedor→sistema, sistema→usuário) para compatibilidade entre provedores
 - Conversão de saída estruturada (json_schema → Gemini responseSchema)
-- Persistência local para provedores, chaves, aliases, combos, configurações, preços (110 módulos de DB de nível superior)
+- Persistência local para provedores, chaves, aliases, combos, configurações, preços (111 módulos de DB de nível superior)
 - Rastreamento de uso/custo e registro de solicitações
 - Sincronização em nuvem opcional para sincronização multi-dispositivo/estado
 - Lista de permissão/bloqueio de IP para controle de acesso à API

@@ -49,7 +49,7 @@ Kwa matrix kamili ya majaribio, angalia `CONTRIBUTING.md` → "Kuendesha Majarib
 | Translators   | `open-sse/translator/`  | Mabadiliko ya muundo (OpenAI↔Claude↔Gemini)                               |
 | Transformer   | `open-sse/transformer/` | API za majibu ↔ Kukamilisha Chat                                          |
 | Services      | `open-sse/services/`    | Uelekeo wa combo, mipaka ya viwango, caching, nk                          |
-| Database      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Database      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domain/Policy | `src/domain/`           | Injini ya sera, sheria za gharama, mantiki ya fallback                    |
 | MCP Server    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Server    | `src/lib/a2a/`          | Itifaki ya wakala ya JSON-RPC 2.0                                         |

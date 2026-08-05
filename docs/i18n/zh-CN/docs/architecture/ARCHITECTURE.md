@@ -39,7 +39,7 @@ OmniRoute 是基于 Next.js 构建的本地 AI 路由网关和控制台。
 - 响应净化，确保与 OpenAI SDK 严格兼容
 - 角色归一化（developer→system, system→user），跨服务商兼容
 - 结构化输出转换（json_schema → Gemini responseSchema）
-- 服务商、API Key、别名、Combo、设置、定价的本地持久化（110 个顶层 DB 模块）
+- 服务商、API Key、别名、Combo、设置、定价的本地持久化（111 个顶层 DB 模块）
 - 用量/成本追踪和请求日志
 - 可选的云端同步，支持多设备/状态同步
 - IP 白名单/黑名单，控制 API 访问

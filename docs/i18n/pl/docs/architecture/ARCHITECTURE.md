@@ -37,7 +37,7 @@ Główne możliwości:
 - Sanityzacja odpowiedzi pod ścisłą kompatybilność z OpenAI SDK
 - Normalizacja ról (developer→system, system→user) dla kompatybilności między dostawcami
 - Konwersja structured output (json_schema → Gemini responseSchema)
-- Lokalna persystencja dostawców, kluczy, aliasów, combo, ustawień, cennika (110 modułów DB najwyższego poziomu)
+- Lokalna persystencja dostawców, kluczy, aliasów, combo, ustawień, cennika (111 modułów DB najwyższego poziomu)
 - Śledzenie użycia/kosztów i logowanie żądań
 - Opcjonalna synchronizacja chmurowa dla wielu urządzeń/stanu
 - Allowlista/blocklista IP do kontroli dostępu do API

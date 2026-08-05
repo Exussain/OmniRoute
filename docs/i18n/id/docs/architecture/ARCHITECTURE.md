@@ -33,7 +33,7 @@ Kemampuan inti:
 - Sanitasi respons untuk kompatibilitas ketat OpenAI SDK
 - Normalisasi peran (developer→system, system→user) untuk kompatibilitas lintas penyedia
 - Konversi output terstruktur (json_schema → Gemini responseSchema)
-- Persistensi lokal untuk penyedia, kunci, alias, combo, pengaturan, harga (110 modul DB tingkat atas)
+- Persistensi lokal untuk penyedia, kunci, alias, combo, pengaturan, harga (111 modul DB tingkat atas)
 - Pelacakan penggunaan/biaya dan pencatatan permintaan
 - Sinkronisasi cloud opsional untuk sinkronisasi multi-perangkat/status
 - Daftar izin/blokir IP untuk kontrol akses API

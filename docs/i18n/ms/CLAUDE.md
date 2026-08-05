@@ -49,7 +49,7 @@ Untuk matriks ujian penuh, lihat `CONTRIBUTING.md` → "Menjalankan Ujian". Untu
 | Translators   | `open-sse/translator/`  | Penukaran format (OpenAI↔Claude↔Gemini)                                   |
 | Transformer   | `open-sse/transformer/` | API Respons ↔ Penyelesaian Chat                                           |
 | Services      | `open-sse/services/`    | Penghalaan combo, had kadar, caching, dll                                 |
-| Database      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Database      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domain/Policy | `src/domain/`           | Enjin dasar, peraturan kos, logik fallback                                |
 | MCP Server    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Server    | `src/lib/a2a/`          | Protokol agen JSON-RPC 2.0                                                |

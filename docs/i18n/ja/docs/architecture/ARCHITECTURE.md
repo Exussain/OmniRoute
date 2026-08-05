@@ -33,7 +33,7 @@ Core capabilities:
 - Response sanitization for strict OpenAI SDK compatibility
 - Role normalization (developer→system, system→user) for cross-provider compatibility
 - Structured output conversion (json_schema → Gemini responseSchema)
-- Local persistence for providers, keys, aliases, combos, settings, pricing (110 top-level DB modules)
+- Local persistence for providers, keys, aliases, combos, settings, pricing (111 top-level DB modules)
 - Usage/cost tracking and request logging
 - Optional cloud sync for multi-device/state sync
 - IP allowlist/blocklist for API access control

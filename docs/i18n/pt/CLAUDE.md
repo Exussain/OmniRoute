@@ -49,7 +49,7 @@ Para a matriz de testes completa, consulte `CONTRIBUTING.md` → "Execução de 
 | Tradutores       | `open-sse/translator/`  | Conversão de formato (OpenAI↔Claude↔Gemini)                               |
 | Transformador    | `open-sse/transformer/` | API de respostas ↔ Completações de Chat                                   |
 | Serviços         | `open-sse/services/`    | Roteamento combinado, limites de taxa, caching, etc                       |
-| Base de Dados    | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Base de Dados    | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domínio/Política | `src/domain/`           | Motor de políticas, regras de custo, lógica de fallback                   |
 | Servidor MCP     | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | Servidor A2A     | `src/lib/a2a/`          | Protocolo de agente JSON-RPC 2.0                                          |

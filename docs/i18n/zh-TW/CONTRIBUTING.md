@@ -236,7 +236,7 @@ src/                        # TypeScript (.ts / .tsx)
 │   ├── a2a/                # Agent-to-Agent v0.3 協定伺服器
 │   ├── acp/                # Agent 通訊協定註冊表
 │   ├── compliance/         # 合規政策引擎
-│   ├── db/                 # SQLite 資料庫層（110 個頂層模組 + 130 個遷移）
+│   ├── db/                 # SQLite 資料庫層（111 個頂層模組 + 131 個遷移）
 │   ├── memory/             # 持久對話記憶
 │   ├── oauth/              # OAuth 提供者、服務與工具
 │   ├── skills/             # 可擴展技能框架
@@ -255,7 +255,7 @@ open-sse/                   # @omniroute/open-sse 工作區
 ├── executors/              # 89 個執行器實作模組
 ├── handlers/               # 11 個請求處理器（聊天、回應、嵌入、圖片等）
 ├── mcp-server/             # MCP 伺服器（107 個工具、3 種傳輸、32 個範圍）
-├── services/               # 178 個頂層服務（combo、autoCombo、rateLimitManager 等）
+├── services/               # 179 個頂層服務（combo、autoCombo、rateLimitManager 等）
 ├── translator/             # 格式轉換器（OpenAI ↔ Claude ↔ Gemini ↔ Responses ↔ Ollama）
 ├── transformer/            # Responses API 轉換器
 └── utils/                  # 22 個工具模組（串流、TLS、代理、日誌）

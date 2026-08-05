@@ -49,7 +49,7 @@ npm run test:all
 | Translators   | `open-sse/translator/`  | การแปลงรูปแบบ (OpenAI↔Claude↔Gemini)                                      |
 | Transformer   | `open-sse/transformer/` | API การตอบกลับ ↔ การเติมแชท                                               |
 | Services      | `open-sse/services/`    | การจัดเส้นทางแบบรวม, ขีดจำกัดอัตรา, การแคช, ฯลฯ                           |
-| Database      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Database      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domain/Policy | `src/domain/`           | เอนจินนโยบาย, กฎค่าใช้จ่าย, ลอจิกการสำรองข้อมูล                           |
 | MCP Server    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Server    | `src/lib/a2a/`          | โปรโตคอลตัวแทน JSON-RPC 2.0                                               |

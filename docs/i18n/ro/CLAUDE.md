@@ -49,7 +49,7 @@ Pentru matricea completă a testelor, consultați `CONTRIBUTING.md` → "Rularea
 | Traducători      | `open-sse/translator/`  | Conversie de format (OpenAI↔Claude↔Gemini)                                |
 | Transformator    | `open-sse/transformer/` | API de răspunsuri ↔ Completări chat                                       |
 | Servicii         | `open-sse/services/`    | Rutare combinată, limite de rată, caching, etc                            |
-| Bază de date     | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Bază de date     | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domeniu/Politică | `src/domain/`           | Motor de politici, reguli de cost, logică de fallback                     |
 | Server MCP       | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | Server A2A       | `src/lib/a2a/`          | Protocol agent JSON-RPC 2.0                                               |

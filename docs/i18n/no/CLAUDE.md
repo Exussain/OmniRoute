@@ -49,7 +49,7 @@ For full testmatrise, se `CONTRIBUTING.md` → "Kjøring av tester". For dyp ark
 | Oversettere     | `open-sse/translator/`  | Formatkonvertering (OpenAI↔Claude↔Gemini)                                 |
 | Transformer     | `open-sse/transformer/` | Respons API ↔ Chat Fullføringer                                           |
 | Tjenester       | `open-sse/services/`    | Kombinasjonsruting, hastighetsbegrensninger, caching, osv.                |
-| Database        | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Database        | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domene/Politikk | `src/domain/`           | Politikkmotor, kostnadsregler, fallback-logikk                            |
 | MCP-server      | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A-server      | `src/lib/a2a/`          | JSON-RPC 2.0 agentprotokoll                                               |

@@ -49,7 +49,7 @@ För full testmatris, se `CONTRIBUTING.md` → "Köra Tester". För djup arkitek
 | Translators  | `open-sse/translator/`  | Formatkonvertering (OpenAI↔Claude↔Gemini)                                 |
 | Transformer  | `open-sse/transformer/` | Svar API ↔ Chattkompletteringar                                           |
 | Tjänster     | `open-sse/services/`    | Kombinationsrouting, hastighetsgränser, caching, etc                      |
-| Databas      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Databas      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domän/Policy | `src/domain/`           | Policy-motor, kostnadsregler, återkopplingslogik                          |
 | MCP-server   | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A-server   | `src/lib/a2a/`          | JSON-RPC 2.0 agentprotokoll                                               |

@@ -49,7 +49,7 @@ A teljes tesztmátrixért lásd a `CONTRIBUTING.md` → "Tesztek futtatása" ré
 | Fordítók       | `open-sse/translator/`  | Formátum átalakítás (OpenAI↔Claude↔Gemini)                                |
 | Átalakító      | `open-sse/transformer/` | Válaszok API ↔ Chat Befejezések                                           |
 | Szolgáltatások | `open-sse/services/`    | Kombinált útvonalak, sebességkorlátok, gyorsítótárazás, stb.              |
-| Adatbázis      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Adatbázis      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domain/Szabály | `src/domain/`           | Szabálymotor, költségszabályok, visszaesési logika                        |
 | MCP Szerver    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Szerver    | `src/lib/a2a/`          | JSON-RPC 2.0 ügynök protokoll                                             |

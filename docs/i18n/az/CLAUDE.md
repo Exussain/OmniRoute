@@ -49,7 +49,7 @@ Tam test matrisası üçün `CONTRIBUTING.md` → "Testləri İcra Etmək" bölm
 | Tercüməçilər  | `open-sse/translator/`  | Format çevrilməsi (OpenAI↔Claude↔Gemini)                                  |
 | Transformator | `open-sse/transformer/` | Cavablar API ↔ Söhbət Tamamlamaları                                       |
 | Xidmətlər     | `open-sse/services/`    | Kombinasiya yönləndirmə, sürət limitləri, keşləmə və s.                   |
-| Veritabanı    | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Veritabanı    | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domen/Siyasət | `src/domain/`           | Siyasət mühərriki, xərc qaydaları, geri dönmə məntiqi                     |
 | MCP Server    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Server    | `src/lib/a2a/`          | JSON-RPC 2.0 agent protokolu                                              |

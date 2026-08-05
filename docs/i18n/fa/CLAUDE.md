@@ -49,7 +49,7 @@ npm run test:all
 | Translators   | `open-sse/translator/`  | تبدیل فرمت (OpenAI↔Claude↔Gemini)                                         |
 | Transformer   | `open-sse/transformer/` | API پاسخ‌ها ↔ تکمیل‌های چت                                                |
 | Services      | `open-sse/services/`    | مسیریابی ترکیبی، محدودیت‌های نرخ، کش و غیره                               |
-| Database      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Database      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domain/Policy | `src/domain/`           | موتور سیاست، قوانین هزینه، منطق بازگشت                                    |
 | MCP Server    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Server    | `src/lib/a2a/`          | پروتکل عامل JSON-RPC 2.0                                                  |

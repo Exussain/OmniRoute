@@ -37,7 +37,7 @@ OmniRoute 是一個建構於 Next.js 上的本地 AI 路由閘道與儀表板。
 - 回應淨化處理，確保嚴格的 OpenAI SDK 相容性
 - 角色正規化（developer→system, system→user）以實現跨提供者相容性
 - 結構化輸出轉換（json_schema → Gemini responseSchema）
-- 提供者、金鑰、別名、組合、設定、定價的本地持久化（110 個頂層 DB 模組）
+- 提供者、金鑰、別名、組合、設定、定價的本地持久化（111 個頂層 DB 模組）
 - 用量/成本追蹤與請求記錄
 - 選用雲端同步，支援多裝置/狀態同步
 - 用於 API 存取控制的 IP 允許清單/封鎖清單

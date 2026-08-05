@@ -49,7 +49,7 @@ Para sa buong test matrix, tingnan ang `CONTRIBUTING.md` → "Pagsasagawa ng Mga
 | Translators   | `open-sse/translator/`  | Format conversion (OpenAI↔Claude↔Gemini)                                  |
 | Transformer   | `open-sse/transformer/` | Responses API ↔ Chat Completions                                          |
 | Services      | `open-sse/services/`    | Combo routing, rate limits, caching, atbp                                 |
-| Database      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Database      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domain/Policy | `src/domain/`           | Policy engine, cost rules, fallback logic                                 |
 | MCP Server    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Server    | `src/lib/a2a/`          | JSON-RPC 2.0 agent protocol                                               |

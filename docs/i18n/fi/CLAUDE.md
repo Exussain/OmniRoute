@@ -49,7 +49,7 @@ Koko testimatriisin näkemiseksi katso `CONTRIBUTING.md` → "Testien suorittami
 | Kääntäjät       | `open-sse/translator/`  | Muotojen muunnos (OpenAI↔Claude↔Gemini)                                   |
 | Muuntaja        | `open-sse/transformer/` | Vastaukset API ↔ Keskustelun täydentäminen                                |
 | Palvelut        | `open-sse/services/`    | Combo-reititys, nopeusrajoitukset, välimuisti jne.                        |
-| Tietokanta      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Tietokanta      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Alue/Politiikka | `src/domain/`           | Politiikkamoottori, kustannussäännöt, varajärjestelmä                     |
 | MCP-palvelin    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A-palvelin    | `src/lib/a2a/`          | JSON-RPC 2.0 agenttiprotokolla                                            |

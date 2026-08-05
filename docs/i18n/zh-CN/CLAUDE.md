@@ -49,7 +49,7 @@ npm run test:all
 | 翻译器     | `open-sse/translator/`  | 格式转换（OpenAI↔Claude↔Gemini）                                          |
 | 转换器     | `open-sse/transformer/` | Responses API ↔ Chat Completions                                          |
 | 服务       | `open-sse/services/`    | Combo 路由、速率限制、缓存等                                              |
-| 数据库     | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| 数据库     | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | 领域/策略  | `src/domain/`           | 策略引擎、成本规则、容灾逻辑                                              |
 | MCP 服务器 | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A 服务器 | `src/lib/a2a/`          | JSON-RPC 2.0 代理协议                                                     |
@@ -415,9 +415,17 @@ git push -u origin feat/your-feature
    git fetch origin "$BASE_BRANCH"
    git worktree add ".claude/worktrees/${TASK##*/}" -b "$TASK" "origin/$BASE_BRANCH"
    cd ".claude/worktrees/${TASK##*/}"
-   # 从主工作区符号链接 node_modules，省去每个 worktree 的 npm install：
-   ln -s "$(git -C <main_checkout> rev-parse --show-toplevel)/node_modules" node_modules
+   # 复用主工作区的 node_modules，省去每个 worktree 的 npm install。
+   # 必须用硬链接（`cp -al`），绝不能用符号链接：整棵树约 5 秒，几乎不占额外磁盘
+   # （inode 是共享的），而且与符号链接不同，它不会破坏开发服务器。
+   cp -al "$(git -C <main_checkout> rev-parse --show-toplevel)/node_modules" node_modules
    ```
+
+   **绝不要对 node_modules 使用 `ln -s`。** Turbopack 会拒绝解析到项目根目录之外的符号链接，
+   因此 `npm run dev` 会以 FATAL panic 崩溃（`Symlink [project]/node_modules is invalid, it
+   points out of the filesystem root`），而 typecheck、lint 和测试运行器却都照常通过 —— 错误信息
+   提到的是 "filesystem root" 而不是 worktree，看起来像 Next/构建的 bug，排查会浪费大量时间
+   （事故 2026-07-31，#9043）。
 
    在 Claude Code 中优先使用原生的 `EnterWorktree` 工具（它已经在 `.claude/worktrees/` 下创建 worktree）：先用上述命令创建 worktree，然后用其 `path` 调用 `EnterWorktree`。
 

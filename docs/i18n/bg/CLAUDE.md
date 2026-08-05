@@ -49,7 +49,7 @@ npm run test:all
 | Преводачи       | `open-sse/translator/`  | Конверсия на формати (OpenAI↔Claude↔Gemini)                               |
 | Трансформатор   | `open-sse/transformer/` | API за отговори ↔ Завършвания на чат                                      |
 | Услуги          | `open-sse/services/`    | Комбинирано маршрутизиране, лимити на скорост, кеширане и др.             |
-| База данни      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| База данни      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Домейн/Политика | `src/domain/`           | Двигател за политики, правила за разходи, логика за резервиране           |
 | MCP сървър      | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A сървър      | `src/lib/a2a/`          | JSON-RPC 2.0 агент протокол                                               |

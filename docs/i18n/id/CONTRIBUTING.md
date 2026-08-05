@@ -170,7 +170,7 @@ Status tes saat ini: **122 file tes unit** yang mencakup:
 - Penerjemah penyedia dan konversi format
 - Pembatasan laju, pemutus sirkuit, dan ketahanan
 - Cache semantik, idempoten, pelacakan progres
-- Operasi database dan skema (110 modul tingkat atas, 130 migrasi)
+- Operasi database dan skema (111 modul tingkat atas, 131 migrasi)
 - Alur OAuth dan autentikasi
 - Validasi endpoint API (Zod v4)
 - Alat server MCP dan penegakan cakupan
@@ -202,7 +202,7 @@ src/                        # TypeScript (.ts / .tsx)
 │   ├── a2a/                # Server protokol Agent-to-Agent v0.3
 │   ├── acp/                # Registri Agent Communication Protocol
 │   ├── compliance/         # Mesin kebijakan kepatuhan
-│   ├── db/                 # Lapisan database SQLite (110 modul tingkat atas + 130 migrasi)
+│   ├── db/                 # Lapisan database SQLite (111 modul tingkat atas + 131 migrasi)
 │   ├── memory/             # Memori percakapan persisten
 │   ├── oauth/              # Penyedia, layanan, dan utilitas OAuth
 │   ├── skills/             # Kerangka skill yang dapat diperluas
@@ -221,7 +221,7 @@ open-sse/                   # Workspace @omniroute/open-sse
 ├── executors/              # 89 modul implementasi executor
 ├── handlers/               # 11 penangan permintaan (chat, responses, embeddings, images, dll.)
 ├── mcp-server/             # Server MCP (107 alat, 3 transport, 32 cakupan)
-├── services/               # 178 layanan tingkat atas (combo, autoCombo, rateLimitManager, dll.)
+├── services/               # 179 layanan tingkat atas (combo, autoCombo, rateLimitManager, dll.)
 ├── translator/             # Penerjemah format (OpenAI ↔ Claude ↔ Gemini ↔ Responses ↔ Ollama)
 ├── transformer/            # Transformer Responses API
 └── utils/                  # 22 modul utilitas (stream, TLS, proxy, logging)

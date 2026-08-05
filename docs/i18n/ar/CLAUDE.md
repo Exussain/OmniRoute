@@ -49,7 +49,7 @@ npm run test:all
 | المترجمون      | `open-sse/translator/`  | تحويل التنسيق (OpenAI↔Claude↔Gemini)                                      |
 | المحول         | `open-sse/transformer/` | واجهات برمجة التطبيقات للردود ↔ إكمالات الدردشة                           |
 | الخدمات        | `open-sse/services/`    | توجيه مجموعة، حدود المعدل، التخزين المؤقت، إلخ                            |
-| قاعدة البيانات | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| قاعدة البيانات | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | المجال/السياسة | `src/domain/`           | محرك السياسة، قواعد التكلفة، منطق التراجع                                 |
 | خادم MCP       | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | خادم A2A       | `src/lib/a2a/`          | بروتوكول وكيل JSON-RPC 2.0                                                |

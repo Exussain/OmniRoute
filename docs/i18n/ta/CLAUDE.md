@@ -49,7 +49,7 @@ npm run test:all
 | Translators   | `open-sse/translator/`  | வடிவ மாற்றம் (OpenAI↔Claude↔Gemini)                                       |
 | Transformer   | `open-sse/transformer/` | பதில்கள் API ↔ சாட் முழுமைகள்                                             |
 | Services      | `open-sse/services/`    | காம்போ ரூட்டிங், விகித வரம்புகள், கச்சா, மற்றும் பிற                      |
-| Database      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Database      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domain/Policy | `src/domain/`           | கொள்கை இயந்திரம், செலவுக் கட்டுப்பாடுகள், fallback உள்கட்டமைப்பு          |
 | MCP Server    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Server    | `src/lib/a2a/`          | JSON-RPC 2.0 முகவர் புரொட்டோக்கால்                                        |

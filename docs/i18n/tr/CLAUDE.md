@@ -49,7 +49,7 @@ Tam test matrisini görmek için `CONTRIBUTING.md` → "Testleri Çalıştırma"
 | Çeviriciler   | `open-sse/translator/`  | Format dönüşümü (OpenAI↔Claude↔Gemini)                                    |
 | Dönüştürücü   | `open-sse/transformer/` | Yanıtlar API ↔ Sohbet Tamamlamaları                                       |
 | Hizmetler     | `open-sse/services/`    | Kombinasyon yönlendirme, hız sınırlamaları, önbellekleme, vb.             |
-| Veritabanı    | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Veritabanı    | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Alan/Politika | `src/domain/`           | Politika motoru, maliyet kuralları, geri dönüş mantığı                    |
 | MCP Sunucusu  | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Sunucusu  | `src/lib/a2a/`          | JSON-RPC 2.0 ajan protokolü                                               |

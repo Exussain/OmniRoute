@@ -49,7 +49,7 @@ npm run test:all
 | 변환기       | `open-sse/translator/`  | 형식 변환 (OpenAI↔Claude↔Gemini)                                          |
 | 변환기       | `open-sse/transformer/` | 응답 API ↔ 채팅 완성                                                      |
 | 서비스       | `open-sse/services/`    | 조합 라우팅, 속도 제한, 캐싱 등                                           |
-| 데이터베이스 | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| 데이터베이스 | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | 도메인/정책  | `src/domain/`           | 정책 엔진, 비용 규칙, 대체 논리                                           |
 | MCP 서버     | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A 서버     | `src/lib/a2a/`          | JSON-RPC 2.0 에이전트 프로토콜                                            |

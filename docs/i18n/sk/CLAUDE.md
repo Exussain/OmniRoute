@@ -49,7 +49,7 @@ Pre úplnú testovaciu maticu pozrite `CONTRIBUTING.md` → "Spúšťanie testov
 | Translators   | `open-sse/translator/`  | Konverzia formátu (OpenAI↔Claude↔Gemini)                                  |
 | Transformer   | `open-sse/transformer/` | API odpovedí ↔ Chat Completions                                           |
 | Services      | `open-sse/services/`    | Kombinované smerovanie, obmedzenia rýchlosti, caching, atď.               |
-| Database      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Database      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domain/Policy | `src/domain/`           | Engin politiky, pravidlá nákladov, logika zálohovania                     |
 | MCP Server    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Server    | `src/lib/a2a/`          | JSON-RPC 2.0 agent protokol                                               |

@@ -49,7 +49,7 @@ npm run test:all
 | अनुवादक      | `open-sse/translator/`  | प्रारूप रूपांतरण (OpenAI↔Claude↔Gemini)                                   |
 | ट्रांसफार्मर | `open-sse/transformer/` | प्रतिक्रियाएँ API ↔ चैट पूर्णता                                           |
 | सेवाएँ       | `open-sse/services/`    | कॉम्बो राउटिंग, दर सीमाएँ, कैशिंग, आदि                                    |
-| डेटाबेस      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| डेटाबेस      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | डोमेन/नीति   | `src/domain/`           | नीति इंजन, लागत नियम, फॉलबैक लॉजिक                                        |
 | MCP सर्वर    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A सर्वर    | `src/lib/a2a/`          | JSON-RPC 2.0 एजेंट प्रोटोकॉल                                              |

@@ -49,7 +49,7 @@ npm run test:all
 | Translators   | `open-sse/translator/`  | Chuyển đổi định dạng (OpenAI↔Claude↔Gemini)                               |
 | Transformer   | `open-sse/transformer/` | API phản hồi ↔ Hoàn thành trò chuyện                                      |
 | Services      | `open-sse/services/`    | Định tuyến kết hợp, giới hạn tỷ lệ, bộ nhớ đệm, v.v.                      |
-| Database      | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| Database      | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | Domain/Policy | `src/domain/`           | Bộ máy chính sách, quy tắc chi phí, logic chuyển tiếp                     |
 | MCP Server    | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A Server    | `src/lib/a2a/`          | Giao thức đại lý JSON-RPC 2.0                                             |

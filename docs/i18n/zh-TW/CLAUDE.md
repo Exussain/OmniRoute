@@ -49,7 +49,7 @@ npm run test:all
 | 轉換器     | `open-sse/translator/`  | 格式轉換（OpenAI↔Claude↔Gemini）                                          |
 | 轉換器     | `open-sse/transformer/` | 回應 API ↔ 聊天完成                                                       |
 | 服務       | `open-sse/services/`    | 組合路由、速率限制、快取等                                                |
-| 資料庫     | `src/lib/db/`           | 110 top-level SQLite domain modules, 130 migrations                       |
+| 資料庫     | `src/lib/db/`           | 111 top-level SQLite domain modules, 131 migrations                       |
 | 域/策略    | `src/domain/`           | 策略引擎、成本規則、回退邏輯                                              |
 | MCP 伺服器 | `open-sse/mcp-server/`  | 107 unique tools, 3 transports (stdio / SSE / Streamable HTTP), 32 scopes |
 | A2A 伺服器 | `src/lib/a2a/`          | JSON-RPC 2.0 代理協議                                                     |
