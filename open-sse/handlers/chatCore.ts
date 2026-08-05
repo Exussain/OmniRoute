@@ -67,7 +67,7 @@ import {
   resolveMemoryOwnerId,
 } from "./chatCore/memoryExtraction.ts";
 import { CORS_HEADERS } from "../utils/cors.ts";
-import { checkHeapPressureGuard } from "../utils/heapPressure.ts";
+import { checkResourcePressureGuard } from "../utils/resourcePressure.ts";
 import { normalizeHeaders } from "../utils/headers.ts";
 import { resolveChatCoreRequestFormat } from "./chatCore/requestFormat.ts";
 import { resolveChatCoreTargetFormat } from "./chatCore/targetFormat.ts";
@@ -359,13 +359,6 @@ import {
   isRpmExhausted,
 } from "../services/geminiRateLimitTracker.ts";
 
-// ── Global memory pressure guard ────────────────────────────────────────
-// Prevents OOM by rejecting new requests when V8 heap exceeds threshold.
-// Self-healing: no counters to leak, no cleanup needed. The threshold
-// auto-calibrates to 85% of the actual V8 heap ceiling (see heapPressure.ts) so
-// it tracks --max-old-space-size across 1GB/2GB/large VPS instead of a fixed
-// 200MB that sat below the app's own ~260MB baseline and rejected every request.
-
 import { isSmallEnoughForSemanticCache } from "../utils/estimateSize.ts";
 
 /**
@@ -415,17 +408,16 @@ export async function handleChatCore({
   createPiiTransform = null,
   correlationId = null,
   modelPinned = false,
+  skipResourcePressureGuard = false,
 }) {
   let { provider, model, extendedContext } = modelInfo;
-  // ── Memory pressure guard ────────────────────────────────────────────
-  // Reject early if V8 heap is already near the 256MB limit. Prevents
-  // cascading OOM when many large-context requests arrive concurrently.
-  try {
-    const heapUsedMB = process.memoryUsage().heapUsed / (1024 * 1024);
-    const heapGuard = checkHeapPressureGuard(heapUsedMB);
-    if (heapGuard) return heapGuard;
-  } catch {
-    /* memoryUsage() never throws */
+  if (!skipResourcePressureGuard) {
+    try {
+      const pressureGuard = checkResourcePressureGuard();
+      if (pressureGuard) return pressureGuard;
+    } catch {
+      /* fail open */
+    }
   }
 
   // Per-request model-routing metadata (first extracted slice of the request-setup phase).
@@ -4651,12 +4643,7 @@ export async function handleChatCore({
   });
   if (streamReadiness.ok === false) {
     const { response: failureResponse, reason } = streamReadiness;
-    const failure = {
-      status: failureResponse.status,
-      message: reason,
-      code: streamReadiness.code,
-      type: streamReadiness.type,
-    };
+    const { classificationReason, upstreamDiagnostic } = streamReadiness;
     trackPendingRequest(model, provider, connectionId, false);
     appendRequestLog({
       model,
@@ -4668,7 +4655,11 @@ export async function handleChatCore({
       status: failureResponse.status,
       error: reason,
       providerRequest: finalBody || translatedBody,
-      clientResponse: buildErrorBody(failureResponse.status, reason),
+      clientResponse: buildErrorBody(
+        failureResponse.status,
+        classificationReason,
+        upstreamDiagnostic ? { error: { message: upstreamDiagnostic } } : undefined
+      ),
       claudeCacheMeta: claudePromptCacheLogMeta,
       cacheSource: "upstream",
     });
@@ -4680,6 +4671,7 @@ export async function handleChatCore({
       success: false,
       status: failureResponse.status,
       error: reason,
+      classificationError: classificationReason,
       errorType: streamReadiness.type,
       errorCode: streamReadiness.code,
       response: failureResponse,
