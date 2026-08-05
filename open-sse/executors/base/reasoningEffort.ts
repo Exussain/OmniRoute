@@ -273,7 +273,11 @@ export function sanitizeReasoningEffortForProvider(
   // normalized API expects xhigh, not max (pi#4055). `none` is already the
   // OpenAI no-thinking carrier and passes through unchanged.
   if (provider === "deepseek") {
-    const isFlash = modelStr.toLowerCase() === "deepseek-v4-flash";
+    // Match the Flash family even when the sanitizer sees a suffixed or prefixed
+    // id — exact-match would silently clamp Flash `low → high` if a future route
+    // forwards the raw catalog id (`deepseek-v4-flash-low`) before resolution
+    // (#9485 review).
+    const isFlash = modelStr.toLowerCase().startsWith("deepseek-v4-flash");
     const mapped =
       effortStr === "xhigh"
         ? "max"

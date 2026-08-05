@@ -728,13 +728,17 @@ async function buildUnifiedModelsResponseCore(
         // the fix, a provider with any synced model silently dropped ALL its
         // static models.
         const syncedForProvider = syncedModelIdsByCanonicalProvider.get(canonicalProviderId);
+        const hasDeclaredEffortTiers =
+          Array.isArray(model.supportedThinkingEfforts) &&
+          model.supportedThinkingEfforts.length > 0;
         if (
           shouldSuppressStaticModelBySyncedCoverage({
             providerHasSynced: syncedForProvider !== undefined && syncedForProvider.size > 0,
             staticModelId: model.id,
             syncedModelIds: syncedForProvider ? [...syncedForProvider] : [],
           }) &&
-          !isRegisteredEffortVariant(providerModels, model.id)
+          !isRegisteredEffortVariant(providerModels, model.id) &&
+          !hasDeclaredEffortTiers
         )
           continue;
         if (!providerSupportsModel(canonicalProviderId, model.id)) continue;
@@ -749,7 +753,11 @@ async function buildUnifiedModelsResponseCore(
           canonicalProviderId,
           model.id,
           model.supportsReasoning,
-          model.supportedThinkingEfforts
+          model.supportedThinkingEfforts,
+          // Skip the canonical fallback for static models without declared tiers —
+          // otherwise the catalog synthesizes unresolvable `<prefix>/<model>-{tier}`
+          // ids for every static reasoning model across all providers (#9485 review).
+          !hasDeclaredEffortTiers
         );
         const thinkingCapabilities =
           Object.keys(thinkingFields).length > 0 ? { capabilities: thinkingFields } : {};

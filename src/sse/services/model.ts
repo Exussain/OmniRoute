@@ -220,7 +220,11 @@ function copySyncedThinkingMetadata(metadata: RuntimeModelMeta, syncedMatch: any
     metadata.supportsThinking = syncedMatch.supportsThinking;
   }
   if (syncedMatch?.alwaysThinking === true) metadata.alwaysThinking = true;
-  if (Array.isArray(syncedMatch?.supportedThinkingEfforts)) {
+  // Only let a non-empty synced effort list override the static registry fallback;
+  // an empty array from an incomplete synced discovery must not erase registry-declared
+  // tiers (#9485 review).
+  if (Array.isArray(syncedMatch?.supportedThinkingEfforts) &&
+    syncedMatch.supportedThinkingEfforts.length > 0) {
     metadata.supportedThinkingEfforts = syncedMatch.supportedThinkingEfforts;
   }
   if (typeof syncedMatch?.defaultThinkingEffort === "string") {
@@ -260,12 +264,24 @@ async function lookupModelMeta(
     // #7694: no direct match on the raw modelId? try a synced-declared `-{effort}`
     // suffix before falling back to the literal id, so `<prefix>/<model>-<tier>`
     // resolves to the real base model + a resolved effort.
+    // #7694: no direct match on the raw modelId? try a synced-declared `-{effort}`
+    // suffix before falling back to the literal id, so `<prefix>/<model>-<tier>`
+    // resolves to the real base model + a resolved effort.
     let { modelId: resolvedModelId, effort } = resolveSyncedModelIdAndEffort(
       providerId,
       modelId,
       syncedModels
     );
-    if (!effort && resolvedModelId === modelId) {
+    // Short-circuit registry suffix resolution when the raw id is already a direct
+    // custom or synced model — otherwise a model literally named
+    // `deepseek-v4-flash-low` gets rewritten to `deepseek-v4-flash` + effort `low`
+    // and its custom/synced metadata (apiFormat/targetFormat) is dropped (#9485 review).
+    if (
+      !effort &&
+      resolvedModelId === modelId &&
+      !findCustomModelMeta(customModels, modelId) &&
+      !findSyncedModelMeta(syncedModels, modelId)
+    ) {
       const registryResolution = resolveRegistryModelIdAndEffort(providerId, modelId);
       resolvedModelId = registryResolution.modelId;
       effort = registryResolution.effort;
