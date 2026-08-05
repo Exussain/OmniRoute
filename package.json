@@ -38,6 +38,7 @@
     "scripts/build/runtime-env.mjs",
     "README.md",
     "LICENSE",
+    "!**/node_modules/**",
     "!**/__tests__/**",
     "!**/*.test.ts",
     "!**/*.test.tsx",
