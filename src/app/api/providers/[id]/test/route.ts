@@ -142,6 +142,9 @@ export function classifyFailure({
     normalized.includes("fetch failed") ||
     normalized.includes("network") ||
     normalized.includes("timeout") ||
+    // The OAuth probe reports its own abort as "Test timed out after 30s",
+    // which does not contain "timeout".
+    normalized.includes("timed out") ||
     normalized.includes("econn") ||
     normalized.includes("enotfound") ||
     normalized.includes("socket")
@@ -698,8 +701,16 @@ export async function testSingleConnection(connectionId: string, validationModel
       ? makeDiagnosis("ok", "local", null, null)
       : classifyFailure({ error: result.error, statusCode: result.statusCode, provider }));
 
+  // A network_error means the request never reached the upstream, so the test
+  // observed nothing about this connection and must not claim it is broken. The
+  // error fields below still record the attempt. Writing "error" here would be a
+  // one-way door: proactive recovery only restores connections that are
+  // "unavailable" AND carry an elapsed rateLimitedUntil, and a failed test sets
+  // neither, so a brief outage would leave the whole fleet red until re-tested
+  // by hand. See src/lib/quota/connectionRecovery.ts.
+  const observedTheConnection = diagnosis.code !== "network_error";
+
   const updateData: Record<string, any> = {
-    testStatus: result.valid ? "active" : "error",
     lastError: result.valid ? null : result.error,
     lastErrorAt: result.valid ? null : now,
     lastTested: now,
@@ -708,6 +719,14 @@ export async function testSingleConnection(connectionId: string, validationModel
     errorCode: result.valid ? null : diagnosis.code || result.statusCode || null,
     rateLimitedUntil: result.valid ? null : connection.rateLimitedUntil || null,
   };
+
+  // Only claim a status when the test actually observed the connection. On a
+  // network failure the key is left out entirely, and updateProviderConnection
+  // merges over the stored row, so the persisted status stays exactly as it was
+  // — including for a connection that has never been tested.
+  if (result.valid || observedTheConnection) {
+    updateData.testStatus = result.valid ? "active" : "error";
+  }
 
   if (result.valid) {
     updateData.backoffLevel = 0;
