@@ -3322,11 +3322,6 @@
       "count": 2
     }
   },
-  "tests/unit/vertex-functioncall-id-3440.test.ts": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 2
-    }
-  },
   "tests/unit/vertex-media.test.ts": {
     "@typescript-eslint/no-explicit-any": {
       "count": 3
