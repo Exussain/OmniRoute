@@ -618,12 +618,6 @@ export type CompatFilterOptions = {
   failOpen?: boolean;
 };
 
-const HARD_COMPAT_REASONS = new Set(["tools", "vision", "structured_output"]);
-
-function hasHardCapabilityFailure(reasons: string[]): boolean {
-  return reasons.some((reason) => HARD_COMPAT_REASONS.has(reason));
-}
-
 /**
  * Summarize a capability-filter exhaustion for a 400-class combo error (#8488).
  * Returns null when the empty pool is not attributable to hard requirements.
@@ -727,7 +721,9 @@ export function filterTargetsByRequestCompatibility(
 
   if (compatible.length === targets.length) return targets;
   if (compatible.length === 0) {
-    const hardRejected = rejected.some((entry) => hasHardCapabilityFailure(entry.reasons));
+    const hardRejected = rejected.some((entry) =>
+      entry.reasons.some((r) => HARD_COMPAT_REASONS.has(r))
+    );
     const failOpen = options?.failOpen === true;
 
     log.debug?.(

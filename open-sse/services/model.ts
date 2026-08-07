@@ -54,6 +54,10 @@ ALIAS_TO_PROVIDER_ID["xiaomi"] = "xiaomi-mimo";
 ALIAS_TO_PROVIDER_ID["llamacpp"] = "llama-cpp";
 // agy/ is the short alias for antigravity provider.
 ALIAS_TO_PROVIDER_ID["agy"] = "antigravity";
+// aq/ is the user-visible prefix for the Amazon Q (AWS Builder ID) provider.
+// The canonical provider ID is "amazon-q". Register it so parseModel("aq/<model>")
+// resolves provider = "amazon-q" instead of falling through to the identity fallback.
+ALIAS_TO_PROVIDER_ID["aq"] = "amazon-q";
 
 // Provider-scoped legacy model aliases. Used to normalize provider/model inputs
 // and keep backward compatibility when upstream IDs change.
