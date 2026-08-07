@@ -2065,7 +2065,6 @@ export async function handleComboChat({
 	          { code: "ALL_ACCOUNTS_INACTIVE", type: "service_unavailable" }
 	        );
 	      }
-      }
 
       const status = lastStatus;
       // Build aggregated error message with per-model failure details for diagnostics.
