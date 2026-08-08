@@ -14,9 +14,9 @@ export const APIKEY_PROVIDERS_GATEWAYS = {
     icon: "savings",
     color: "#31f889",
     textIcon: "CI",
-    website: "https://cheaperinference.com",
+    website: "https://cheaperinference.com/?utm_source=omniroute",
     apiHint:
-      "Create an API key at https://cheaperinference.com (needs the `inference` scope), then paste the ir_live_… token here.",
+      "Create an API key at https://cheaperinference.com/?utm_source=omniroute (needs the `inference` scope), then paste the ir_live_… token here.",
     passthroughModels: true,
   },
   "charm-hyper": {
@@ -44,6 +44,17 @@ export const APIKEY_PROVIDERS_GATEWAYS = {
     hasFree: true,
     freeNote: "$200 free credits on signup - multi-model routing gateway",
     apiHint: "Get $200 free credits at https://agentrouter.org/register — no credit card required.",
+  },
+  unorouter: {
+    id: "unorouter",
+    alias: "unorouter",
+    name: "UnoRouter",
+    icon: "unorouter",
+    color: "#8B5CF6",
+    textIcon: "UR",
+    passthroughModels: true,
+    website: "https://unorouter.ai",
+    apiHint: "Create an API key at https://unorouter.ai, then paste it here as a Bearer token.",
   },
   "command-code": {
     id: "command-code",
@@ -582,14 +593,14 @@ export const APIKEY_PROVIDERS_GATEWAYS = {
     textIcon: "DA",
     website: "https://inference.dahl.global",
     hasFree: true,
-    freeNote: "Free — MiniMax M2.7, Kimi K2.6. Click 'Add Account' to auto-generate a token.",
-    authHint: "Click 'Add Account' to auto-generate a token.",
-    apiHint: "No manual API key needed. Click 'Add Account' to auto-generate a token.",
+    freeNote: "Free — MiniMax M2.7, Kimi K2.6. Click 'Add Account' to auto-generate a token, or add your own API key.",
+    authHint: "Click 'Add Account' to auto-generate a token, or add a manual API key.",
+    apiHint: "Auto-generate a token or paste your own API key.",
     apiKeyUrl: "https://inference.dahl.global/tokens",
     passthroughModels: false,
     managedAccount: true,
     notice: {
-      text: "Dahl auto-generates tokens via https://inference.dahl.global/tokens. No signup needed. Rate limits apply.",
+      text: "Dahl auto-generates tokens via https://inference.dahl.global/tokens. No signup needed. Rate limits apply. You can also add your own API key.",
     },
   },
   puter: {
@@ -1167,5 +1178,18 @@ export const APIKEY_PROVIDERS_GATEWAYS = {
       "Get a free API key via NaraRouter's Telegram channel, then paste it here as a Bearer token.",
     apiHint:
       "OpenAI-compatible endpoint at https://router.bynara.id/v1. Free-tier models are pinned; others need credit.",
+  },
+  regolo: {
+    id: "regolo",
+    alias: "regolo",
+    name: "Regolo AI",
+    icon: "hub",
+    color: "#6366F1",
+    textIcon: "RG",
+    website: "https://regolo.ai",
+    passthroughModels: true,
+    authHint: "Get your Regolo API key from regolo.ai, then paste it here as a Bearer token.",
+    apiHint:
+      "OpenAI-compatible endpoint at https://api.regolo.ai/v1 with dynamic model discovery (19 models).",
   },
 };
