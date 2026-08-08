@@ -48,17 +48,16 @@ import { checkAndRefreshToken } from "../services/tokenRefresh";
 import { createHookContext, runHooks, initPreRequestRegistry } from "@/lib/middleware/registry";
 import { rejectPeerRequest } from "@/shared/resilience/peerRouting";
 import { deleteHandoff, getHandoff } from "@/lib/db/contextHandoffs";
-import { updateCombo } from "@/lib/db/combos";
+import { getComboByName, updateCombo } from "@/lib/db/combos";
 import { isModelAllowedForKey } from "@/lib/db/apiKeys";
 import { promoteSuccessfulComboModel } from "@/lib/combos/autoPromote";
 import {
   deleteSessionAccountAffinity,
   evictSessionAccountAffinityForConnection,
-  getCachedSettings,
-  getCombos,
-  getCombosCacheVersion,
   getSessionAccountAffinity,
-} from "@/lib/localDb";
+} from "@/lib/db/sessionAccountAffinity";
+import { getCachedSettings, getCombosCacheVersion } from "@/lib/db/readCache";
+import { getCombos } from "@/lib/db/combos";
 import { resolveModelLockoutSettings } from "@/lib/resilience/modelLockoutSettings";
 import {
   ensureOpenAIStoreSessionFallback,
@@ -462,10 +461,14 @@ async function handleChatImplementation(
   // image-registry match is only image-only when the same provider/model pair is
   // absent from the chat catalog.
   const imageModel = getImageModelEntry(modelStr);
+  // Exact stored combo names take precedence over colliding bare image aliases.
+  // Keep this narrower than getComboForModel() so mappings and synthetic aliases
+  // retain their existing resolution order.
+  const isExactStoredCombo = imageModel ? Boolean(await getComboByName(modelStr)) : false;
   const isChatCatalogModel = imageModel
     ? getModelsByProviderId(imageModel.provider).some((model) => model.id === imageModel.model)
     : false;
-  if (imageModel && !isChatCatalogModel) {
+  if (imageModel && !isExactStoredCombo && !isChatCatalogModel) {
     log.warn("CHAT", `Rejecting image-generation model on chat endpoint: ${modelStr}`);
     return errorResponse(
       HTTP_STATUS.BAD_REQUEST,
@@ -952,7 +955,7 @@ async function handleChatImplementation(
     const providerPrefix = resolvedModelStr.split("/")[0];
     if (providerPrefix) {
       try {
-        const { getComboByName } = await import("@/lib/localDb");
+        const { getComboByName } = await import("@/lib/db/combos");
         const routingCombo = await getComboByName(providerPrefix);
         if (routingCombo?.id) {
           routingComboId = routingCombo.id;
@@ -1284,7 +1287,15 @@ async function handleSingleModelChat(
             );
       preselectedCredentials = null;
 
-      if (!credentials || "allRateLimited" in credentials || !credentials.connectionId) {
+      // #9467: also treat the auth layer's allExpired verdict as a no-credentials
+      // outcome (auth.ts produces it; without this check an all-expired pool fell
+      // through to a connectionless dispatch).
+      if (
+        !credentials ||
+        "allRateLimited" in credentials ||
+        "allExpired" in credentials ||
+        !credentials.connectionId
+      ) {
         if (credentials?.allRateLimited) {
           const retryDecision = getCooldownAwareRetryDecision({
             retryAfter: credentials.retryAfter,
@@ -1313,7 +1324,7 @@ async function handleSingleModelChat(
             requestRetryBudgetLeftMs = Math.max(0, requestRetryBudgetLeftMs - retryDecision.waitMs);
             log.info(
               "COOLDOWN_RETRY",
-              `${provider}/${model} cooldown elapsed — restarting request attempt ${requestRetryAttempt}/${retrySettings.maxRetries}`
+              `${provider}/${model} cooldown elapsed — restarting request attempt ${requestRetryAttempt + 1}/${retrySettings.maxRetries}`
             );
             continue requestAttemptLoop;
           }
@@ -1322,7 +1333,7 @@ async function handleSingleModelChat(
         const breakerFailureStatus = Number(lastStatus ?? credentials?.lastErrorCode);
         if (
           !forceLiveComboTest &&
-          credentials?.allRateLimited &&
+          isAllRateLimited &&
           PROVIDER_BREAKER_FAILURE_STATUSES.has(breakerFailureStatus)
         ) {
           breaker._onFailure();

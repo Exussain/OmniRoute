@@ -203,6 +203,14 @@ export const updateSettingsSchema = z.object({
       connections: z.record(z.string().max(100), z.boolean()).optional(),
     })
     .optional(),
+  // #8848: opt-in per-connection Claude proactive warmup. `connections` maps a
+  // provider_connections id -> enabled; default is an empty map (off for everyone)
+  // until the operator flips a specific OAuth connection on from the settings UI.
+  claudeWarmup: z
+    .object({
+      connections: z.record(z.string().max(100), z.boolean()).optional(),
+    })
+    .optional(),
   responsesPreviousResponseIdMode: z.enum(RESPONSES_PREVIOUS_RESPONSE_ID_MODES).optional(),
   // Routing settings (#134)
   fallbackStrategy: z.enum(ACCOUNT_FALLBACK_STRATEGY_VALUES).optional(),
