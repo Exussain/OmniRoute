@@ -28,6 +28,11 @@ export { isProviderConnectionUsable, hasUsableCredentialsForModel };
 
 type ComboVisionBridgeDecision = "process" | "skip" | "not-combo";
 
+export function resolveVisionComboName(mapping: Record<string, unknown>): string | null {
+  const comboName = mapping.comboName ?? mapping.name ?? null;
+  return typeof comboName === "string" && comboName.length > 0 ? comboName : null;
+}
+
 /// Check if a combo model should trigger vision bridge processing.
 /// Resolves combo targets and returns:
 /// - "process" if any target cannot be proven vision-capable
@@ -45,7 +50,7 @@ async function getComboVisionBridgeDecision(model: string): Promise<ComboVisionB
     if (!combo) {
       const mapping = await resolveComboForModel(model);
       if (!mapping) return "not-combo";
-      const comboName = mapping.comboName ?? mapping.name ?? null;
+      const comboName = resolveVisionComboName(mapping);
       if (!comboName) return "not-combo";
       combo = await getComboByName(comboName);
     }

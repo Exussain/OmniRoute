@@ -192,6 +192,7 @@
       "tests/unit/combo/effective-max-concurrency.test.ts",
       "tests/unit/combo/recovery-hint.test.ts",
       "tests/unit/complexity-aware-scoring-wiring.test.ts",
+      "tests/unit/compression-header-verification.test.ts",
       "tests/unit/context-pinning-tool-calls.test.ts",
       "tests/unit/cooldown-epoch-string-3954.test.ts",
       "tests/unit/correctness/combo.property.test.ts",
