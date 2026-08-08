@@ -118,6 +118,7 @@ export const updateSettingsSchema = z.object({
   baseUrl: z.string().max(500).optional(),
   setupComplete: z.boolean().optional(),
   blockedProviders: z.array(z.string().max(100)).optional(),
+  hidePaidModels: z.boolean().optional(),
   hideHealthCheckLogs: z.boolean().optional(),
   hideEndpointCloudflaredTunnel: z.boolean().optional(),
   hideEndpointTailscaleFunnel: z.boolean().optional(),
@@ -198,6 +199,14 @@ export const updateSettingsSchema = z.object({
   // provider_connections id -> enabled; default is an empty map (off for everyone)
   // until the operator flips a specific OAuth connection on from the settings UI.
   codexAutoPing: z
+    .object({
+      connections: z.record(z.string().max(100), z.boolean()).optional(),
+    })
+    .optional(),
+  // #8848: opt-in per-connection Claude proactive warmup. `connections` maps a
+  // provider_connections id -> enabled; default is an empty map (off for everyone)
+  // until the operator flips a specific OAuth connection on from the settings UI.
+  claudeWarmup: z
     .object({
       connections: z.record(z.string().max(100), z.boolean()).optional(),
     })
