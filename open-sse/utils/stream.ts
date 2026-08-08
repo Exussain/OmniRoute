@@ -70,7 +70,10 @@ import {
   hasUnsupportedReasoningSignal,
 } from "./reasoningFields.ts";
 import { applyThinkTag, flushThink, initThinkState } from "./thinkTagParser.ts";
-import { restoreOpenAIToolNames } from "../translator/helpers/toolCallHelper.ts";
+import {
+  caseInsensitiveToolNameLookup,
+  restoreOpenAIToolNames,
+} from "../translator/helpers/toolCallHelper.ts";
 import { normalizeFinalOpenAIStreamChunk } from "./openAIStreamChunk.ts";
 
 /**
@@ -578,7 +581,7 @@ function restoreClaudePassthroughToolUseName(parsed: JsonRecord, toolNameMap: un
       : null;
   if (!block || block.type !== "tool_use" || typeof block.name !== "string") return false;
 
-  const restoredName = toolNameMap.get(block.name) ?? block.name;
+  const restoredName = caseInsensitiveToolNameLookup(block.name, toolNameMap) ?? block.name;
   if (restoredName === block.name) return false;
   block.name = restoredName;
   return true;
@@ -2461,11 +2464,7 @@ export function createSSEStream(options: StreamOptions = {}) {
                   usage,
                   responseBody,
                   providerPayload: providerPayloadCollector.build(
-                    buildStreamSummaryFromEvents(
-                      providerPayloadCollector.getEvents(),
-                      sourceFormat,
-                      model
-                    ),
+                    responseBody,
                     { includeEvents: false }
                   ),
                   clientPayload: clientPayloadCollector.build(responseBody, {
@@ -2736,11 +2735,7 @@ export function createSSEStream(options: StreamOptions = {}) {
                 usage: state?.usage,
                 responseBody,
                 providerPayload: providerPayloadCollector.build(
-                  buildStreamSummaryFromEvents(
-                    providerPayloadCollector.getEvents(),
-                    targetFormat,
-                    model
-                  ),
+                  responseBody,
                   { includeEvents: false }
                 ),
                 clientPayload: clientPayloadCollector.build(responseBody, {
@@ -2783,7 +2778,7 @@ export function createSSETransformStreamWithLogger(
   body: unknown = null,
   onComplete: ((payload: StreamCompletePayload) => void) | null = null,
   apiKeyInfo: unknown = null,
-  onFailure: ((payload: StreamFailurePayload) => void | Promise<void>) | null = null,
+  onFailure: ((payload: StreamFailurePayload) => boolean | void | Promise<void>) | null = null,
   copilotCompatibleReasoning = false,
   suppressThinkClose = false,
   customToolNames: ReadonlySet<string> = new Set(),
@@ -2818,7 +2813,7 @@ export function createPassthroughStreamWithLogger(
   body: unknown = null,
   onComplete: ((payload: StreamCompletePayload) => void) | null = null,
   apiKeyInfo: unknown = null,
-  onFailure: ((payload: StreamFailurePayload) => void | Promise<void>) | null = null,
+  onFailure: ((payload: StreamFailurePayload) => boolean | void | Promise<void>) | null = null,
   clientResponseFormat: string | null = null,
   requestToolIdentityMap: Map<string, { namespace: string; name: string }> | null = null
 ) {
