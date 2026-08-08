@@ -1,4 +1,5 @@
 import type { RegistryEntry } from "./shared.ts";
+import { unorouterProvider } from "./registry/unorouter/index.ts";
 
 import { aimlapiProvider } from "./registry/aimlapi/index.ts";
 import { byteplusProvider } from "./registry/byteplus/index.ts";
@@ -21,6 +22,7 @@ import { glmProvider } from "./registry/glm/index.ts";
 import { glmtProvider } from "./registry/glm/t/index.ts";
 import { glm_cnProvider } from "./registry/glm/cn/index.ts";
 import { traeProvider } from "./registry/trae/index.ts";
+import { raycastProvider } from "./registry/raycast/index.ts";
 import { muse_spark_webProvider } from "./registry/muse-spark-web/index.ts";
 import { lmarenaProvider } from "./registry/lmarena/index.ts";
 import { kilocodeProvider } from "./registry/kilocode/index.ts";
@@ -146,6 +148,7 @@ import { siliconflowProvider } from "./registry/siliconflow/index.ts";
 import { gitlab_duoProvider } from "./registry/gitlab-duo/index.ts";
 import { command_codeProvider } from "./registry/command-code/index.ts";
 import { novitaProvider } from "./registry/novita/index.ts";
+import { regoloProvider } from "./registry/regolo/index.ts";
 import { windsurfProvider } from "./registry/windsurf/index.ts";
 import { zed_hostedProvider } from "./registry/zed-hosted/index.ts";
 import { nanogptProvider } from "./registry/nanogpt/index.ts";
@@ -168,6 +171,7 @@ import { kilo_gatewayProvider } from "./registry/kilo-gateway/index.ts";
 import { bailian_coding_planProvider } from "./registry/bailian-coding-plan/index.ts";
 import { gigachatProvider } from "./registry/gigachat/index.ts";
 import { devin_cliProvider } from "./registry/devin-cli/index.ts";
+import { devin_cli_agenticProvider } from "./registry/devin-cli-agentic/index.ts";
 import { auggieProvider } from "./registry/auggie/index.ts";
 import { chutesProvider } from "./registry/chutes/index.ts";
 import { chenzkProvider } from "./registry/chenzk/index.ts";
@@ -259,6 +263,7 @@ export const REGISTRY: Record<string, RegistryEntry> = {
   glmt: glmtProvider,
   "glm-cn": glm_cnProvider,
   trae: traeProvider,
+  raycast: raycastProvider,
   "muse-spark-web": muse_spark_webProvider,
   lmarena: lmarenaProvider,
   kilocode: kilocodeProvider,
@@ -384,6 +389,7 @@ export const REGISTRY: Record<string, RegistryEntry> = {
   "gitlab-duo": gitlab_duoProvider,
   "command-code": command_codeProvider,
   novita: novitaProvider,
+  regolo: regoloProvider,
   windsurf: windsurfProvider,
   "zed-hosted": zed_hostedProvider,
   nanogpt: nanogptProvider,
@@ -405,6 +411,7 @@ export const REGISTRY: Record<string, RegistryEntry> = {
   "bailian-coding-plan": bailian_coding_planProvider,
   gigachat: gigachatProvider,
   "devin-cli": devin_cliProvider,
+  "devin-cli-agentic": devin_cli_agenticProvider,
   auggie: auggieProvider,
   chutes: chutesProvider,
   chenzk: chenzkProvider,
@@ -460,7 +467,6 @@ export const REGISTRY: Record<string, RegistryEntry> = {
   digitalocean: digitaloceanProvider,
   hcnsec: hcnsecProvider,
   promptql: promptqlProvider,
-  hyperagent: hyperagentProvider,
   "zylo-api": zyloApiProvider,
   unorouter: unorouterProvider,
   poolside: poolsideProvider,
@@ -478,4 +484,5 @@ export const REGISTRY: Record<string, RegistryEntry> = {
   "yolo-auto": yoloAutoProvider,
   dxnt: dxntProvider,
   "cloudcode-one": cloudcodeOneProvider,
+  unorouter: unorouterProvider,
 };
