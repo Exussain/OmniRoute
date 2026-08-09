@@ -97,6 +97,21 @@ test("package.json files[] excludes nested node_modules from the published packa
   );
 });
 
+test("build-next-isolated sibling imports are allowed in the published package", () => {
+  const buildDependencies = [
+    "scripts/build/assembleStandalone.mjs",
+    "scripts/build/backendOnlyPages.mjs",
+    "scripts/build/build-tproxy-native.mjs",
+  ];
+
+  const unexpectedPaths = findUnexpectedArtifactPaths(buildDependencies, {
+    exactPaths: PACK_ARTIFACT_ALLOWED_EXACT_PATHS,
+    prefixPaths: PACK_ARTIFACT_ALLOWED_PATH_PREFIXES,
+  });
+
+  assert.deepEqual(unexpectedPaths, []);
+});
+
 test("webdav-handler.mjs is allowed in staging dist/ (server-ws.mjs dependency, missed in 3.8.22 build)", () => {
   const unexpectedPaths = findUnexpectedArtifactPaths(["webdav-handler.mjs"], {
     exactPaths: APP_STAGING_ALLOWED_EXACT_PATHS,
