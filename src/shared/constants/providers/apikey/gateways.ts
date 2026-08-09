@@ -110,21 +110,6 @@ export const APIKEY_PROVIDERS_GATEWAYS = {
     apiHint:
       "Create a free Zylo API key at https://zyloai.net, then use https://api.zyloai.net/v1 as the OpenAI-compatible base URL.",
   },
-  unorouter: {
-    id: "unorouter",
-    alias: "unorouter",
-    name: "UnoRouter",
-    icon: "router",
-    color: "#7C3AED",
-    textIcon: "UR",
-    passthroughModels: true,
-    website: "https://unorouter.com",
-    hasFree: true,
-    freeNote:
-      "Models with the :free suffix do not debit balance; limit is 1 request/minute per free model per user.",
-    apiHint:
-      "Create an UnoRouter token, then use https://api.unorouter.com/v1 as the OpenAI-compatible base URL.",
-  },
   fastrouter: {
     id: "fastrouter",
     alias: "fastrouter",
