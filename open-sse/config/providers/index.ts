@@ -466,6 +466,7 @@ export const REGISTRY: Record<string, RegistryEntry> = {
   digitalocean: digitaloceanProvider,
   hcnsec: hcnsecProvider,
   promptql: promptqlProvider,
+  hyperagent: hyperagentProvider,
   "zylo-api": zyloApiProvider,
   poolside: poolsideProvider,
   fastrouter: fastrouterProvider,
