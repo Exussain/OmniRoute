@@ -200,6 +200,16 @@ test("Claude -> Gemini omits unsigned functionCall instead of injecting a fake t
     false,
     "signature-less tool_use must not become a native functionCall"
   );
+  assert.equal(
+    JSON.stringify(result).includes('"thoughtSignature"'),
+    false,
+    "the translator must not synthesize a fake thought signature"
+  );
+  assert.equal(
+    JSON.stringify(result).includes("read_file"),
+    false,
+    "the omitted unsigned call must not leak its tool payload elsewhere"
+  );
 });
 
 test("Claude -> Gemini sanitizes long tool names and exposes a restore map", () => {

@@ -80,6 +80,8 @@ test("#7849: the two-message pathological pair stays bounded", () => {
     Date.now() - started < 4000,
     "the pathological pair must stay fast; quadratic work would take seconds"
   );
+  assert.strictEqual(result.body, body, "bounded processing must preserve the input body");
+  assert.equal(result.compressed, false, "the non-deduplicable pair must fail open");
   assert.ok(Array.isArray((result.body as { messages?: unknown[] }).messages));
 });
 
