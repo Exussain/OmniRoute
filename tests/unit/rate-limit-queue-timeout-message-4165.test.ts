@@ -26,6 +26,12 @@ function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// Leave enough scheduling headroom for a loaded CI/devbox while keeping the
+// executing callback longer than the queue-only budget. The actual queued-job
+// case stays short because it controls dispatch deterministically.
+const DISPATCHED_QUEUE_BUDGET_MS = 2_000;
+const QUEUED_QUEUE_BUDGET_MS = 250;
+
 test.afterEach(async () => {
   await rateLimitManager.__resetRateLimitManagerForTests();
 });
@@ -43,14 +49,23 @@ async function triggerQueueTimeout() {
     concurrentRequests: 1,
     requestsPerMinute: 100000,
     minTimeBetweenRequestsMs: 0,
-    maxWaitMs: 40,
+    maxWaitMs: DISPATCHED_QUEUE_BUDGET_MS,
   });
-  rateLimitManager.enableRateLimitProtection("conn-queue-timeout");
+  const connectionId = "conn-dispatched-timeout";
+  rateLimitManager.enableRateLimitProtection(connectionId);
 
-  return rateLimitManager.withRateLimit("openai", "conn-queue-timeout", "gpt-4o", async () => {
-    await wait(400); // > maxWaitMs (40ms) → Bottleneck fails the job
-    return "should-not-reach";
-  });
+  let dispatched = false;
+  const result = await rateLimitManager.withRateLimit(
+    "test-provider",
+    connectionId,
+    null,
+    async () => {
+      dispatched = true;
+      await wait(DISPATCHED_QUEUE_BUDGET_MS + 250);
+      return "should-not-reach";
+    }
+  );
+  return { dispatched, result };
 }
 
 async function triggerQueuedTimeout() {
@@ -60,7 +75,7 @@ async function triggerQueuedTimeout() {
     concurrentRequests: 1,
     requestsPerMinute: 0,
     minTimeBetweenRequestsMs: 0,
-    maxWaitMs: 40,
+    maxWaitMs: QUEUED_QUEUE_BUDGET_MS,
   });
   const connectionId = "conn-queued-timeout";
   rateLimitManager.enableRateLimitProtection(connectionId);
@@ -79,13 +94,12 @@ async function triggerQueuedTimeout() {
   await firstExecuting;
 
   let caught: unknown;
+  let queuedDispatched = false;
   try {
-    await rateLimitManager.withRateLimit(
-      "test-provider",
-      connectionId,
-      null,
-      async () => "should-not-dispatch"
-    );
+    await rateLimitManager.withRateLimit("test-provider", connectionId, null, async () => {
+      queuedDispatched = true;
+      return "should-not-dispatch";
+    });
     assert.fail("expected the queued job to expire");
   } catch (error) {
     caught = error;
@@ -93,16 +107,20 @@ async function triggerQueuedTimeout() {
     releaseFirst();
     await first;
   }
-  return caught;
+  return { caught, queuedDispatched };
 }
 
 test("#4165 a dispatched provider call is not killed by the queue budget", async () => {
-  const result = await triggerQueueTimeout();
-  assert.equal(result, "should-not-reach");
+  const execution = await triggerQueueTimeout();
+  assert.equal(execution.dispatched, true, "the callback must enter execution");
+  assert.equal(execution.result, "should-not-reach");
 });
 
 test("#4165 queue expiry surfaces a clear local error", async () => {
-  const caught = (await triggerQueuedTimeout()) as Error & { code?: string };
+  const result = await triggerQueuedTimeout();
+  assert.ok(result.caught instanceof Error, "queue expiry must reject with an Error");
+  assert.equal(result.queuedDispatched, false, "an expired queued callback must never dispatch");
+  const caught = result.caught as Error & { code?: string };
   assert.equal(caught.code, "RATE_LIMIT_QUEUE_TIMEOUT");
   assert.match(caught.message, /maxWaitMs/);
   assert.match(caught.message, /not an upstream/i);

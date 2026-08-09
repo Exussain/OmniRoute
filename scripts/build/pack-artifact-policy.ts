@@ -121,6 +121,9 @@ export const PACK_ARTIFACT_ROOT_ALLOWED_EXACT_PATHS: string[] = [
   // shipped via package.json "files", so it must be allowed in the tarball.
   "open-sse/utils/setupPolyfill.ts",
   "package.json",
+  "scripts/build/assembleStandalone.mjs",
+  "scripts/build/backendOnlyPages.mjs",
+  "scripts/build/build-tproxy-native.mjs",
   "scripts/build/build-next-isolated.mjs",
   "scripts/check/check-supported-node-runtime.ts",
   "scripts/build/native-binary-compat.mjs",

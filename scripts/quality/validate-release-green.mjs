@@ -609,14 +609,6 @@ async function main() {
         args: ["run", "check:pack-artifact"],
         timeout: 20 * 60 * 1000,
       });
-      // WS1.2 (#7065 class): boot the REAL packed tarball from a clean install —
-      // the runtime gate structure checks cannot provide. Reuses the same dist/ build.
-      slow.push({
-        id: "pack-boot",
-        label: "Tarball boot-smoke (installed CLI serves /health)",
-        args: ["run", "check:pack-boot"],
-        timeout: 15 * 60 * 1000,
-      });
     }
     slow.forEach((g) => announce(`${g.label} [parallel]`));
     const slowResults = await Promise.all(
@@ -633,6 +625,41 @@ async function main() {
         detail: code === 0 ? "pass" : firstFailureLine(out),
       });
     });
+
+    if (WITH_BUILD) {
+      // WS1.2 (#7065 class): boot the REAL packed tarball from a clean install.
+      // check:pack-artifact is the builder for dist/ when staging is absent, so the
+      // boot smoke MUST run after it completes. Running both in the parallel wave
+      // races check:pack-boot against dist/server.js creation on clean worktrees.
+      const packArtifactIndex = slow.findIndex((g) => g.id === "pack-artifact");
+      const packArtifactResult = slowResults[packArtifactIndex];
+      const bootLabel = "Tarball boot-smoke (installed CLI serves /health)";
+
+      if (!packArtifactResult || packArtifactResult.code !== 0) {
+        const out = "skipped because package-artifact did not produce a valid dist/ build";
+        saveGateLog("pack-boot", out);
+        record({
+          id: "pack-boot",
+          label: bootLabel,
+          kind: "hard",
+          ok: false,
+          detail: out,
+        });
+      } else {
+        announce(bootLabel);
+        const { code, out } = await runAsync(npmCmd, ["run", "check:pack-boot"], {
+          timeout: 15 * 60 * 1000,
+        });
+        saveGateLog("pack-boot", out);
+        record({
+          id: "pack-boot",
+          label: bootLabel,
+          kind: "hard",
+          ok: code === 0,
+          detail: code === 0 ? "pass" : firstFailureLine(out),
+        });
+      }
+    }
   } else if (WITH_BUILD) {
     // --with-build without the suites (--quick): still verify the package artifact.
     const { code, out } = await runAsync(npmCmd, ["run", "check:pack-artifact"], {
