@@ -452,7 +452,13 @@ test("v1 search POST returns 400 when auto-select finds no configured provider (
     const body = (await response.json()) as any;
 
     assert.equal(response.status, 400);
+    assert.equal(capturedUrl, "", "fallback-only SearXNG must not receive an upstream request");
     assert.ok(body.error?.message || body.error);
+    assert.match(
+      String(body.error?.message ?? body.error),
+      /provider|configured/i,
+      "the response must explain that no provider was selected"
+    );
   } finally {
     globalThis.fetch = originalFetch;
   }

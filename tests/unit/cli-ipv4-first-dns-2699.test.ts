@@ -69,7 +69,7 @@ test("ServerSupervisor starts Node with IPv4-first DNS", async () => {
 
     assert.deepEqual(spawnCalls, [
       {
-        command: "node",
+        command: process.execPath,
         args: ["--dns-result-order=ipv4first", "--max-old-space-size=2048", "/app/server.js"],
       },
     ]);

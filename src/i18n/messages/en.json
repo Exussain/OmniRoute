@@ -10191,6 +10191,8 @@
     "copied": "Copied!",
     "run": "Run",
     "running": "Running...",
+    "loading": "Loading...",
+    "retry": "Retry",
     "response": "Response",
     "tunnel": "Tunnel",
     "send": "Send",
