@@ -212,7 +212,7 @@ test("#8969: mocked execute posts Chat Completions with Bearer, no Cookie, strip
 
   globalThis.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
     const headers = new Headers(init?.headers);
-    const rawBody = typeof init?.body === "string" ? init.body : "{}";
+    const rawBody = await new Request(input, init).text();
     seen.push({
       url: String(input),
       method: (init?.method || "GET").toUpperCase(),
