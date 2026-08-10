@@ -29,26 +29,29 @@
 import { BaseExecutor, type ExecuteInput } from "./base.ts";
 import { makeExecutorErrorResult as makeErrorResult } from "../utils/error.ts";
 import { prepareToolMessages, buildToolAwareResult } from "../translator/webTools.ts";
-import { buildQwenCookieHeader, extractQwenToken } from "@/lib/providers/webCookieAuth";
+import {
+  buildQwenCookieHeader,
+  extractQwenRequestHeader,
+  extractQwenToken,
+} from "@/lib/providers/webCookieAuth";
 
 const BASE_URL = "https://chat.qwen.ai";
 const CHATS_NEW_URL = `${BASE_URL}/api/v2/chats/new`;
 const CHAT_COMPLETIONS_URL = `${BASE_URL}/api/v2/chat/completions`;
 const USER_AGENT =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36";
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36";
 
 // Anti-bot headers the v2 endpoint expects. `bx-umidtoken` is normally minted
 // per-session from sg-wum.alibaba.com; a captured value travels with the cookie
 // jar, but we also send a static fallback so the header is always present.
-const BX_VERSION = "2.5.36";
-const BX_UMIDTOKEN_FALLBACK = "T2gA0000000000000000000000000000000000000000";
+const BX_VERSION = "2.5.37";
 
 // Qwen SPA version — required by the v2 chat completion endpoint. Without this
 // header the upstream returns HTTP 200 with `{"success":false,"data":{"code":"Bad_Request"}}`
 // for every completion request, even with a valid session. The version string is
 // the SPA build identifier shipped in the React client's `version` request header.
 // Pinned from a live capture (2026-07); bump if Qwen ships a breaking change.
-const QWEN_SPA_VERSION = "0.2.66";
+const QWEN_SPA_VERSION = "0.2.83";
 
 const MODEL_ALIASES: Record<string, string> = {
   // Legacy OmniRoute ids → current upstream catalog (GET /api/models).
@@ -97,21 +100,44 @@ export class QwenWebExecutor extends BaseExecutor {
   private buildApiHeaders(
     token: string,
     cookieHeader: string,
-    chatId?: string
+    chatId?: string,
+    rawCredential = ""
   ): Record<string, string> {
+    const browserHeader = (name: string, fallback: string) =>
+      extractQwenRequestHeader(rawCredential, name) || fallback;
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
-      Accept: "*/*",
-      "User-Agent": USER_AGENT,
+      Accept: browserHeader("accept", "application/json"),
+      "User-Agent": browserHeader("user-agent", USER_AGENT),
       Origin: BASE_URL,
       Referer: chatId ? `${BASE_URL}/c/${chatId}` : `${BASE_URL}/`,
       source: "web",
-      version: QWEN_SPA_VERSION,
+      version: browserHeader("version", QWEN_SPA_VERSION),
       "x-request-id": uuid(),
-      "bx-v": BX_VERSION,
-      "bx-umidtoken": BX_UMIDTOKEN_FALLBACK,
+      "bx-v": browserHeader("bx-v", BX_VERSION),
     };
-    if (token) headers["Authorization"] = `Bearer ${token}`;
+    const bxUa = extractQwenRequestHeader(rawCredential, "bx-ua");
+    const bxUmidtoken = extractQwenRequestHeader(rawCredential, "bx-umidtoken");
+    const timezone = extractQwenRequestHeader(rawCredential, "timezone");
+    if (bxUa) headers["bx-ua"] = bxUa;
+    if (bxUmidtoken) headers["bx-umidtoken"] = bxUmidtoken;
+    if (timezone) headers.timezone = timezone;
+    const authorization = extractQwenRequestHeader(rawCredential, "authorization");
+    if (authorization) headers.Authorization = authorization;
+    else if (token && !cookieHeader) headers.Authorization = `Bearer ${token}`;
+    for (const name of [
+      "accept-language",
+      "sec-ch-ua",
+      "sec-ch-ua-mobile",
+      "sec-ch-ua-platform",
+      "sec-fetch-dest",
+      "sec-fetch-mode",
+      "sec-fetch-site",
+      "x-accel-buffering",
+    ]) {
+      const value = extractQwenRequestHeader(rawCredential, name);
+      if (value) headers[name] = value;
+    }
     if (cookieHeader) headers["Cookie"] = cookieHeader;
     return headers;
   }
@@ -121,7 +147,8 @@ export class QwenWebExecutor extends BaseExecutor {
     const bodyObj = (body || {}) as Record<string, unknown>;
 
     const rawCred = String(credentials?.apiKey ?? "").trim();
-    const cookieHeader = buildQwenCookieHeader(rawCred);
+    const cookieHeader =
+      extractQwenRequestHeader(rawCred, "cookie") || buildQwenCookieHeader(rawCred);
     let token = extractQwenToken(rawCred);
     if (!token && credentials?.accessToken) token = String(credentials.accessToken).trim();
 
@@ -139,7 +166,7 @@ export class QwenWebExecutor extends BaseExecutor {
     try {
       const newChatRes = await fetch(CHATS_NEW_URL, {
         method: "POST",
-        headers: this.buildApiHeaders(token, cookieHeader),
+        headers: this.buildApiHeaders(token, cookieHeader, undefined, rawCred),
         body: JSON.stringify({
           title: "New Chat",
           models: [modelId],
@@ -186,7 +213,7 @@ export class QwenWebExecutor extends BaseExecutor {
     try {
       upstream = await fetch(completionUrl, {
         method: "POST",
-        headers: this.buildApiHeaders(token, cookieHeader, chatId),
+        headers: this.buildApiHeaders(token, cookieHeader, chatId, rawCred),
         body: JSON.stringify(msgPayload),
         signal,
       });
@@ -214,7 +241,17 @@ export class QwenWebExecutor extends BaseExecutor {
     }
 
     if (!wantStream) {
-      const { content } = await this.collectStream(upstream);
+      let content: string;
+      try {
+        ({ content } = await this.collectStream(upstream));
+      } catch (err) {
+        return makeErrorResult(
+          502,
+          err instanceof Error ? err.message : "Qwen returned an invalid response",
+          body,
+          completionUrl
+        );
+      }
       const finalText = content;
 
       if (hasTools) {
@@ -251,7 +288,7 @@ export class QwenWebExecutor extends BaseExecutor {
         },
       }),
       url: completionUrl,
-      headers: this.buildApiHeaders(token, cookieHeader, chatId),
+      headers: this.buildApiHeaders(token, cookieHeader, chatId, rawCred),
       transformedBody: msgPayload,
     };
   }
@@ -353,12 +390,26 @@ export class QwenWebExecutor extends BaseExecutor {
         for (const line of lines) {
           const delta = parseSseDelta(line);
           if (!delta) continue;
+          if (delta.kind === "error") throw new QwenStreamError(delta.message);
           if (delta.kind === "answer") content += delta.text;
           else if (delta.kind === "think") reasoning += delta.text;
         }
       }
-    } catch {
+      if (buffer.trim()) {
+        const delta = parseSseDelta(buffer);
+        if (delta?.kind === "error") throw new QwenStreamError(delta.message);
+        if (delta?.kind === "answer") content += delta.text;
+        else if (delta?.kind === "think") reasoning += delta.text;
+      }
+    } catch (err) {
+      if (err instanceof QwenStreamError) throw err;
       /* upstream closed mid-stream — return what we have */
+    }
+    if (!content.trim()) {
+      throw new QwenStreamError(
+        "Qwen returned no assistant content. Its web-session response format may have changed; " +
+          "the upstream error is now surfaced instead of returning an empty success."
+      );
     }
     return { content, reasoning };
   }
@@ -394,7 +445,13 @@ export class QwenWebExecutor extends BaseExecutor {
         }
         let buffer = "";
         let fullContent = "";
-        controller.enqueue(encoder.encode(emitChunk({ role: "assistant", content: "" }, null)));
+        let roleEmitted = false;
+        const emitRole = () => {
+          if (!roleEmitted) {
+            roleEmitted = true;
+            controller.enqueue(encoder.encode(emitChunk({ role: "assistant", content: "" }, null)));
+          }
+        };
         try {
           while (true) {
             const { done, value } = await reader.read();
@@ -404,7 +461,15 @@ export class QwenWebExecutor extends BaseExecutor {
             buffer = lines.pop() || "";
             for (const line of lines) {
               const delta = parseSseDelta(line);
-              if (!delta || !delta.text) continue;
+              if (!delta) continue;
+              if (delta.kind === "error") {
+                controller.enqueue(encoder.encode(emitError(delta.message)));
+                controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+                controller.close();
+                return;
+              }
+              if (!delta.text) continue;
+              emitRole();
               if (delta.kind === "answer") {
                 fullContent += delta.text;
                 if (!hasTools) {
@@ -417,11 +482,42 @@ export class QwenWebExecutor extends BaseExecutor {
               }
             }
           }
+          if (buffer.trim()) {
+            const delta = parseSseDelta(buffer);
+            if (delta?.kind === "error") {
+              controller.enqueue(encoder.encode(emitError(delta.message)));
+              controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+              controller.close();
+              return;
+            }
+            if (delta?.text) {
+              emitRole();
+              if (delta.kind === "answer") {
+                fullContent += delta.text;
+                if (!hasTools) controller.enqueue(encoder.encode(emitChunk({ content: delta.text }, null)));
+              } else if (delta.kind === "think" && !hasTools) {
+                controller.enqueue(encoder.encode(emitChunk({ reasoning_content: delta.text }, null)));
+              }
+            }
+          }
         } catch (err) {
           if (!signal?.aborted) {
             controller.error(err);
             return;
           }
+        }
+
+        if (!fullContent.trim()) {
+          controller.enqueue(
+            encoder.encode(
+              emitError(
+                "Qwen returned no assistant content. Its web-session response format may have changed."
+              )
+            )
+          );
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+          return;
         }
 
         if (hasTools) {
@@ -469,29 +565,87 @@ export class QwenWebExecutor extends BaseExecutor {
   }
 }
 
-/** Parse one SSE line into a typed delta, or null if it carries no content. */
-function parseSseDelta(line: string): { kind: "answer" | "think"; text: string } | null {
-  if (!line.startsWith("data:")) return null;
-  const payload = line.slice(5).trim();
+class QwenStreamError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "QwenStreamError";
+  }
+}
+
+function emitError(message: string): string {
+  return `data: ${JSON.stringify({
+    error: { message, type: "upstream_error", code: "qwen_upstream_error" },
+  })}\n\n`;
+}
+
+type QwenParsedDelta =
+  | { kind: "answer" | "think"; text: string }
+  | { kind: "error"; message: string };
+
+/** Parse one SSE line into a typed delta, error, or null if it carries no data. */
+function parseSseDelta(line: string): QwenParsedDelta | null {
+  const trimmed = line.trim();
+  if (!trimmed) return null;
+  const payload = trimmed.startsWith("data:") ? trimmed.slice(5).trim() : trimmed;
   if (!payload || payload === "[DONE]") return null;
-  let parsed: {
-    choices?: Array<{ delta?: { phase?: string | null; content?: unknown } }>;
-  };
+  let parsed: any;
   try {
     parsed = JSON.parse(payload);
   } catch {
     return null;
   }
-  const delta = parsed?.choices?.[0]?.delta;
-  if (!delta) return null;
-  const phase = delta.phase;
-  const content = typeof delta.content === "string" ? delta.content : "";
-  if (phase === "think" || phase === "thinking_summary") {
+
+  const error = extractQwenError(parsed);
+  if (error) return { kind: "error", message: error };
+
+  const delta =
+    parsed?.choices?.[0]?.delta ??
+    parsed?.data?.choices?.[0]?.delta ??
+    parsed?.output?.choices?.[0]?.delta ??
+    parsed?.data?.output?.choices?.[0]?.delta;
+  const phase = delta?.phase;
+  const content =
+    firstString(
+      delta?.content,
+      parsed?.choices?.[0]?.message?.content,
+      parsed?.data?.choices?.[0]?.message?.content,
+      parsed?.data?.content,
+      parsed?.content,
+      parsed?.data?.output_text,
+      parsed?.data?.output?.text,
+      parsed?.output_text,
+      parsed?.output?.text
+    ) ?? "";
+  if (!delta && !content) return null;
+  if (["think", "thinking", "reasoning", "analysis", "thinking_summary"].includes(phase)) {
     return { kind: "think", text: content };
   }
   // `answer` phase or a null/absent phase both carry assistant content.
-  if (phase === "answer" || phase === null || phase === undefined) {
+  if (["answer", "content"].includes(phase) || phase === null || phase === undefined) {
     return { kind: "answer", text: content };
+  }
+  return null;
+}
+
+function firstString(...values: unknown[]): string | null {
+  return values.find((value): value is string => typeof value === "string") ?? null;
+}
+
+function extractQwenError(parsed: any): string | null {
+  const errorObject = parsed?.error;
+  const retCode = Array.isArray(parsed?.ret) ? parsed.ret[0] : undefined;
+  const retMessage = Array.isArray(parsed?.ret) ? parsed.ret[1] : undefined;
+  const code = firstString(retCode, parsed?.code, parsed?.data?.code, errorObject?.code);
+  const message = firstString(
+    errorObject,
+    errorObject?.message,
+    retMessage,
+    parsed?.data?.message,
+    parsed?.message,
+    parsed?.data?.error
+  );
+  if (parsed?.success === false || errorObject || code) {
+    return `Qwen upstream error${code ? ` (${code})` : ""}: ${message || "request rejected"}`;
   }
   return null;
 }

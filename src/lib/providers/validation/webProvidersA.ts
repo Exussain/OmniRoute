@@ -7,6 +7,7 @@ import { toValidationErrorResult, validationRead, validationWrite } from "./tran
 import {
   buildGrokCookieHeader,
   buildQwenCookieHeader,
+  extractQwenRequestHeader,
   extractCookieValue,
   extractKimiAccessToken,
   extractQwenToken,
@@ -175,18 +176,23 @@ export async function validateQwenWebProvider({ apiKey }: any) {
     const headers: Record<string, string> = {
       Accept: "*/*",
       "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
       Origin: "https://chat.qwen.ai",
       Referer: "https://chat.qwen.ai/",
       source: "web",
-      "bx-v": "2.5.36",
+      "bx-v": extractQwenRequestHeader(rawCred, "bx-v") || "2.5.37",
       // The Qwen SPA's `version` header is required by the v2 chat completion
       // endpoint; the validator sends it too so the probe matches a real
       // browser request as closely as possible. (The session probe endpoint
       // doesn't enforce it, but consistency with the executor avoids surprises
       // if Qwen ever tightens its WAF rules.)
-      version: "0.2.66",
+      version: extractQwenRequestHeader(rawCred, "version") || "0.2.83",
     };
+    for (const name of ["bx-ua", "bx-umidtoken", "timezone"]) {
+      const value = extractQwenRequestHeader(rawCred, name);
+      if (value) headers[name] = value;
+    }
+    headers["User-Agent"] = extractQwenRequestHeader(rawCred, "user-agent") || headers["User-Agent"];
     if (token) headers["Authorization"] = `Bearer ${token}`;
     if (cookieHeader) headers["Cookie"] = cookieHeader;
 

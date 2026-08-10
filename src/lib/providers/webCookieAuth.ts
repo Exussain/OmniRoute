@@ -86,7 +86,24 @@ export function buildGrokCookieHeader(rawValue: string): string {
 export function buildQwenCookieHeader(rawValue: string): string {
   const trimmed = stripCookieInputPrefix(rawValue);
   if (!trimmed || !trimmed.includes("=")) return "";
-  return trimmed;
+  // Accept either a copied Cookie value or a copied DevTools request-header
+  // block. In the latter case, forward only the actual Cookie line.
+  const cookieLine = trimmed.match(/(?:^|\r?\n)\s*cookie:\s*([^\r\n]+)/i);
+  return cookieLine?.[1]?.trim() || trimmed;
+}
+
+/** Extract an optional browser request header from a pasted DevTools header block. */
+export function extractQwenRequestHeader(rawValue: string, headerName: string): string {
+  const trimmed = String(rawValue ?? "");
+  const escaped = headerName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return trimmed.match(new RegExp(`(?:^|\\r?\\n)\\s*${escaped}\\s*:\\s*([^\\r\\n]+)`, "i"))?.[1]?.trim() || "";
+}
+
+/** Extract an optional request header from a pasted DevTools header block. */
+export function extractGrokRequestHeader(rawValue: string, headerName: string): string {
+  const trimmed = String(rawValue ?? "");
+  const escaped = headerName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return trimmed.match(new RegExp(`(?:^|\\r?\\n)\\s*${escaped}\\s*:\\s*([^\\r\\n]+)`, "i"))?.[1]?.trim() || "";
 }
 
 /**

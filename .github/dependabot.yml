@@ -52,7 +52,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-
   - package-ecosystem: "npm"
     directory: "/electron"
     schedule:
@@ -68,3 +67,8 @@ updates:
       day: "monday"
     commit-message:
       prefix: "deps"
+
+  - package-ecosystem: "npm"
+    directory: "/open-sse"
+    schedule:
+      interval: "weekly"

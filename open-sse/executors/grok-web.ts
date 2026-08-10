@@ -42,6 +42,7 @@ import {
   hasOpenToolCallMarkup,
 } from "./grok-web/tool-bridge.ts";
 import { mapGrokNativeToolToOpenAI } from "./grok-web/native-tools.ts";
+import { createGrokWebSocketStream } from "../services/grokWebSocket.ts";
 import {
   GrokMarkupFilter,
   cleanGrokContentText,
@@ -859,6 +860,26 @@ export class GrokWebExecutor extends BaseExecutor {
       );
       return { response: errResp, url: GROK_CHAT_API, headers: {}, transformedBody: body };
     }
+
+    // Grok's current web frontend uses a realtime WebSocket session instead of
+    // the retired HTTP /rest/app-chat/conversations/new endpoint.
+    const wsEventStream = createGrokWebSocketStream({ credentials, model: modeId, message, signal, log });
+    const wsCid = `chatcmpl-grok-${crypto.randomUUID().slice(0, 12)}`;
+    const wsCreated = Math.floor(Date.now() / 1000);
+    const wsHeaders: Record<string, string> = {};
+    if (credentials.apiKey) {
+      const cookieHeader = buildGrokCookieHeader(credentials.apiKey);
+      if (cookieHeader) wsHeaders.Cookie = cookieHeader;
+    }
+    if (stream) {
+      const response = new Response(
+        buildStreamingResponse(wsEventStream, model, wsCid, wsCreated, isThinking, toolRegistry, signal),
+        { status: 200, headers: { "Content-Type": "text/event-stream", "Cache-Control": "no-cache", "X-Accel-Buffering": "no" } }
+      );
+      return { response, url: "wss://grok.com/ws/mgw/", headers: wsHeaders, transformedBody: { model: modeId, message } };
+    }
+    const response = await buildNonStreamingResponse(wsEventStream, model, wsCid, wsCreated, isThinking, toolRegistry, signal);
+    return { response, url: "wss://grok.com/ws/mgw/", headers: wsHeaders, transformedBody: { model: modeId, message } };
 
     // Build Grok request payload
     const grokPayload: Record<string, unknown> = {
