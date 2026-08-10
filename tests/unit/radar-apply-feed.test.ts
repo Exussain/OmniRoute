@@ -746,6 +746,40 @@ test("FIX2 feedModelToMerged path: contextWindow/capabilities/limits/setup survi
   });
 });
 
+test("F3 mergeOne path: familyId survives the feed merge over a baseline entry", () => {
+  const result = applyFeed({
+    baseline: makeBaseline(),
+    feed: [
+      makeFeedModel({
+        provider: "groq",
+        modelId: "llama-3.3-70b-versatile",
+        familyId: "llama-3.3-70b",
+      }),
+    ],
+    localOverrides: new Map(),
+    tombstones: new Set(),
+  });
+
+  assert.equal(result.find((entry) => entry.provider === "groq")?.familyId, "llama-3.3-70b");
+});
+
+test("F3 feedModelToMerged path: familyId survives for a feed-only entry", () => {
+  const result = applyFeed({
+    baseline: [],
+    feed: [
+      makeFeedModel({
+        provider: "new-provider",
+        modelId: "shared-model",
+        familyId: "shared-family",
+      }),
+    ],
+    localOverrides: new Map(),
+    tombstones: new Set(),
+  });
+
+  assert.equal(result[0]?.familyId, "shared-family");
+});
+
 // ===========================================================================
 // Feed `enabled:false` is the safety exception to local override precedence:
 // a model confirmed dead upstream must not be resurrected locally.

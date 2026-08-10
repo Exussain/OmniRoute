@@ -12254,7 +12254,8 @@
     "hiddenModelsTitle": "Hidden models",
     "modelDisplayName": "Local display name",
     "modelEnabled": "Enabled locally",
-    "localStateSaveFailed": "Failed to save local Radar settings"
+    "localStateSaveFailed": "Failed to save local Radar settings",
+    "guidedCombos": "Guided combos"
   },
   "radarSetupPage": {
     "title": "Nastavenie poskytovateľa",
@@ -12280,5 +12281,22 @@
     "addConnection": "Pridať pripojenie",
     "addConnectionDescription": "Ešte nemáte pripojenie? Pridajte jedno v ovládacom paneli poskytovateľov.",
     "addConnectionLink": "Prejdite na poskytovateľov →"
+  },
+  "radarCombosPage": {
+    "title": "Radar guided combos",
+    "subtitle": "Create priority fallbacks from equivalent free models curated by Radar.",
+    "backToRadar": "Back to Radar",
+    "loading": "Loading combo suggestions...",
+    "familyLabel": "Model family",
+    "modelsLabel": "Priority order",
+    "strategyReason": "Priority uses the largest recurring free budget first, then falls back across active providers.",
+    "generateButton": "Generate combo",
+    "generating": "Generating...",
+    "alreadyCreated": "Already created",
+    "created": "Combo created",
+    "noSuggestions": "No eligible model family currently has active connections to at least two providers.",
+    "catalogRequired": "Sync the Radar catalog first to load curated model families.",
+    "loadFailed": "Failed to load Radar combo suggestions.",
+    "createFailed": "Failed to create the combo. Review your provider connections and try again."
   }
 }

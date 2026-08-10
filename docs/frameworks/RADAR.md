@@ -290,6 +290,26 @@ The dashboard exposes four local actions:
 A feed `enabled: false` remains the safety exception: it wins over a stale local
 `enabled: true`, keeps the merged entry disabled, and records `disabledBy: "radar"`.
 
+### Guided combos and MCP access
+
+Confirmed `familyId` values survive the read-time overlay and drive the pure
+`buildRadarComboSuggestions()` module (`src/lib/radar/comboSuggestions.ts`). A family is suggested
+only when at least two distinct providers have active connections and expose the exact curated model
+ID. Disabled models, inactive providers, missing model IDs, singleton families, and ambiguous
+alias/prefix matches fail closed. Suggestions use the existing `priority` strategy, ordering the
+largest recurring monthly budget first; the UI creates them only through `POST /api/combos`.
+
+The guided UI lives at `/dashboard/radar/combos`. It reads only the local
+`GET /api/radar/catalog` and `GET /api/combos/builder/options` endpoints. It never triggers Radar sync,
+reads provider credentials, or writes directly to the combo database.
+
+MCP clients can read the same local projection with `omniroute_radar_catalog` (`read:radar`). The
+optional `provider`, `familyId`, and `enabledOnly` filters are evaluated after one local
+`GET /api/radar/catalog` read. Its closed output includes catalog metadata plus provider/model,
+display name, `familyId`, quota, capabilities, enabled state, origin, and `disabledBy`; setup URLs,
+steps, connections, e-mail addresses, keys, and referral data are never returned. This tool is
+read-only and never invokes `/api/radar/sync`.
+
 ### Provenance markers
 
 Every merged entry carries an `origin` field the UI renders as a badge:
@@ -303,7 +323,7 @@ Every merged entry carries an `origin` field the UI renders as a badge:
 
 ## Local surfaces — never a feed proxy
 
-Six local endpoints back the UI, all under `src/app/api/radar/`:
+The local Radar route families below back the UI under `src/app/api/radar/`:
 
 | Route                          | Method | Purpose                                                                                                               |
 | ------------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------- |
@@ -323,14 +343,14 @@ to the local OmniRoute server. The two modules that touch the Radar service are
 always run server-side, never client-side. This keeps the feed URL and any supporter key
 out of client-facing network traffic entirely.
 
-All six endpoints return `404` when `RADAR_ENABLED` is off (see
+All Radar endpoints return `404` when `RADAR_ENABLED` is off (see
 [Flag](#flag-radar_enabled-default-off) above), and route error responses through
 `buildErrorBody()`/`sanitizeErrorMessage()` per the repo-wide error-sanitization rule
 (`docs/security/ERROR_SANITIZATION.md`).
 
 ### Authentication
 
-All six endpoints require authentication via `isAuthenticated()`
+All Radar endpoints require authentication via `isAuthenticated()`
 (`src/shared/utils/apiAuth.ts`) — a dashboard session cookie or a management-scoped
 API key, the same gate that protects the rest of `/api/settings/*`. The flag-off
 `404` check always runs **before** the auth check, so an install with `RADAR_ENABLED`

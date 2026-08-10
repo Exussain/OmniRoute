@@ -48,20 +48,20 @@ Repository map and Reference Documentation sections below.
 
 **OmniRoute** — unified AI proxy/router. One endpoint, 291 LLM providers, auto-fallback.
 
-| Layer         | Location                | Purpose                                                                                                                                                 |
-| ------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| API Routes    | `src/app/api/v1/`       | Next.js App Router — entry points                                                                                                                       |
-| Handlers      | `open-sse/handlers/`    | Request processing (chat, embeddings, etc)                                                                                                              |
-| Executors     | `open-sse/executors/`   | Provider-specific HTTP dispatch                                                                                                                         |
-| Translators   | `open-sse/translator/`  | Format conversion (OpenAI↔Claude↔Gemini)                                                                                                                |
-| Transformer   | `open-sse/transformer/` | Responses API ↔ Chat Completions                                                                                                                        |
-| Services      | `open-sse/services/`    | Combo routing, rate limits, caching, etc                                                                                                                |
-| Database      | `src/lib/db/`           | SQLite domain modules (130 migrations)                                                                                                                  |
-| Domain/Policy | `src/domain/`           | Policy engine, cost rules, fallback logic                                                                                                               |
-| MCP Server    | `open-sse/mcp-server/`  | 105 tools (42 base + memory/skill/agentSkill/pool/notion/obsidian/gamification/plugin modules), 3 transports (stdio / SSE / Streamable HTTP), 31 scopes |
-| A2A Server    | `src/lib/a2a/`          | JSON-RPC 2.0 agent protocol                                                                                                                             |
-| Skills        | `src/lib/skills/`       | Extensible skill framework                                                                                                                              |
-| Memory        | `src/lib/memory/`       | Persistent conversational memory                                                                                                                        |
+| Layer         | Location                | Purpose                                                                                                                                                                   |
+| ------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| API Routes    | `src/app/api/v1/`       | Next.js App Router — entry points                                                                                                                                         |
+| Handlers      | `open-sse/handlers/`    | Request processing (chat, embeddings, etc)                                                                                                                                |
+| Executors     | `open-sse/executors/`   | Provider-specific HTTP dispatch                                                                                                                                           |
+| Translators   | `open-sse/translator/`  | Format conversion (OpenAI↔Claude↔Gemini)                                                                                                                                  |
+| Transformer   | `open-sse/transformer/` | Responses API ↔ Chat Completions                                                                                                                                          |
+| Services      | `open-sse/services/`    | Combo routing, rate limits, caching, etc                                                                                                                                  |
+| Database      | `src/lib/db/`           | SQLite domain modules (130 migrations)                                                                                                                                    |
+| Domain/Policy | `src/domain/`           | Policy engine, cost rules, fallback logic                                                                                                                                 |
+| MCP Server    | `open-sse/mcp-server/`  | 109 tools (44 canonical + memory/skill/GitHub/pool/gamification/plugin/Notion/Obsidian/local-corpus/RTK modules), 3 transports (stdio / SSE / Streamable HTTP), 33 scopes |
+| A2A Server    | `src/lib/a2a/`          | JSON-RPC 2.0 agent protocol                                                                                                                                               |
+| Skills        | `src/lib/skills/`       | Extensible skill framework                                                                                                                                                |
+| Memory        | `src/lib/memory/`       | Persistent conversational memory                                                                                                                                          |
 
 Monorepo: `src/` (Next.js 16 app), `open-sse/` (streaming engine workspace), `electron/` (desktop app), `tests/`, `bin/` (CLI entry point).
 

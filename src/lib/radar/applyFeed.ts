@@ -27,6 +27,8 @@ export interface MergedEntry {
   provider: string;
   modelId: string;
   displayName: string;
+  /** Curated cross-provider model family used for Radar combo suggestions. */
+  familyId?: string | null;
   monthlyTokens: number;
   creditTokens: number;
   freeType:
@@ -259,6 +261,9 @@ function mergeOne(
   if (!overriddenKeys.has("displayName")) {
     result.displayName = feed.displayName;
   }
+  if (!overriddenKeys.has("familyId")) {
+    result.familyId = feed.familyId;
+  }
   if (!overriddenKeys.has("monthlyTokens")) {
     result.monthlyTokens = feedBudgetToMonthlyTokens(feed.budget);
   }
@@ -293,6 +298,7 @@ function mergeOne(
   // Apply local overrides (rule 1: they win)
   if (overrides) {
     if (overrides.displayName !== undefined) result.displayName = overrides.displayName;
+    if (overrides.familyId !== undefined) result.familyId = overrides.familyId;
     if (overrides.monthlyTokens !== undefined) result.monthlyTokens = overrides.monthlyTokens;
     if (overrides.creditTokens !== undefined) result.creditTokens = overrides.creditTokens;
     if (overrides.freeType !== undefined) result.freeType = overrides.freeType;
@@ -330,6 +336,7 @@ function feedModelToMerged(
     provider: feed.provider,
     modelId: feed.modelId,
     displayName: overrides?.displayName ?? feed.displayName,
+    familyId: overrides?.familyId ?? feed.familyId,
     monthlyTokens: overrides?.monthlyTokens ?? feedBudgetToMonthlyTokens(feed.budget),
     creditTokens: overrides?.creditTokens ?? 0,
     freeType: overrides?.freeType ?? feed.freeType,

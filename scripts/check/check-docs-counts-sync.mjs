@@ -147,9 +147,10 @@ function readCodeFacts() {
     'import {pluginTools} from "./open-sse/mcp-server/tools/pluginTools.ts";',
     'import {notionTools} from "./open-sse/mcp-server/tools/notionTools.ts";',
     'import {obsidianTools} from "./open-sse/mcp-server/tools/obsidianTools.ts";',
+    'import {localCorpusTools} from "./open-sse/mcp-server/tools/localCorpusTools.ts";',
     'import {compressionTools} from "./open-sse/mcp-server/tools/compressionTools.ts";',
     "const cols={MCP_TOOLS,memoryTools,skillTools,agentSkillTools,githubSkillTools,poolTools,",
-    "gamificationTools,pluginTools,notionTools,obsidianTools,compressionTools};",
+    "gamificationTools,pluginTools,notionTools,obsidianTools,localCorpusTools,compressionTools};",
     "const sc=new Set();",
     "for(const col of Object.values(cols))for(const t of Object.values(col))",
     "for(const x of (t?.scopes||[]))sc.add(x);",
@@ -313,7 +314,7 @@ export function buildChecks() {
             // total ("33 tools (25 CLI Code's …)") are not the MCP aggregate
             // per-module rows read "… tool definitions (N tools" / "… management tools
             // (N tools" — the word tool(s)/definitions sits right before the paren. The
-            // aggregate ("MCP Server (104 tools", "all 104 tools") never does.
+            // aggregate ("MCP Server (109 tools", "all 109 tools") never does.
             skipBefore: /(tools?|definitions?)\s*\(\s*$/i,
             skipAfter: /^\s*\(\d+ CLI/,
           },

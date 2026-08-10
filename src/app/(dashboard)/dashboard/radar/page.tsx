@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Card } from "@/shared/components";
 import { shouldAutoSyncOnOpen } from "@/lib/radar/autoSync";
@@ -315,15 +316,25 @@ export default function RadarPage() {
           <h1 className="text-2xl font-bold">{t("title")}</h1>
           <p className="text-sm text-text-muted mt-1">{t("subtitle")}</p>
         </div>
-        {pageState === "populated" && (
-          <button
-            onClick={handleSync}
-            disabled={syncing}
-            className="px-4 py-2 text-sm font-medium rounded-lg border border-violet-500 text-violet-400 hover:bg-violet-500/10 transition-colors disabled:opacity-50"
-          >
-            {syncing ? t("syncing") : t("syncNow")}
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {(pageState === "empty" || pageState === "populated") && (
+            <Link
+              href="/dashboard/radar/combos"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-border text-text-main hover:border-violet-500 hover:text-violet-400 transition-colors"
+            >
+              {t("guidedCombos")}
+            </Link>
+          )}
+          {pageState === "populated" && (
+            <button
+              onClick={handleSync}
+              disabled={syncing}
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-violet-500 text-violet-400 hover:bg-violet-500/10 transition-colors disabled:opacity-50"
+            >
+              {syncing ? t("syncing") : t("syncNow")}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Feed freshness header */}

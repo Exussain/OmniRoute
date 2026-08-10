@@ -93,6 +93,8 @@ import { normalizeQuotaResponse } from "../../src/shared/contracts/quota.ts";
 import { resolveOmniRouteBaseUrl } from "../../src/shared/utils/resolveOmniRouteBaseUrl.ts";
 import { sanitizeErrorMessage } from "../utils/error.ts";
 import { getMcpModelsCatalog } from "./catalog.ts";
+import { registerRadarCatalogTool } from "./radarCatalog.ts";
+import type { TextToolResult } from "./toolResult.ts";
 export { getMcpModelsCatalog } from "./catalog.ts";
 
 const OMNIROUTE_BASE_URL = resolveOmniRouteBaseUrl();
@@ -145,11 +147,6 @@ function readMcpAccessibilityConfig(): McpAccessibilityConfig {
     return { ...DEFAULT_MCP_ACCESSIBILITY_CONFIG };
   }
 }
-
-type TextToolResult = {
-  content: Array<{ type: "text"; text: string }>;
-  isError?: boolean;
-};
 
 function toRecord(value: unknown): JsonRecord {
   return value && typeof value === "object" && !Array.isArray(value) ? (value as JsonRecord) : {};
@@ -814,6 +811,8 @@ export function createMcpServer(): McpServer {
       handleListModelsCatalog(listModelsCatalogInput.parse(args))
     )
   );
+
+  registerRadarCatalogTool(server, withScopeEnforcement);
 
   server.registerTool(
     "omniroute_simulate_route",

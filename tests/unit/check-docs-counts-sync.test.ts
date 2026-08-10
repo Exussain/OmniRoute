@@ -148,7 +148,7 @@ test("free-tier gate passes when a file carries no headline at all", () => {
 
 // --- Generic numeric-claim gate (engines / MCP tools / scopes / CLI) --------
 // Extends the same drift guard to the counts that silently drifted in v3.8.49:
-// 11→12 engines, 94→104 MCP tools, 30→31 scopes, 26→33 CLI tools.
+// 11→12 engines, 94→109 MCP tools, 30→33 scopes, 26→33 CLI tools.
 import { makeNumberClaimValidator } from "../../scripts/check/check-docs-counts-sync.mjs";
 
 const makeValidator = makeNumberClaimValidator as (
@@ -157,19 +157,19 @@ const makeValidator = makeNumberClaimValidator as (
 ) => (content: string) => { ok: boolean; detail: string };
 
 test("MCP-tools gate accepts the aggregate and rejects a stale one", () => {
-  const v = makeValidator(104, {
+  const v = makeValidator(109, {
     what: "MCP tools",
     pattern: /(\d+) tools/gi,
     skipBefore: /(tools?|definitions?)\s*\(\s*$/i,
     skipAfter: /^\s*\(\d+ CLI/,
   });
-  assert.equal(v("MCP Server (104 tools)").ok, true);
-  assert.equal(v("with 104 tools total").ok, true);
+  assert.equal(v("MCP Server (109 tools)").ok, true);
+  assert.equal(v("with 109 tools total").ok, true);
   assert.equal(v("MCP Server (94 tools)").ok, false);
 });
 
 test("MCP-tools gate ignores per-module counts and the CLI catalog total", () => {
-  const v = makeValidator(104, {
+  const v = makeValidator(109, {
     what: "MCP tools",
     pattern: /(\d+) tools/gi,
     skipBefore: /(tools?|definitions?)\s*\(\s*$/i,

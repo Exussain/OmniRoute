@@ -12254,7 +12254,8 @@
     "hiddenModelsTitle": "Hidden models",
     "modelDisplayName": "Local display name",
     "modelEnabled": "Enabled locally",
-    "localStateSaveFailed": "Failed to save local Radar settings"
+    "localStateSaveFailed": "Failed to save local Radar settings",
+    "guidedCombos": "Guided combos"
   },
   "radarSetupPage": {
     "title": "제공자 설정",
@@ -12280,5 +12281,22 @@
     "addConnection": "연결 추가",
     "addConnectionDescription": "아직 연결이 없으신가요? 제공자 대시보드에서 추가하세요.",
     "addConnectionLink": "제공자로 이동 →"
+  },
+  "radarCombosPage": {
+    "title": "Radar guided combos",
+    "subtitle": "Create priority fallbacks from equivalent free models curated by Radar.",
+    "backToRadar": "Back to Radar",
+    "loading": "Loading combo suggestions...",
+    "familyLabel": "Model family",
+    "modelsLabel": "Priority order",
+    "strategyReason": "Priority uses the largest recurring free budget first, then falls back across active providers.",
+    "generateButton": "Generate combo",
+    "generating": "Generating...",
+    "alreadyCreated": "Already created",
+    "created": "Combo created",
+    "noSuggestions": "No eligible model family currently has active connections to at least two providers.",
+    "catalogRequired": "Sync the Radar catalog first to load curated model families.",
+    "loadFailed": "Failed to load Radar combo suggestions.",
+    "createFailed": "Failed to create the combo. Review your provider connections and try again."
   }
 }

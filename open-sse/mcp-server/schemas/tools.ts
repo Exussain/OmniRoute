@@ -1,5 +1,5 @@
 /**
- * MCP Tool Schemas — Contracts for all 23 core and advanced OmniRoute MCP tools.
+ * MCP Tool Schemas — Contracts for the canonical OmniRoute MCP tools.
  *
  * Defines input/output Zod schemas, descriptions, scopes, and audit levels
  * for both essential (Phase 1) and advanced (Phase 2) MCP tools.
@@ -13,11 +13,11 @@ import { z } from "zod";
 import { toolSearchTool } from "./toolSearch.ts";
 import { pickFastestModelTool } from "./pickFastestModel.ts";
 import { CCR_MCP_TOOLS } from "./ccrTools.ts";
+import { radarCatalogTool } from "./radarCatalog.ts";
 import {
   AUTO_ROUTING_STRATEGY_VALUES,
   ROUTING_STRATEGY_VALUES,
 } from "../../../src/shared/constants/routingStrategies.ts";
-
 // ============ Shared Types ============
 // AuditLevel + McpToolDefinition live in the leaf ./toolDefinition.ts so that
 // toolSearch.ts can import the type without forming a tools.ts ↔ toolSearch.ts cycle.
@@ -26,8 +26,7 @@ export type { AuditLevel, McpToolDefinition } from "./toolDefinition.ts";
 import type { McpToolDefinition } from "./toolDefinition.ts";
 export { pickFastestModelInput, pickFastestModelOutput } from "./pickFastestModel.ts";
 export * from "./ccrTools.ts";
-
-// ============ Phase 1: Essential Tools (8) ============
+// ============ Phase 1: Essential Tools ============
 
 // --- Tool 1: omniroute_get_health ---
 export const getHealthInput = z.object({}).describe("No parameters required");
@@ -432,7 +431,7 @@ export const listModelsCatalogTool: McpToolDefinition<
   sourceEndpoints: ["/api/models/catalog", "/v1/models"],
 };
 
-// --- Tool 9: omniroute_web_search ---
+// --- Tool 10: omniroute_web_search ---
 export const webSearchInput = z.object({
   query: z
     .string()
@@ -1512,6 +1511,7 @@ export const MCP_TOOLS = [
   routeRequestTool,
   costReportTool,
   listModelsCatalogTool,
+  radarCatalogTool,
   webSearchTool,
   webFetchTool,
   simulateRouteTool,

@@ -12305,7 +12305,25 @@
     "hiddenModelsTitle": "Modelos ocultos",
     "modelDisplayName": "Nome local do modelo",
     "modelEnabled": "Ativado localmente",
-    "localStateSaveFailed": "Falha ao salvar as configurações locais do Radar"
+    "localStateSaveFailed": "Falha ao salvar as configurações locais do Radar",
+    "guidedCombos": "Combos guiados"
+  },
+  "radarCombosPage": {
+    "title": "Combos guiados pelo Radar",
+    "subtitle": "Crie fallbacks prioritários com modelos gratuitos equivalentes curados pelo Radar.",
+    "backToRadar": "Voltar ao Radar",
+    "loading": "Carregando sugestões de combos...",
+    "familyLabel": "Família de modelos",
+    "modelsLabel": "Ordem de prioridade",
+    "strategyReason": "A estratégia de prioridade usa primeiro a maior franquia gratuita recorrente e depois tenta outros provedores ativos.",
+    "generateButton": "Gerar combo",
+    "generating": "Gerando...",
+    "alreadyCreated": "Já criado",
+    "created": "Combo criado",
+    "noSuggestions": "Nenhuma família elegível tem conexões ativas com pelo menos dois provedores no momento.",
+    "catalogRequired": "Sincronize primeiro o catálogo Radar para carregar as famílias de modelos curadas.",
+    "loadFailed": "Falha ao carregar as sugestões de combos do Radar.",
+    "createFailed": "Falha ao criar o combo. Revise as conexões dos provedores e tente novamente."
   },
   "radarSetupPage": {
     "title": "Configuração do Provedor",
