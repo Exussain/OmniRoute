@@ -12255,7 +12255,8 @@
     "modelDisplayName": "Local display name",
     "modelEnabled": "Enabled locally",
     "localStateSaveFailed": "Failed to save local Radar settings",
-    "guidedCombos": "Guided combos"
+    "guidedCombos": "Guided combos",
+    "offers": "オファー"
   },
   "radarSetupPage": {
     "title": "プロバイダーセットアップ",
@@ -12298,5 +12299,26 @@
     "catalogRequired": "Sync the Radar catalog first to load curated model families.",
     "loadFailed": "Failed to load Radar combo suggestions.",
     "createFailed": "Failed to create the combo. Review your provider connections and try again."
+  },
+  "radarOffersPage": {
+    "title": "サポーター向けオファー",
+    "subtitle": "Radar が確認した公式割引、クレジット、トライアル、パートナー特典です。",
+    "backToRadar": "Radar に戻る",
+    "loading": "オファーを読み込み中...",
+    "refresh": "オファーを更新",
+    "refreshing": "更新中...",
+    "loadFailed": "オファーを更新できませんでした。最後に検証されたローカルキャッシュは保持されます。",
+    "empty": "現在利用できるオファーはありません。",
+    "keyRequiredTitle": "サポーターキーが必要です",
+    "keyRequiredDescription": "オファーは Radar のライブ特典です。既存のキーを追加するか、貢献者資格を確認するか、プロジェクトを支援してキーを取得してください。",
+    "contributorButton": "コントリビューターです",
+    "supporterButton": "プロジェクトを支援",
+    "partnerBadge": "パートナー",
+    "officialBadge": "公式",
+    "conditionsLabel": "条件:",
+    "validUntil": "{date} まで有効",
+    "noExpiry": "有効期限の記載なし",
+    "openOffer": "オファーを見る",
+    "trialDays": "{days} 日間"
   }
 }

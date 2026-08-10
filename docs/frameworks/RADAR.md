@@ -1,13 +1,13 @@
 ---
 title: "Radar Free-Model Catalog"
 version: 3.8.50
-lastUpdated: 2026-08-08
+lastUpdated: 2026-08-09
 ---
 
 # Radar Free-Model Catalog
 
 > **Source of truth:** `src/lib/radar/`, `src/lib/db/radar.ts`, `src/app/api/radar/`
-> **Last updated:** 2026-08-08 — v3.8.50
+> **Last updated:** 2026-08-09 — v3.8.50
 
 Radar is an **optional add-on** that overlays a signed, freshly-curated free-model
 catalog on top of the release baseline (`FREE_MODEL_BUDGETS` in
@@ -34,8 +34,9 @@ or external integration is currently available.
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Signed catalog client            | Implemented behind `RADAR_ENABLED`, with separate opt-in, Ed25519 verification, local encrypted settings/cache, persistent display/enabled overrides, reversible tombstones, scheduler, and dashboard.                 |
 | Contributor activation           | The dashboard links to the server-hosted GitHub claim flow and accepts an existing `omr_…` key. Contributor eligibility is resolved by the private service; the OSS client contains no GitHub token or issuance logic. |
-| Supporter-key activation         | Implemented. The raw key is validated, encrypted at rest, masked on reads, and sent only by the server-side sync. Changing or clearing the key invalidates both entitlement-sensitive feed caches.                     |
+| Supporter-key activation         | Implemented. The raw key is validated, encrypted at rest, masked on reads, and sent only by server-side sync. Changing or clearing the key invalidates all three entitlement-sensitive feed caches.                    |
 | Referral links                   | Implemented as a separately signed, hourly-refreshed feed. Fixed links are available to the community tier immediately; limited campaigns remain live-tier data.                                                       |
+| Supporter offers                 | Implemented as a separate signed, live-only feed and dashboard page. The client revalidates the closed benefit schema, preserves the last good cache, filters expired entries, and labels partner offers explicitly.   |
 | Payments and transactional email | Not implemented in the OSS client. Purchase, donation, receipt review, and mail delivery belong to the private service and its later operational workstream.                                                           |
 | Research-agent workstream        | Not part of this client release. Curated feed contents remain server-side data; no autonomous research agent runs in an OmniRoute installation.                                                                        |
 
@@ -51,13 +52,14 @@ Radar is gated end-to-end by the `RADAR_ENABLED` feature flag
 
 - All `/api/radar/*` endpoints, including local model-state reads and writes,
   return `404` before touching any Radar module.
-- The dashboard screens (`/dashboard/radar`, `/dashboard/radar/setup`) render
+- The dashboard screens (`/dashboard/radar`, `/dashboard/radar/setup`,
+  `/dashboard/radar/combos`, `/dashboard/radar/offers`) render
   `notFound()`.
 - `getRadarCatalog()` (`src/lib/radar/index.ts`) returns the untouched baseline —
   same entry count, same values, every entry tagged `origin: "baseline"` — and never
   reads the feed cache.
-- No network call is ever made; `syncRadar()` (`src/lib/radar/sync.ts`) returns
-  `{ status: "disabled" }` at step 1 without touching `fetch`.
+- No Radar network call is ever made; each sync module returns `{ status: "disabled" }`
+  before touching `fetch`.
 
 This is a strict superset gate: flipping the flag on unlocks the _screens_, nothing
 more. It does not upload data, does not start a background sync, and does not change
@@ -85,8 +87,9 @@ When both are on, the sync path is:
    plain, unauthenticated-by-default GET. OmniRoute never posts usage data, provider
    configuration, or model traffic to the feed service.
 3. The response is verified, validated, and cached locally (see
-   [Security model](#security-model)). Radar has exactly two server-side network paths:
-   `syncRadar()` for the catalog and `syncRadarReferrals()` for the standalone referrals feed.
+   [Security model](#security-model)). Radar has exactly three server-side network paths:
+   `syncRadar()` for the catalog, `syncRadarReferrals()` for referrals, and
+   `syncRadarOffers()` for supporter-only offers.
 
 The **supporter key** is an optional Bearer token (`radar_settings.supporter_key`)
 that lets the feed service decide which tier to serve (see
@@ -96,7 +99,7 @@ that lets the feed service decide which tier to serve (see
   helpers (`src/lib/db/encryption.ts`) used for provider credentials.
 - Set via `POST /api/radar/settings` (`{ supporterKey: "omr_" + 40 hex chars }`) and
   **never echoed back** — the response returns a masked form (`omr_****abcd`).
-- Changing or clearing it atomically invalidates both the catalog and referrals caches. The
+- Changing or clearing it atomically invalidates the catalog, referrals, and offers caches. The
   next sync/read resolves the new entitlement server-side; saving a key does not itself make
   a network request or consume a single-use activation key.
 - Sent to the feed service as a Bearer token on the sync GET — nothing else about the
@@ -332,16 +335,18 @@ The local Radar route families below back the UI under `src/app/api/radar/`:
 | `/api/radar/settings`          | GET    | Returns `{ optIn, hasSupporterKey, supporterKeyMasked }` — never the raw key.                                         |
 | `/api/radar/settings`          | POST   | Sets opt-in and/or the (encrypted) supporter key.                                                                     |
 | `/api/radar/referrals`         | GET    | Returns `{ fixed, campaigns, tier }` from the local cache — see [Referral links](#referral-links-free-credits) below. |
+| `/api/radar/offers`            | GET    | Returns active offers from the verified local live cache; never returns the supporter key.                            |
+| `/api/radar/offers/sync`       | POST   | Triggers the server-side, live-key-only `syncRadarOffers()` pipeline.                                                 |
 | `/api/radar/local-model-state` | GET    | Lists persisted overrides and tombstones for edit/restore controls.                                                   |
 | `/api/radar/local-model-state` | PATCH  | Sets or clears the validated `displayName`/`enabled` override fields.                                                 |
 | `/api/radar/local-model-state` | PUT    | Creates or removes a tombstone with `{ provider, modelId, tombstoned }`.                                              |
 | `/api/radar/local-model-state` | DELETE | Clears editable override fields while preserving any tombstone.                                                       |
 
 **Hard rule: these routes never proxy the feed service.** The browser only ever talks
-to the local OmniRoute server. The two modules that touch the Radar service are
-`src/lib/radar/sync.ts` (catalog) and `src/lib/radar/referralsSync.ts` (referrals); both
-always run server-side, never client-side. This keeps the feed URL and any supporter key
-out of client-facing network traffic entirely.
+to the local OmniRoute server. The three modules that touch the Radar service are
+`src/lib/radar/sync.ts` (catalog), `src/lib/radar/referralsSync.ts` (referrals), and
+`src/lib/radar/offersSync.ts` (offers); all run server-side, never client-side. This keeps
+the feed URL and any supporter key out of client-facing network traffic entirely.
 
 All Radar endpoints return `404` when `RADAR_ENABLED` is off (see
 [Flag](#flag-radar_enabled-default-off) above), and route error responses through
@@ -358,6 +363,35 @@ off stays byte-identical (no auth prompt just to learn the surface doesn't exist
 once the flag is on, an unauthenticated request gets `401` before any DB read or
 write. `GET /api/radar/settings` never returns the raw supporter key regardless of
 auth state — only the masked form and a `hasSupporterKey` boolean.
+
+---
+
+## Supporter offers
+
+Offers use their own signed artifact, `GET /v1/offers/latest`, and never share the catalog or
+referrals cache. The server endpoint requires a valid live supporter Bearer key; there is no
+community fallback. `syncRadarOffers()` therefore stops before the network when the feature flag is
+off, the operator has not opted in, or no supporter key is configured.
+
+After a successful GET, the client verifies the Ed25519 signature over the exact response bytes,
+validates `RadarOffersFeedSchema`, requires both the signed body and
+`x-omniroute-feed-tier` header to say `live`, enforces a strictly newer dotted version, and only then
+atomically replaces `radar_offers_cache` (migration `144_radar_offers_cache.sql`). The same 10 MB
+header-plus-stream cap used by the other feeds applies. Signature, schema, tier, replay, size, HTTP,
+and network failures all preserve the last verified cache.
+
+The closed offer shape supports three comparable benefit types: percentage in basis points, credit
+in minor currency units, or trial days. A partner offer must include a same-kind public baseline and
+its benefit must be strictly greater; official offers have no partner baseline. URLs must be
+credential-free HTTPS. `getRadarOffers()` defensively revalidates the cached payload and filters
+expired entries on every local read; `/dashboard/radar/offers` filters expiry again before rendering,
+uses Portuguese text when available with English fallback, and labels partner offers explicitly.
+
+The browser calls only local routes: it reads the masked settings snapshot, asks
+`POST /api/radar/offers/sync` to refresh server-side, then reads `GET /api/radar/offers`. Without a
+key it shows the existing contributor/support links instead of attempting a feed request. External
+offer links open in a new tab with `noopener noreferrer`. No `radar_offers` MCP tool is exposed in
+this release.
 
 ---
 
@@ -541,11 +575,18 @@ instead of failing the rest of the page. To also offer referral links, serve
 (`src/lib/radar/referralsFeedSchema.ts`) and sign it with the same Ed25519 key pair as
 the catalog feed.
 
+Supporter offers are another optional artifact. To serve them, implement
+`GET /v1/offers/latest` with the closed `RadarOffersFeedSchema`
+(`src/lib/radar/offersFeedSchema.ts`), require live entitlement, return
+`x-omniroute-feed-tier: live`, and sign the exact bytes with the same key. A fork that omits this
+endpoint keeps the catalog/referrals behavior unchanged; offer refresh fails non-destructively and
+the last verified local offer cache remains available.
+
 ---
 
 ## Related docs
 
 - [`docs/security/ERROR_SANITIZATION.md`](../security/ERROR_SANITIZATION.md) — the
-  error-response pattern the five `/api/radar/*` routes follow.
+  error-response pattern the `/api/radar/*` routes follow.
 - [`docs/reference/ENVIRONMENT.md`](../reference/ENVIRONMENT.md#27-radar-feed-self-hosting)
   — `RADAR_FEED_URL` / `RADAR_FEED_PUBKEY` reference.

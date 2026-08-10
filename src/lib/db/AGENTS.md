@@ -2,7 +2,7 @@
 
 **Purpose**: Domain-driven SQLite persistence. Each module owns a specific table set. Schema migrations are versioned and idempotent. No raw SQL in routes — all ops go through `src/lib/db/` modules.
 
-Live count: `ls src/lib/db/*.ts | wc -l` (currently 95). Migrations: `ls src/lib/db/migrations/*.sql | wc -l` (currently 110).
+Live count: `ls src/lib/db/*.ts | wc -l` (currently 115). Migrations: `ls src/lib/db/migrations/*.sql | wc -l` (currently 141).
 
 ---
 
@@ -10,7 +10,7 @@ Live count: `ls src/lib/db/*.ts | wc -l` (currently 95). Migrations: `ls src/lib
 
 - **`core.ts`** — `getDbInstance()` returns singleton `better-sqlite3` with WAL journaling. Exports `rowToCamel()` (snake_case → camelCase), `encryptConnectionFields()` for provider credentials at rest. `SCHEMA_SQL` defines **17 base tables** (verify: `grep -c "CREATE TABLE" src/lib/db/core.ts` minus 1 for `_omniroute_migrations`).
 - **`migrationRunner.ts`** — Applies versioned SQL files from `db/migrations/` inside transactions. Tracks applied migrations in `_omniroute_migrations`. Each migration is idempotent.
-- **`db/migrations/`** — 110 SQL files (`001_initial_schema.sql` → `110_*.sql`). Each runs in a transaction, never fails partially.
+- **`db/migrations/`** — 141 SQL files (`001_initial_schema.sql` → `144_radar_offers_cache.sql`; numbering has intentional gaps). Each runs in a transaction, never fails partially.
 - **`localDb.ts`** — Re-export layer only. Never add logic here.
 
 ## Key Domain Modules
@@ -44,7 +44,7 @@ Live count: `ls src/lib/db/*.ts | wc -l` (currently 95). Migrations: `ls src/lib
 | `healthCheck.ts`       | health ops                | DB health monitoring                                |
 | `databaseSettings.ts`  | database settings         | DB-level configuration                              |
 
-Full list: `ls src/lib/db/*.ts | wc -l` (95 files). Drift detection: `npm run check:docs-counts`.
+Full list: `ls src/lib/db/*.ts | wc -l` (115 files). Drift detection: `npm run check:docs-counts`.
 
 ## Encryption & Security
 

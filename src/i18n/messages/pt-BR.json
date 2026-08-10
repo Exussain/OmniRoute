@@ -12306,7 +12306,8 @@
     "modelDisplayName": "Nome local do modelo",
     "modelEnabled": "Ativado localmente",
     "localStateSaveFailed": "Falha ao salvar as configurações locais do Radar",
-    "guidedCombos": "Combos guiados"
+    "guidedCombos": "Combos guiados",
+    "offers": "Ofertas"
   },
   "radarCombosPage": {
     "title": "Combos guiados pelo Radar",
@@ -12349,5 +12350,26 @@
     "addConnection": "Adicionar conexão",
     "addConnectionDescription": "Ainda não tem uma conexão? Adicione uma no painel de provedores.",
     "addConnectionLink": "Ir para provedores →"
+  },
+  "radarOffersPage": {
+    "title": "Ofertas para apoiadores",
+    "subtitle": "Descontos, créditos, testes oficiais e benefícios de parceiros revisados pelo Radar.",
+    "backToRadar": "Voltar ao Radar",
+    "loading": "Carregando ofertas...",
+    "refresh": "Atualizar ofertas",
+    "refreshing": "Atualizando...",
+    "loadFailed": "Não foi possível atualizar as ofertas. O último cache local verificado foi preservado.",
+    "empty": "Não há ofertas ativas neste momento.",
+    "keyRequiredTitle": "É necessária uma chave de apoiador",
+    "keyRequiredDescription": "As ofertas são um benefício ao vivo do Radar. Adicione uma chave existente na tela do Radar, valide sua contribuição ou apoie o projeto para obter uma.",
+    "contributorButton": "Sou contribuidor",
+    "supporterButton": "Apoiar o projeto",
+    "partnerBadge": "Parceiro",
+    "officialBadge": "Oficial",
+    "conditionsLabel": "Condições:",
+    "validUntil": "Válida até {date}",
+    "noExpiry": "Sem validade anunciada",
+    "openOffer": "Ver oferta",
+    "trialDays": "{days, plural, one {# dia} other {# dias}}"
   }
 }

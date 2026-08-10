@@ -319,6 +319,14 @@ export default function RadarPage() {
         <div className="flex items-center gap-2">
           {(pageState === "empty" || pageState === "populated") && (
             <Link
+              href="/dashboard/radar/offers"
+              className="px-4 py-2 text-sm font-medium rounded-lg border border-border text-text-main hover:border-violet-500 hover:text-violet-400 transition-colors"
+            >
+              {t("offers")}
+            </Link>
+          )}
+          {(pageState === "empty" || pageState === "populated") && (
+            <Link
               href="/dashboard/radar/combos"
               className="px-4 py-2 text-sm font-medium rounded-lg border border-border text-text-main hover:border-violet-500 hover:text-violet-400 transition-colors"
             >

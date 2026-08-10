@@ -17,6 +17,9 @@
  *   - radar_local_model_state: operator-owned display/enabled overrides and
  *     deletion tombstones, keyed by provider + model ID.
  *
+ * Tables (migration 144):
+ *   - radar_offers_cache: single-row signed live offers feed cache.
+ *
  * The supporter key is encrypted at rest with AES-256-GCM using the same
  * `encrypt()`/`decrypt()` helpers from `./encryption.ts` that protect
  * provider connection credentials.
@@ -46,6 +49,14 @@ export interface RadarSettings {
 export interface RadarReferralsCache {
   generatedAt: string;
   tier: string;
+  payload: string;
+  signature: string;
+  fetchedAt: string;
+}
+
+export interface RadarOffersCache {
+  version: string;
+  tier: "live";
   payload: string;
   signature: string;
   fetchedAt: string;
@@ -168,14 +179,16 @@ export function setRadarKey(key: string | null): void {
   );
   const clearCatalogCache = db.prepare("DELETE FROM radar_feed_cache WHERE id = 1");
   const clearReferralsCache = db.prepare("DELETE FROM radar_referrals_cache WHERE id = 1");
+  const clearOffersCache = db.prepare("DELETE FROM radar_offers_cache WHERE id = 1");
 
   db.transaction(() => {
     updateKey.run(encrypted);
-    // Both signed feeds are entitlement-sensitive. Clearing their cached
+    // All signed feeds are entitlement-sensitive. Clearing their cached
     // variants forces the next sync/read to resolve the new key server-side
     // instead of serving data fetched under the previous entitlement.
     clearCatalogCache.run();
     clearReferralsCache.run();
+    clearOffersCache.run();
   })();
 }
 
@@ -224,6 +237,43 @@ export function setRadarReferralsCache(entry: {
        signature    = excluded.signature,
        fetched_at   = excluded.fetched_at`
   ).run(entry.generatedAt, entry.tier, entry.payload, entry.signature, fetchedAt);
+}
+
+// ---------------------------------------------------------------------------
+// radar_offers_cache
+// ---------------------------------------------------------------------------
+
+export function getRadarOffersCache(): RadarOffersCache | null {
+  const row = getDbInstance()
+    .prepare(
+      "SELECT version, tier, payload, signature, fetched_at AS fetchedAt " +
+        "FROM radar_offers_cache WHERE id = 1"
+    )
+    .get() as RadarOffersCache | undefined;
+
+  return row ?? null;
+}
+
+export function setRadarOffersCache(entry: {
+  version: string;
+  tier: "live";
+  payload: string;
+  signature: string;
+  fetchedAt?: string;
+}): void {
+  const fetchedAt = entry.fetchedAt ?? new Date().toISOString();
+  getDbInstance()
+    .prepare(
+      `INSERT INTO radar_offers_cache (id, version, tier, payload, signature, fetched_at)
+       VALUES (1, ?, ?, ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET
+         version = excluded.version,
+         tier = excluded.tier,
+         payload = excluded.payload,
+         signature = excluded.signature,
+         fetched_at = excluded.fetched_at`
+    )
+    .run(entry.version, entry.tier, entry.payload, entry.signature, fetchedAt);
 }
 
 // ---------------------------------------------------------------------------

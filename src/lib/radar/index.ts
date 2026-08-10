@@ -12,12 +12,18 @@
 import { FREE_MODEL_BUDGETS } from "@omniroute/open-sse/config/freeModelCatalog";
 import { RadarFeedSchema, type RadarFeed, type RadarReferral } from "./feedSchema";
 import { RadarReferralsFeedSchema, type RadarReferralsFeed } from "./referralsFeedSchema";
+import {
+  filterActiveRadarOffers,
+  RadarOffersFeedSchema,
+  type RadarOffer,
+} from "./offersFeedSchema";
 import { applyFeed, type MergedEntry, type FeedModel } from "./applyFeed";
 import { findDefaultReferral } from "./referrals";
 import { isFeatureFlagEnabled } from "@/shared/utils/featureFlags";
 import {
   getRadarCache,
   getRadarLocalMergeState,
+  getRadarOffersCache,
   getRadarReferralsCache,
   type RadarLocalMergeState,
 } from "@/lib/db/radar";
@@ -209,7 +215,54 @@ export function getDefaultReferralFor(
   return findDefaultReferral(fixed, provider);
 }
 
+// ---------------------------------------------------------------------------
+// getRadarOffers
+// ---------------------------------------------------------------------------
+
+export interface RadarOffersResult {
+  offers: RadarOffer[];
+  meta: { version: string; tier: "live"; fetchedAt: string } | null;
+}
+
+export interface GetRadarOffersDeps {
+  getFlag?: (key: string) => boolean;
+  getCache?: () => {
+    version: string;
+    tier: string;
+    payload: string;
+    fetchedAt: string;
+  } | null;
+  now?: () => Date;
+}
+
+const EMPTY_OFFERS: RadarOffersResult = { offers: [], meta: null };
+
+/** Return only revalidated, unexpired offers from the local live cache. */
+export function getRadarOffers(deps: GetRadarOffersDeps = {}): RadarOffersResult {
+  const {
+    getFlag = isFeatureFlagEnabled,
+    getCache: getCacheFn = getRadarOffersCache,
+    now = () => new Date(),
+  } = deps;
+  if (!getFlag("RADAR_ENABLED")) return EMPTY_OFFERS;
+
+  const cache = getCacheFn();
+  if (!cache || cache.tier !== "live") return EMPTY_OFFERS;
+
+  try {
+    const feed = RadarOffersFeedSchema.parse(JSON.parse(cache.payload));
+    if (feed.version !== cache.version || feed.tier !== "live") return EMPTY_OFFERS;
+    return {
+      offers: filterActiveRadarOffers(feed.offers, now()),
+      meta: { version: cache.version, tier: "live", fetchedAt: cache.fetchedAt },
+    };
+  } catch {
+    return EMPTY_OFFERS;
+  }
+}
+
 // Re-export merge types for convenience
 export { applyFeed, type MergedEntry, type FeedModel } from "./applyFeed";
 export { findDefaultReferral } from "./referrals";
 export type { RadarReferral } from "./feedSchema";
+export type { RadarOffer, RadarOfferBenefit, RadarOfferLocalizedText } from "./offersFeedSchema";
