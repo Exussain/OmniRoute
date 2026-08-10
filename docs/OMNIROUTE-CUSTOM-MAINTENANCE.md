@@ -20,7 +20,9 @@ agent handoff prompt current as the workflow evolves.
 - Local checkout: `/root/OmniRoute`
 - Grok2API checkout: `/root/grok2api`
 - Original OmniRoute repository: `https://github.com/diegosouzapw/OmniRoute`
-- Current local branch at the time this document was created: `release/v3.8.49`
+- Personal fork: `https://github.com/Exussain/OmniRoute`
+- Current custom branch: `custom/grok-qwen-web`
+- Initial custom commit: `6d6f42f7a`
 - The checkout currently has local Qwen/Grok changes that must be preserved and
   committed on the personal fork before upstream updates are integrated.
 - The original repository must be treated as upstream code. Do not overwrite
@@ -199,11 +201,11 @@ Validate the route with `/v1/models` and a real chat completion instead.
 
 ## Upstream update strategy
 
-The personal fork should have two remotes:
+The personal fork is configured with two remotes:
 
 ```text
-origin   -> the user's fork (push here)
-upstream -> https://github.com/diegosouzapw/OmniRoute.git (fetch only)
+origin   -> https://github.com/Exussain/OmniRoute.git (push here)
+upstream -> https://github.com/diegosouzapw/OmniRoute.git (fetch only; push disabled locally)
 ```
 
 When the fork is available, configure the remotes explicitly and verify them:
