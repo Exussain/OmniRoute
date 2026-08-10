@@ -20,6 +20,10 @@
  * Tables (migration 144):
  *   - radar_offers_cache: single-row signed live offers feed cache.
  *
+ * Tables (migration 145):
+ *   - radar_intel_cache: single-row signed live Intel feed cache plus a
+ *     one-way supporter identity used for local recognition.
+ *
  * The supporter key is encrypted at rest with AES-256-GCM using the same
  * `encrypt()`/`decrypt()` helpers from `./encryption.ts` that protect
  * provider connection credentials.
@@ -59,6 +63,15 @@ export interface RadarOffersCache {
   tier: "live";
   payload: string;
   signature: string;
+  fetchedAt: string;
+}
+
+export interface RadarIntelCache {
+  version: string;
+  tier: "live";
+  payload: string;
+  signature: string;
+  supporterIdentity: string;
   fetchedAt: string;
 }
 
@@ -180,6 +193,7 @@ export function setRadarKey(key: string | null): void {
   const clearCatalogCache = db.prepare("DELETE FROM radar_feed_cache WHERE id = 1");
   const clearReferralsCache = db.prepare("DELETE FROM radar_referrals_cache WHERE id = 1");
   const clearOffersCache = db.prepare("DELETE FROM radar_offers_cache WHERE id = 1");
+  const clearIntelCache = db.prepare("DELETE FROM radar_intel_cache WHERE id = 1");
 
   db.transaction(() => {
     updateKey.run(encrypted);
@@ -189,6 +203,7 @@ export function setRadarKey(key: string | null): void {
     clearCatalogCache.run();
     clearReferralsCache.run();
     clearOffersCache.run();
+    clearIntelCache.run();
   })();
 }
 
@@ -274,6 +289,52 @@ export function setRadarOffersCache(entry: {
          fetched_at = excluded.fetched_at`
     )
     .run(entry.version, entry.tier, entry.payload, entry.signature, fetchedAt);
+}
+
+// ---------------------------------------------------------------------------
+// radar_intel_cache
+// ---------------------------------------------------------------------------
+
+export function getRadarIntelCache(): RadarIntelCache | null {
+  const row = getDbInstance()
+    .prepare(
+      "SELECT version, tier, payload, signature, supporter_identity AS supporterIdentity, " +
+        "fetched_at AS fetchedAt FROM radar_intel_cache WHERE id = 1"
+    )
+    .get() as RadarIntelCache | undefined;
+  return row ?? null;
+}
+
+export function setRadarIntelCache(entry: {
+  version: string;
+  tier: "live";
+  payload: string;
+  signature: string;
+  supporterIdentity: string;
+  fetchedAt?: string;
+}): void {
+  const fetchedAt = entry.fetchedAt ?? new Date().toISOString();
+  getDbInstance()
+    .prepare(
+      `INSERT INTO radar_intel_cache
+         (id, version, tier, payload, signature, supporter_identity, fetched_at)
+       VALUES (1, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET
+         version = excluded.version,
+         tier = excluded.tier,
+         payload = excluded.payload,
+         signature = excluded.signature,
+         supporter_identity = excluded.supporter_identity,
+         fetched_at = excluded.fetched_at`
+    )
+    .run(
+      entry.version,
+      entry.tier,
+      entry.payload,
+      entry.signature,
+      entry.supporterIdentity,
+      fetchedAt
+    );
 }
 
 // ---------------------------------------------------------------------------

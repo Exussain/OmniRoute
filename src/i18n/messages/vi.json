@@ -11600,6 +11600,11 @@
       "rare": "Thành tích hiếm"
     },
     "badges": {
+      "radar-supporter": {
+        "name": "Người ủng hộ Radar",
+        "description": "Đã xác minh nguồn dữ liệu trực tiếp dành cho người ủng hộ OmniRoute Radar",
+        "criteria": "Xác minh nguồn dữ liệu Radar trực tiếp đã được ký dành cho người ủng hộ."
+      },
       "first-token": {
         "name": "Token đầu tiên",
         "description": "Đã thực hiện yêu cầu API đầu tiên",
@@ -12307,7 +12312,8 @@
     "modelEnabled": "Enabled locally",
     "localStateSaveFailed": "Failed to save local Radar settings",
     "guidedCombos": "Guided combos",
-    "offers": "Offers"
+    "offers": "Offers",
+    "intel": "Thông tin chuyên sâu"
   },
   "radarSetupPage": {
     "title": "Thiết lập nhà cung cấp",
@@ -12350,6 +12356,39 @@
     "catalogRequired": "Sync the Radar catalog first to load curated model families.",
     "loadFailed": "Failed to load Radar combo suggestions.",
     "createFailed": "Failed to create the combo. Review your provider connections and try again."
+  },
+  "radarIntelPage": {
+    "title": "Thông tin chuyên sâu Radar",
+    "subtitle": "Xếp hạng ELO do Radar quản lý và biến động thực tế của danh mục.",
+    "backToRadar": "Quay lại Radar",
+    "loading": "Đang tải thông tin chuyên sâu...",
+    "refresh": "Làm mới thông tin chuyên sâu",
+    "syncing": "Đang làm mới...",
+    "loadFailed": "Không thể làm mới thông tin chuyên sâu. Bộ nhớ đệm cục bộ đã xác minh gần nhất được giữ lại.",
+    "empty": "Chưa có bản chụp thông tin chuyên sâu đã xác minh.",
+    "supporterBadge": "Người ủng hộ Radar",
+    "methodology": "Phương pháp",
+    "eloMethod": "ELO, khởi tạo {initial}, K={factor}",
+    "freshness": "Độ mới của danh mục",
+    "ageDays": "{days, plural, one {# ngày tuổi} other {# ngày tuổi}}",
+    "trend": "Xu hướng danh mục",
+    "modelDelta": "{current} mô hình, +{added} / -{removed}",
+    "ranking": "Xếp hạng mô hình",
+    "noRankings": "Chưa có phép so sánh nào được xác nhận.",
+    "model": "Mô hình",
+    "category": "Danh mục",
+    "rating": "Điểm",
+    "matches": "Lượt so sánh",
+    "freshnessValues": {
+      "fresh": "Mới",
+      "aging": "Đang cũ dần",
+      "stale": "Đã cũ"
+    },
+    "trendValues": {
+      "growing": "Đang tăng",
+      "stable": "Ổn định",
+      "shrinking": "Đang giảm"
+    }
   },
   "radarOffersPage": {
     "title": "Supporter offers",

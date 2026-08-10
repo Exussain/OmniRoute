@@ -17,6 +17,7 @@ import {
   RadarOffersFeedSchema,
   type RadarOffer,
 } from "./offersFeedSchema";
+import { RadarIntelFeedSchema, type RadarIntelFeed } from "./intelFeedSchema";
 import { applyFeed, type MergedEntry, type FeedModel } from "./applyFeed";
 import { findDefaultReferral } from "./referrals";
 import { isFeatureFlagEnabled } from "@/shared/utils/featureFlags";
@@ -24,6 +25,7 @@ import {
   getRadarCache,
   getRadarLocalMergeState,
   getRadarOffersCache,
+  getRadarIntelCache,
   getRadarReferralsCache,
   type RadarLocalMergeState,
 } from "@/lib/db/radar";
@@ -261,8 +263,51 @@ export function getRadarOffers(deps: GetRadarOffersDeps = {}): RadarOffersResult
   }
 }
 
+export interface RadarIntelResult {
+  intel: RadarIntelFeed | null;
+  meta: {
+    version: string;
+    tier: "live";
+    fetchedAt: string;
+    supporterVerified: true;
+  } | null;
+}
+
+export interface GetRadarIntelDeps {
+  getFlag?: (key: string) => boolean;
+  getCache?: typeof getRadarIntelCache;
+}
+
+const EMPTY_INTEL: RadarIntelResult = { intel: null, meta: null };
+
+/** Return only a defensively revalidated live Intel cache. */
+export function getRadarIntel(deps: GetRadarIntelDeps = {}): RadarIntelResult {
+  const { getFlag = isFeatureFlagEnabled, getCache: getCacheFn = getRadarIntelCache } = deps;
+  if (!getFlag("RADAR_ENABLED")) return EMPTY_INTEL;
+  const cache = getCacheFn();
+  if (!cache || cache.tier !== "live" || !/^radar:[a-f0-9]{64}$/.test(cache.supporterIdentity)) {
+    return EMPTY_INTEL;
+  }
+  try {
+    const feed = RadarIntelFeedSchema.parse(JSON.parse(cache.payload));
+    if (feed.version !== cache.version || feed.tier !== "live") return EMPTY_INTEL;
+    return {
+      intel: feed,
+      meta: {
+        version: cache.version,
+        tier: "live",
+        fetchedAt: cache.fetchedAt,
+        supporterVerified: true,
+      },
+    };
+  } catch {
+    return EMPTY_INTEL;
+  }
+}
+
 // Re-export merge types for convenience
 export { applyFeed, type MergedEntry, type FeedModel } from "./applyFeed";
 export { findDefaultReferral } from "./referrals";
 export type { RadarReferral } from "./feedSchema";
 export type { RadarOffer, RadarOfferBenefit, RadarOfferLocalizedText } from "./offersFeedSchema";
+export type { RadarIntelFeed, RadarIntelRanking, RadarIntelCatalog } from "./intelFeedSchema";

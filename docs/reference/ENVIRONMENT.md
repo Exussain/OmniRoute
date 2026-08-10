@@ -1294,7 +1294,7 @@ module doc.
 
 | Variable                       | Default                                          | Source File                   | Description                                                                                     |
 | -------------------------------- | --------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `RADAR_FEED_URL`               | `https://radar.omniroute.online`                 | `src/lib/radar/{sync,referralsSync,offersSync}.ts` | Base URL shared by the separately signed catalog, referrals, and supporter-offers feeds. Override to point at a self-hosted or forked service. |
+| `RADAR_FEED_URL`               | `https://radar.omniroute.online`                 | `src/lib/radar/{sync,referralsSync,offersSync,intelSync}.ts` | Base URL shared by the separately signed catalog, referrals, supporter-offers, and Intel feeds. Override to point at a self-hosted or forked service. |
 | `RADAR_FEED_PUBKEY`            | _(pinned default key)_                           | `src/lib/radar/pinnedKeys.ts` | Ed25519 public key (base64-DER SPKI or PEM) used to verify feed signatures from a custom feed.   |
 | `RADAR_CONTRIBUTOR_CLAIM_URL`  | `https://radar.omniroute.online/auth/github`     | `src/lib/radar/links.ts`      | URL the "I'm a contributor" dashboard button opens (GitHub OAuth supporter-key claim flow).      |
 | `RADAR_SUPPORTER_PLANS_URL`    | `https://radar.omniroute.online/planos`          | `src/lib/radar/links.ts`      | URL the "Support the project" dashboard button opens (payment/plans page).                       |

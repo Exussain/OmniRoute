@@ -34,9 +34,10 @@ or external integration is currently available.
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Signed catalog client            | Implemented behind `RADAR_ENABLED`, with separate opt-in, Ed25519 verification, local encrypted settings/cache, persistent display/enabled overrides, reversible tombstones, scheduler, and dashboard.                 |
 | Contributor activation           | The dashboard links to the server-hosted GitHub claim flow and accepts an existing `omr_…` key. Contributor eligibility is resolved by the private service; the OSS client contains no GitHub token or issuance logic. |
-| Supporter-key activation         | Implemented. The raw key is validated, encrypted at rest, masked on reads, and sent only by server-side sync. Changing or clearing the key invalidates all three entitlement-sensitive feed caches.                    |
+| Supporter-key activation         | Implemented. The raw key is validated, encrypted at rest, masked on reads, and sent only by server-side sync. Changing or clearing the key invalidates all four entitlement-sensitive feed caches.                     |
 | Referral links                   | Implemented as a separately signed, hourly-refreshed feed. Fixed links are available to the community tier immediately; limited campaigns remain live-tier data.                                                       |
 | Supporter offers                 | Implemented as a separate signed, live-only feed and dashboard page. The client revalidates the closed benefit schema, preserves the last good cache, filters expired entries, and labels partner offers explicitly.   |
+| Intel and supporter recognition  | Implemented as a strict signed live-only feed with Radar-owned ELO, factual catalog freshness/trend, a verified local supporter badge, dashboard page, and local-only CLI status/sync commands.                        |
 | Payments and transactional email | Not implemented in the OSS client. Purchase, donation, receipt review, and mail delivery belong to the private service and its later operational workstream.                                                           |
 | Research-agent workstream        | Not part of this client release. Curated feed contents remain server-side data; no autonomous research agent runs in an OmniRoute installation.                                                                        |
 
@@ -53,7 +54,7 @@ Radar is gated end-to-end by the `RADAR_ENABLED` feature flag
 - All `/api/radar/*` endpoints, including local model-state reads and writes,
   return `404` before touching any Radar module.
 - The dashboard screens (`/dashboard/radar`, `/dashboard/radar/setup`,
-  `/dashboard/radar/combos`, `/dashboard/radar/offers`) render
+  `/dashboard/radar/combos`, `/dashboard/radar/offers`, `/dashboard/radar/intel`) render
   `notFound()`.
 - `getRadarCatalog()` (`src/lib/radar/index.ts`) returns the untouched baseline —
   same entry count, same values, every entry tagged `origin: "baseline"` — and never
@@ -87,9 +88,9 @@ When both are on, the sync path is:
    plain, unauthenticated-by-default GET. OmniRoute never posts usage data, provider
    configuration, or model traffic to the feed service.
 3. The response is verified, validated, and cached locally (see
-   [Security model](#security-model)). Radar has exactly three server-side network paths:
+   [Security model](#security-model)). Radar has exactly four server-side network paths:
    `syncRadar()` for the catalog, `syncRadarReferrals()` for referrals, and
-   `syncRadarOffers()` for supporter-only offers.
+   `syncRadarOffers()` / `syncRadarIntel()` for supporter-only offers and Intel.
 
 The **supporter key** is an optional Bearer token (`radar_settings.supporter_key`)
 that lets the feed service decide which tier to serve (see
@@ -99,7 +100,7 @@ that lets the feed service decide which tier to serve (see
   helpers (`src/lib/db/encryption.ts`) used for provider credentials.
 - Set via `POST /api/radar/settings` (`{ supporterKey: "omr_" + 40 hex chars }`) and
   **never echoed back** — the response returns a masked form (`omr_****abcd`).
-- Changing or clearing it atomically invalidates the catalog, referrals, and offers caches. The
+- Changing or clearing it atomically invalidates the catalog, referrals, offers, and Intel caches. The
   next sync/read resolves the new entitlement server-side; saving a key does not itself make
   a network request or consume a single-use activation key.
 - Sent to the feed service as a Bearer token on the sync GET — nothing else about the
@@ -337,15 +338,20 @@ The local Radar route families below back the UI under `src/app/api/radar/`:
 | `/api/radar/referrals`         | GET    | Returns `{ fixed, campaigns, tier }` from the local cache — see [Referral links](#referral-links-free-credits) below. |
 | `/api/radar/offers`            | GET    | Returns active offers from the verified local live cache; never returns the supporter key.                            |
 | `/api/radar/offers/sync`       | POST   | Triggers the server-side, live-key-only `syncRadarOffers()` pipeline.                                                 |
+| `/api/radar/intel`             | GET    | Returns verified local live Intel plus a supporter-recognition boolean; never an identity or key.                     |
+| `/api/radar/intel/sync`        | POST   | Triggers the server-side, live-key-only `syncRadarIntel()` pipeline.                                                  |
+| `/api/radar/status`            | GET    | Returns read-only local settings/cache status for catalog, referrals, offers, and Intel, without secrets.             |
+| `/api/radar/sync-all`          | POST   | Runs all four server-side sync modules and returns a separate status for each feed.                                   |
 | `/api/radar/local-model-state` | GET    | Lists persisted overrides and tombstones for edit/restore controls.                                                   |
 | `/api/radar/local-model-state` | PATCH  | Sets or clears the validated `displayName`/`enabled` override fields.                                                 |
 | `/api/radar/local-model-state` | PUT    | Creates or removes a tombstone with `{ provider, modelId, tombstoned }`.                                              |
 | `/api/radar/local-model-state` | DELETE | Clears editable override fields while preserving any tombstone.                                                       |
 
 **Hard rule: these routes never proxy the feed service.** The browser only ever talks
-to the local OmniRoute server. The three modules that touch the Radar service are
+to the local OmniRoute server. The four modules that touch the Radar service are
 `src/lib/radar/sync.ts` (catalog), `src/lib/radar/referralsSync.ts` (referrals), and
-`src/lib/radar/offersSync.ts` (offers); all run server-side, never client-side. This keeps
+`src/lib/radar/offersSync.ts` (offers) plus `src/lib/radar/intelSync.ts` (Intel); all run
+server-side, never client-side. This keeps
 the feed URL and any supporter key out of client-facing network traffic entirely.
 
 All Radar endpoints return `404` when `RADAR_ENABLED` is off (see
@@ -392,6 +398,29 @@ The browser calls only local routes: it reads the masked settings snapshot, asks
 key it shows the existing contributor/support links instead of attempting a feed request. External
 offer links open in a new tab with `noopener noreferrer`. No `radar_offers` MCP tool is exposed in
 this release.
+
+---
+
+## Radar Intel, supporter badge, and CLI
+
+Intel is a signed artifact at `GET /v1/intel/latest`. The closed `RadarIntelFeedSchema` accepts
+only Radar-owned ELO rankings derived by the private curator from confirmed comparisons and factual
+catalog age/count deltas derived from signed catalog snapshots. The methodology is fixed at initial
+rating 1000 and K=32. An empty ranking is valid when no comparison has been confirmed; the client
+never synthesizes one.
+
+`syncRadarIntel()` applies the same server-side Bearer, 30-second timeout, 10 MiB streamed cap,
+exact-byte Ed25519 verification, strict schema, `live` body/header requirement, version floor, and
+last-good-cache preservation as offers. After a verified live snapshot is persisted, the client
+derives `radar:<sha256(supporter key)>`, stores only that one-way identity, and emits the dedicated
+`radar_supporter` recognition event. Its `radar-supporter` badge is idempotent and awards zero XP;
+it never updates leaderboards or reuses `token_share`. `/dashboard/radar/intel` renders the badge
+only from verified local cache metadata.
+
+The CLI exposes `omniroute radar status` and `omniroute radar sync`. Both communicate only with the
+local OmniRoute API. `status` performs a read-only `GET /api/radar/status`; `sync` sends one
+`POST /api/radar/sync-all` and prints a result per feed. Neither command reads, accepts, or prints
+the supporter key, and neither contacts the Radar service directly.
 
 ---
 
@@ -581,6 +610,12 @@ Supporter offers are another optional artifact. To serve them, implement
 `x-omniroute-feed-tier: live`, and sign the exact bytes with the same key. A fork that omits this
 endpoint keeps the catalog/referrals behavior unchanged; offer refresh fails non-destructively and
 the last verified local offer cache remains available.
+
+Intel is optional in the same way. A self-hoster can serve `GET /v1/intel/latest` using
+`RadarIntelFeedSchema` (`src/lib/radar/intelFeedSchema.ts`), require live entitlement, return
+`x-omniroute-feed-tier: live`, and sign the exact bytes with the shared Ed25519 key. Omitting the
+endpoint leaves catalog, referrals, and offers unchanged; Intel refresh preserves any last verified
+local snapshot.
 
 ---
 

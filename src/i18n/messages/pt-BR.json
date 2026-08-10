@@ -11600,6 +11600,11 @@
       "rare": "Conquistas raras"
     },
     "badges": {
+      "radar-supporter": {
+        "name": "Apoiador do Radar",
+        "description": "Verificou um feed ativo de apoiador do OmniRoute Radar",
+        "criteria": "Verifique um feed ativo e assinado de apoiador do Radar."
+      },
       "first-token": {
         "name": "Primeiro Token",
         "description": "Fez sua primeira requisição de API",
@@ -12307,7 +12312,8 @@
     "modelEnabled": "Ativado localmente",
     "localStateSaveFailed": "Falha ao salvar as configurações locais do Radar",
     "guidedCombos": "Combos guiados",
-    "offers": "Ofertas"
+    "offers": "Ofertas",
+    "intel": "Intel"
   },
   "radarCombosPage": {
     "title": "Combos guiados pelo Radar",
@@ -12350,6 +12356,31 @@
     "addConnection": "Adicionar conexão",
     "addConnectionDescription": "Ainda não tem uma conexão? Adicione uma no painel de provedores.",
     "addConnectionLink": "Ir para provedores →"
+  },
+  "radarIntelPage": {
+    "title": "Intel do Radar",
+    "subtitle": "Ranking ELO próprio do Radar e evolução factual do catálogo.",
+    "backToRadar": "Voltar ao Radar",
+    "loading": "Carregando Intel...",
+    "refresh": "Atualizar Intel",
+    "syncing": "Atualizando...",
+    "loadFailed": "Não foi possível atualizar o Intel. O último cache local verificado foi preservado.",
+    "empty": "Ainda não há um snapshot Intel verificado.",
+    "supporterBadge": "Apoiador do Radar",
+    "methodology": "Metodologia",
+    "eloMethod": "ELO, inicial {initial}, K={factor}",
+    "freshness": "Atualidade do catálogo",
+    "ageDays": "{days, plural, one {# dia} other {# dias}}",
+    "trend": "Tendência do catálogo",
+    "modelDelta": "{current} modelos, +{added} / -{removed}",
+    "ranking": "Ranking de modelos",
+    "noRankings": "Ainda não há comparações confirmadas.",
+    "model": "Modelo",
+    "category": "Categoria",
+    "rating": "Pontuação",
+    "matches": "Partidas",
+    "freshnessValues": { "fresh": "Atual", "aging": "Envelhecendo", "stale": "Desatualizado" },
+    "trendValues": { "growing": "Crescendo", "stable": "Estável", "shrinking": "Diminuindo" }
   },
   "radarOffersPage": {
     "title": "Ofertas para apoiadores",

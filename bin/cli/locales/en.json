@@ -921,6 +921,11 @@
       "model": "Filter by model"
     }
   },
+  "radar": {
+    "description": "Inspect and synchronize the local Radar catalog feeds",
+    "status": "Show local Radar settings and feed cache status",
+    "sync": "Synchronize catalog, referrals, offers, and Intel through the local server"
+  },
   "resilience": {
     "description": "Inspect and manage resilience mechanisms",
     "status": {

@@ -918,6 +918,11 @@
       "model": "Filtrar por model"
     }
   },
+  "radar": {
+    "description": "Inspecionar e sincronizar os feeds locais do catálogo Radar",
+    "status": "Mostrar configurações locais e estado dos caches do Radar",
+    "sync": "Sincronizar catálogo, indicações, ofertas e Intel pelo servidor local"
+  },
   "resilience": {
     "description": "Inspecionar e gerenciar mecanismos de resiliência",
     "status": {
