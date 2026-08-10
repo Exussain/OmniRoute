@@ -43,6 +43,29 @@ or external integration is currently available.
 
 ---
 
+## Public announcement reader
+
+The generic announcement reader is separate from the Radar feature flag. The dashboard Home and
+Changelog viewer fetch the repository's public `news.json` through a plain `GET` to
+`NEWS_JSON_URL` (`src/shared/utils/releaseNotes.ts`). They send no Radar setting, prompt, provider
+configuration, usage record, or local dismissal state.
+
+`news.json` uses the closed v2 schema implemented by `parseNewsPayload()`:
+
+- `schemaVersion: 2` and a bounded `items[]` collection;
+- stable, unique announcement `id` values;
+- explicit `active` and ISO `publishedAt` fields;
+- required English copy with optional localized copy;
+- optional credential-free HTTPS links and an allowlisted icon;
+- newest-active-first selection, locale fallback to English, and per-ID local dismissal.
+
+The parser temporarily accepts the former singular `{ active, title, message, ... }` shape so
+older forks can migrate without a broken Changelog view. Invalid feeds are inert. The Radar launch
+entry ships with `active: false`; changing it to `true` is a separate post-merge, post-deploy
+release action and does not change `RADAR_ENABLED` or the independent feed-sync opt-in.
+
+---
+
 ## Flag: `RADAR_ENABLED` (default off)
 
 Radar is gated end-to-end by the `RADAR_ENABLED` feature flag

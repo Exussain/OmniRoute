@@ -1292,6 +1292,11 @@ self-hosted or forked feed / supporter-key flow instead of the default OmniRoute
 Radar service. See [docs/frameworks/RADAR.md](../frameworks/RADAR.md) for the full
 module doc.
 
+The generic Home/Changelog announcement reader is not configured by an environment
+variable and does not depend on the RADAR_ENABLED feature flag. It reads the public repository
+`news.json` URL declared in `src/shared/utils/releaseNotes.ts` by
+GET only; dismissal IDs remain in browser local storage.
+
 | Variable                       | Default                                          | Source File                   | Description                                                                                     |
 | -------------------------------- | --------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------ |
 | `RADAR_FEED_URL`               | `https://radar.omniroute.online`                 | `src/lib/radar/{sync,referralsSync,offersSync,intelSync}.ts` | Base URL shared by the separately signed catalog, referrals, supporter-offers, and Intel feeds. Override to point at a self-hosted or forked service. |

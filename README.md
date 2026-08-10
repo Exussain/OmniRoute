@@ -491,6 +491,25 @@ Pix copia-e-cola:
 
 <br/>
 
+## 📡 OmniRoute Radar
+
+The main free-tier headline remains **~1.53B tokens/month** from the documented,
+pool-deduplicated catalog above. Temporary provider signup credits can separately lift the first
+month to **~2.15B**. Radar is an optional, signed catalog overlay for people who want fresher
+free-model availability between OmniRoute releases; the community catalog and every existing free
+feature remain free.
+
+Supporters can receive the live catalog and additional provider opportunities. Its separate,
+mutable ceiling is **approximately 3B tokens/month at most**, depending on provider availability.
+That ceiling is not a guarantee: providers can change quotas, eligibility, models, or regions at
+any time.
+
+Radar is opt-in and GET-only. The OmniRoute client does not upload prompts, traffic, provider
+configuration, usage telemetry, or local announcement-dismiss state. Learn about eligibility and
+the current catalog at **[radar.omniroute.online/planos](https://radar.omniroute.online/planos)**.
+
+<br/>
+
 <div align="center">
 
 ## ✨ What's New

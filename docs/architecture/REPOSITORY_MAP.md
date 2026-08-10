@@ -102,7 +102,7 @@ OmniRoute/
 | **.gitleaks.toml**                          | gitleaks secret-scan ruleset                                                             |
 | **.zizmor.yml**                             | zizmor GitHub-Actions security-lint config                                               |
 | **socket.yml**                              | Socket.dev supply-chain config                                                           |
-| **news.json**                               | In-app release-notes feed (read by `src/shared/utils/releaseNotes.ts`)                   |
+| **news.json**                               | Localized v2 announcement feed; Radar launch item ships inactive                         |
 | **flake.nix** / **flake.lock**              | Nix dev-shell definition + lock                                                          |
 | **.env**                                    | Local secrets (gitignored — generated from `.env.example`)                               |
 
@@ -256,6 +256,7 @@ src/
 | `utils/circuitBreaker.ts`        | Provider circuit breaker (see `docs/architecture/RESILIENCE_GUIDE.md`) |
 | `utils/apiAuth.ts`               | API key validation, scope checking                                     |
 | `utils/fetchTimeout.ts`          | Timeout/abort wrappers for upstream fetch                              |
+| `utils/releaseNotes.ts`          | Closed v2/legacy announcement parser, localization and ID dismissal    |
 
 ---
 

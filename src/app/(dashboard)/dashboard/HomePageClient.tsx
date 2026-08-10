@@ -22,7 +22,6 @@ import { HomeProviderTopologySection } from "./HomeProviderTopologySection";
 import { shouldShowProviderTopologyOnHome } from "./homeAppearance";
 
 const ProviderQuotaWidget = dynamic(() => import("../home/ProviderQuotaWidget"), { ssr: false });
-import type { NewsAnnouncement } from "@/shared/utils/releaseNotes";
 
 type UpdateStep = {
   step: string;
@@ -37,7 +36,6 @@ type VersionInfo = {
   channel: string;
   autoUpdateSupported: boolean;
   autoUpdateError?: string | null;
-  news?: NewsAnnouncement | null;
 };
 
 type HomePageClientProps = {
@@ -1049,37 +1047,6 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
                 </div>
               )}
           </div>
-
-          {/* News Notification Banner */}
-          {versionInfo?.news && (
-            <div className="flex min-h-[64px] items-center justify-between rounded-lg border border-border bg-surface px-5 py-4">
-              <div className="flex min-w-0 items-center gap-4">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-bg text-text-muted">
-                  <span className="material-symbols-outlined text-[22px] text-primary">
-                    {versionInfo.news.icon || "campaign"}
-                  </span>
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-text-main">{versionInfo.news.title}</p>
-                  <p className="mt-0.5 max-w-[560px] text-xs leading-relaxed text-text-muted">
-                    {versionInfo.news.message}
-                  </p>
-                </div>
-              </div>
-
-              {versionInfo.news.link && (
-                <a
-                  href={versionInfo.news.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ml-4 inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-border bg-bg px-4 py-2 text-xs font-semibold text-text-main transition-colors hover:border-primary/30 hover:text-primary"
-                >
-                  {versionInfo.news.linkLabel || "Ler Mais"}
-                  <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-                </a>
-              )}
-            </div>
-          )}
         </div>
       )}
 
