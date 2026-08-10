@@ -589,6 +589,7 @@ test("getRadarCatalog: corrupt payload returns baseline without throwing", () =>
 test("getRadarCatalog: valid cache returns merged entries with meta", () => {
   const result = getRadarCatalog({
     getFlag: () => true,
+    getLocalState: () => ({ localOverrides: new Map(), tombstones: new Set() }),
     getCache: () => ({
       version: "2026.08.01.1",
       tier: "community",

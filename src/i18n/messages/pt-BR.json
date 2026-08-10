@@ -12293,7 +12293,19 @@
     "campaignsTitle": "Limited-time campaigns",
     "campaignsEmpty": "No active campaigns right now — check back later.",
     "campaignsUpsellCommunity": "Limited-time campaigns are a supporter extra. Everything on this page's fixed links stays free for everyone.",
-    "campaignsValidUntil": "Valid until {date}"
+    "campaignsValidUntil": "Valid until {date}",
+    "colActions": "Ações",
+    "localBadge": "local",
+    "editModel": "Editar",
+    "saveModel": "Salvar",
+    "cancelEdit": "Cancelar",
+    "resetModel": "Limpar alterações locais",
+    "hideModel": "Ocultar",
+    "restoreModel": "Restaurar",
+    "hiddenModelsTitle": "Modelos ocultos",
+    "modelDisplayName": "Nome local do modelo",
+    "modelEnabled": "Ativado localmente",
+    "localStateSaveFailed": "Falha ao salvar as configurações locais do Radar"
   },
   "radarSetupPage": {
     "title": "Configuração do Provedor",

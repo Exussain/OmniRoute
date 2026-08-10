@@ -15,7 +15,12 @@ import { RadarReferralsFeedSchema, type RadarReferralsFeed } from "./referralsFe
 import { applyFeed, type MergedEntry, type FeedModel } from "./applyFeed";
 import { findDefaultReferral } from "./referrals";
 import { isFeatureFlagEnabled } from "@/shared/utils/featureFlags";
-import { getRadarCache, getRadarReferralsCache } from "@/lib/db/radar";
+import {
+  getRadarCache,
+  getRadarLocalMergeState,
+  getRadarReferralsCache,
+  type RadarLocalMergeState,
+} from "@/lib/db/radar";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -39,6 +44,7 @@ export interface GetRadarCatalogDeps {
   baseline?: MergedEntry[];
   localOverrides?: Map<string, Partial<MergedEntry>>;
   tombstones?: Set<string>;
+  getLocalState?: () => RadarLocalMergeState;
 }
 
 // ---------------------------------------------------------------------------
@@ -49,9 +55,7 @@ export interface GetRadarCatalogDeps {
  * Convert the static `FreeModelBudget[]` into `MergedEntry[]` so the
  * merge function has a uniform input shape.
  */
-export function baselineToMergedEntries(
-  budgets: typeof FREE_MODEL_BUDGETS,
-): MergedEntry[] {
+export function baselineToMergedEntries(budgets: typeof FREE_MODEL_BUDGETS): MergedEntry[] {
   return budgets.map((b) => ({
     provider: b.provider,
     modelId: b.modelId,
@@ -86,8 +90,9 @@ export function getRadarCatalog(deps: GetRadarCatalogDeps = {}): RadarCatalogRes
     getFlag = isFeatureFlagEnabled,
     getCache: getCacheFn = getRadarCache,
     baseline: baselineInput,
-    localOverrides = new Map(),
-    tombstones = new Set(),
+    localOverrides,
+    tombstones,
+    getLocalState: getLocalStateFn = getRadarLocalMergeState,
   } = deps;
 
   // Resolve baseline
@@ -114,12 +119,15 @@ export function getRadarCatalog(deps: GetRadarCatalogDeps = {}): RadarCatalogRes
     return { entries: baseline, meta: null };
   }
 
+  const persistedState =
+    localOverrides === undefined || tombstones === undefined ? getLocalStateFn() : null;
+
   // Apply overlay
   const entries = applyFeed({
     baseline,
     feed: feed.models as FeedModel[],
-    localOverrides,
-    tombstones,
+    localOverrides: localOverrides ?? persistedState?.localOverrides ?? new Map(),
+    tombstones: tombstones ?? persistedState?.tombstones ?? new Set(),
   });
 
   return {
@@ -195,7 +203,7 @@ export function getRadarReferrals(deps: GetRadarReferralsDeps = {}): RadarReferr
  */
 export function getDefaultReferralFor(
   provider: string,
-  deps: GetRadarReferralsDeps = {},
+  deps: GetRadarReferralsDeps = {}
 ): RadarReferral | null {
   const { fixed } = getRadarReferrals(deps);
   return findDefaultReferral(fixed, provider);

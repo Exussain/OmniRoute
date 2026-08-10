@@ -820,5 +820,17 @@ export {
   setRadarKey,
   getRadarReferralsCache,
   setRadarReferralsCache,
+  listRadarLocalModelState,
+  setRadarLocalModelOverride,
+  clearRadarLocalModelOverride,
+  setRadarModelTombstone,
+  getRadarLocalMergeState,
 } from "./db/radar";
-export type { RadarCache, RadarSettings, RadarReferralsCache } from "./db/radar";
+export type {
+  RadarCache,
+  RadarSettings,
+  RadarReferralsCache,
+  RadarLocalModelState,
+  RadarLocalModelOverridePatch,
+  RadarLocalMergeState,
+} from "./db/radar";

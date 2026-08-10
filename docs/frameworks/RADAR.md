@@ -15,11 +15,12 @@ catalog on top of the release baseline (`FREE_MODEL_BUDGETS` in
 faster than release cadence — providers add, shrink, or discontinue free quotas between
 releases, and the baseline catalog can only be refreshed when a new version ships.
 
-**Nothing that is free today stops being free.** Radar never removes or paywalls a
-baseline entry; it only refreshes limits/status fields at read time and can layer in
-newly-discovered free models between releases. The baseline catalog itself is never
-mutated on disk — see [Read-time overlay merge rules](#read-time-overlay-merge-rules)
-below.
+**Nothing that is free today stops being free because of the remote feed.** Radar never
+paywalls a baseline entry; it only refreshes limits/status fields at read time and can
+layer in newly-discovered free models between releases. An operator can still hide a
+model locally, and can restore it from the same dashboard. The baseline catalog itself
+is never mutated on disk — see
+[Read-time overlay merge rules](#read-time-overlay-merge-rules) below.
 
 ---
 
@@ -31,7 +32,7 @@ or external integration is currently available.
 
 | Area                             | Status in this release                                                                                                                                                                                                 |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Signed catalog client            | Implemented behind `RADAR_ENABLED`, with separate opt-in, Ed25519 verification, local encrypted settings/cache, non-destructive overlay, scheduler, and dashboard.                                                     |
+| Signed catalog client            | Implemented behind `RADAR_ENABLED`, with separate opt-in, Ed25519 verification, local encrypted settings/cache, persistent display/enabled overrides, reversible tombstones, scheduler, and dashboard.                 |
 | Contributor activation           | The dashboard links to the server-hosted GitHub claim flow and accepts an existing `omr_…` key. Contributor eligibility is resolved by the private service; the OSS client contains no GitHub token or issuance logic. |
 | Supporter-key activation         | Implemented. The raw key is validated, encrypted at rest, masked on reads, and sent only by the server-side sync. Changing or clearing the key invalidates both entitlement-sensitive feed caches.                     |
 | Referral links                   | Implemented as a separately signed, hourly-refreshed feed. Fixed links are available to the community tier immediately; limited campaigns remain live-tier data.                                                       |
@@ -48,7 +49,7 @@ Radar is gated end-to-end by the `RADAR_ENABLED` feature flag
 
 **When the flag is off, the surface does not exist:**
 
-- `GET /api/radar/catalog`, `POST /api/radar/sync`, `POST /api/radar/settings` all
+- All `/api/radar/*` endpoints, including local model-state reads and writes,
   return `404` before touching any Radar module.
 - The dashboard screens (`/dashboard/radar`, `/dashboard/radar/setup`) render
   `notFound()`.
@@ -271,6 +272,24 @@ Four rules, in order of precedence:
    entry (`tombstones` set), the feed re-adding that `provider:modelId` in a later
    version does not bring it back.
 
+The editable fields and tombstones are persisted in
+`radar_local_model_state` (migration `143_radar_local_model_state.sql`). The public DB
+adapter (`src/lib/db/radar.ts`) converts those rows into the `localOverrides` map and
+`tombstones` set used by `applyFeed()`; production `getRadarCatalog()` loads that state
+after the flag, cache, and schema gates pass. Only `displayName` and `enabled` are
+operator-editable. Provider/model identity, feed provenance, quota, capabilities, ToS,
+and setup data cannot be written through this surface.
+
+The dashboard exposes four local actions:
+
+- **Edit** changes the local display name and enabled state.
+- **Reset local changes** clears both editable fields without changing a tombstone.
+- **Hide** creates a tombstone, so later feed updates cannot recreate the row.
+- **Restore** removes the tombstone; any separately-saved override remains in effect.
+
+A feed `enabled: false` remains the safety exception: it wins over a stale local
+`enabled: true`, keeps the merged entry disabled, and records `disabledBy: "radar"`.
+
 ### Provenance markers
 
 Every merged entry carries an `origin` field the UI renders as a badge:
@@ -284,15 +303,19 @@ Every merged entry carries an `origin` field the UI renders as a badge:
 
 ## Local surfaces — never a feed proxy
 
-Five local routes back the UI, all under `src/app/api/radar/`:
+Six local endpoints back the UI, all under `src/app/api/radar/`:
 
-| Route                  | Method | Purpose                                                                                                               |
-| ---------------------- | ------ | --------------------------------------------------------------------------------------------------------------------- |
-| `/api/radar/catalog`   | GET    | Returns the merged catalog (`getRadarCatalog()`) from the local cache.                                                |
-| `/api/radar/sync`      | POST   | Triggers `syncRadar()` server-side; returns the resulting status.                                                     |
-| `/api/radar/settings`  | GET    | Returns `{ optIn, hasSupporterKey, supporterKeyMasked }` — never the raw key.                                         |
-| `/api/radar/settings`  | POST   | Sets opt-in and/or the (encrypted) supporter key.                                                                     |
-| `/api/radar/referrals` | GET    | Returns `{ fixed, campaigns, tier }` from the local cache — see [Referral links](#referral-links-free-credits) below. |
+| Route                          | Method | Purpose                                                                                                               |
+| ------------------------------ | ------ | --------------------------------------------------------------------------------------------------------------------- |
+| `/api/radar/catalog`           | GET    | Returns the merged catalog (`getRadarCatalog()`) from the local cache.                                                |
+| `/api/radar/sync`              | POST   | Triggers `syncRadar()` server-side; returns the resulting status.                                                     |
+| `/api/radar/settings`          | GET    | Returns `{ optIn, hasSupporterKey, supporterKeyMasked }` — never the raw key.                                         |
+| `/api/radar/settings`          | POST   | Sets opt-in and/or the (encrypted) supporter key.                                                                     |
+| `/api/radar/referrals`         | GET    | Returns `{ fixed, campaigns, tier }` from the local cache — see [Referral links](#referral-links-free-credits) below. |
+| `/api/radar/local-model-state` | GET    | Lists persisted overrides and tombstones for edit/restore controls.                                                   |
+| `/api/radar/local-model-state` | PATCH  | Sets or clears the validated `displayName`/`enabled` override fields.                                                 |
+| `/api/radar/local-model-state` | PUT    | Creates or removes a tombstone with `{ provider, modelId, tombstoned }`.                                              |
+| `/api/radar/local-model-state` | DELETE | Clears editable override fields while preserving any tombstone.                                                       |
 
 **Hard rule: these routes never proxy the feed service.** The browser only ever talks
 to the local OmniRoute server. The two modules that touch the Radar service are
@@ -300,14 +323,14 @@ to the local OmniRoute server. The two modules that touch the Radar service are
 always run server-side, never client-side. This keeps the feed URL and any supporter key
 out of client-facing network traffic entirely.
 
-All five routes return `404` when `RADAR_ENABLED` is off (see
+All six endpoints return `404` when `RADAR_ENABLED` is off (see
 [Flag](#flag-radar_enabled-default-off) above), and route error responses through
 `buildErrorBody()`/`sanitizeErrorMessage()` per the repo-wide error-sanitization rule
 (`docs/security/ERROR_SANITIZATION.md`).
 
 ### Authentication
 
-All five routes require authentication via `isAuthenticated()`
+All six endpoints require authentication via `isAuthenticated()`
 (`src/shared/utils/apiAuth.ts`) — a dashboard session cookie or a management-scoped
 API key, the same gate that protects the rest of `/api/settings/*`. The flag-off
 `404` check always runs **before** the auth check, so an install with `RADAR_ENABLED`
