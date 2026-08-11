@@ -19,12 +19,14 @@ agent handoff prompt current as the workflow evolves.
 
 ## Repository roles
 
-- Local checkout: `/root/OmniRoute`
+- Server host: `146.103.26.104` (OmniRoute host server; user `root`)
+- Server checkout: `/root/OmniRoute`
 - Grok2API checkout: `/root/grok2api`
 - Original OmniRoute repository: `https://github.com/diegosouzapw/OmniRoute`
 - Personal fork: `https://github.com/Exussain/OmniRoute`
 - Current custom branch: `custom/grok-qwen-web`
 - Initial custom commit: `6d6f42f7a`
+- Server credentials are stored securely in local uncommitted `.env` under `OMNIROUTE_DEPLOY_*` variables. Never commit passwords or raw credentials into tracked git files.
 - The checkout currently has local Qwen/Grok changes that must be preserved and
   committed on the personal fork before upstream updates are integrated.
 - The original repository must be treated as upstream code. Do not overwrite
